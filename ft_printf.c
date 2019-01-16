@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 12:09:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/15 19:41:38 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/15 19:53:10 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,64 @@ static ssize_t	print_str(const char *str, size_t size)
 	return (ret);
 }
 
-int				ft_printf(const char *restrict format, ...)
+static unsigned int	parse_size(const char *f, va_list ap)
 {
-	va_list		ap;
-	unsigned	n;
-	char		*str;
 	t_specs		specs;
+	unsigned int	n;
 
-	str = 0;
-	va_start(ap, format);
-	while (*format)
+	n = 0;
+	while (*f)
 	{
 		specs = (t_specs){0};
-		if (*format == '%' && parse_specs(&format, &specs, ap))
+		if (*f== '%' && parse_specs(&f, &specs, ap))
 		{
 			n += specs.size;
 		}
 		else
 			++n;
-		if (*format)
-			++format;
+		if (*f)
+			++f;
 	}
+	return (n);
+}
+
+static char		*extract_str(const char *f, unsigned int n, va_list ap)
+{
+	char		*str;
+	t_specs		specs;
+
+	str = (char *)malloc(sizeof(*str) * n);
+	if (!str)
+		return (0);
+	while (*f)
+	{
+		specs = (t_specs){0};
+		if (*f== '%' && parse_specs(&f, &specs, ap))
+		{
+			n += specs.size;
+		}
+		else
+			++n;
+		if (*f)
+			++f;
+	}
+}
+
+int				ft_printf(const char *restrict format, ...)
+{
+	va_list		ap;
+	unsigned int	n;
+	char		*str;
+
+	va_start(ap, format);
+	n = parse_size(format, ap);
+	dbg_print_nbr("n", n);
+	va_end(ap);
 	str = (char *)malloc(sizeof(*str) * n);
 	if (!str)
 		return (-1);
 	*(str + n) = 0;
+	va_start(ap, format);
 	va_end(ap);
-	dbg_print_nbr("n", n);
 	return (print_str(str, n));
 }

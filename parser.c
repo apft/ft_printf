@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/01/15 19:41:26 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/15 19:50:26 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int		parse_specs(char **f, t_specs *specs, va_list ap)
 		specs->flags |= (**f == '0' && !(specs->flags & LEFT)
 				&& !(specs->precision)) ? PAD : 0;
 		specs->flags |= (**f == 'h' && *((*f) + 1) == 'h') ? CHAR : 0;
-		specs->flags |= (**f == 'h' && *((*f) + 1) != 'h') ? SHORT : 0;
+		specs->flags |= (!(specs->flags & CHAR)
+				&& **f == 'h' && *((*f) + 1) != 'h') ? SHORT : 0;
 		specs->flags |= (**f == 'l' && *((*f) + 1) != 'l') ? LONG : 0;
 		specs->flags |= (**f == 'L' || **f == 'q'
 			|| (**f == 'l' && *((*f) + 1) == 'l')) ? LONG_LONG : 0;
