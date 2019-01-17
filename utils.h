@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/01/15 18:18:04 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/16 23:52:05 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 typedef struct	s_specs
 {
-	int				flags;
-	int				width;
-	int				precision;
-	int				type;
-	int				conversion;
-	unsigned int	size;
+	int		flags;
+	int		precision;
+	int		type;
+	int		is_neg;
+	int		width_arg;
+	int		width;
 }				t_specs;
 
 enum	flags

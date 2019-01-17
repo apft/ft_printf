@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 12:09:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/15 19:53:10 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/16 22:34:13 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ static unsigned int	parse_size(const char *f, va_list ap)
 	while (*f)
 	{
 		specs = (t_specs){0};
-		if (*f== '%' && parse_specs(&f, &specs, ap))
-		{
-			n += specs.size;
-		}
+		if (*f== '%' && parse_specs(&f, &specs, ap, 0))
+			n += specs.width;
 		else
 			++n;
 		if (*f)
@@ -48,24 +46,26 @@ static unsigned int	parse_size(const char *f, va_list ap)
 
 static char		*extract_str(const char *f, unsigned int n, va_list ap)
 {
-	char		*str;
-	t_specs		specs;
+	char			*str;
+	t_specs			specs;
+	unsigned int	i;
 
-	str = (char *)malloc(sizeof(*str) * n);
+	str = (char *)malloc(sizeof(*str) * (n + 1));
 	if (!str)
 		return (0);
+	i = 0;
 	while (*f)
 	{
 		specs = (t_specs){0};
-		if (*f== '%' && parse_specs(&f, &specs, ap))
-		{
-			n += specs.size;
-		}
+		if (*f== '%' && parse_specs(&f, &specs, ap, str + i))
+			i += specs.width;
 		else
-			++n;
+			*(str + i++) = *f;
 		if (*f)
 			++f;
 	}
+	*(str + n) = 0;
+	return (str);
 }
 
 int				ft_printf(const char *restrict format, ...)
@@ -78,11 +78,8 @@ int				ft_printf(const char *restrict format, ...)
 	n = parse_size(format, ap);
 	dbg_print_nbr("n", n);
 	va_end(ap);
-	str = (char *)malloc(sizeof(*str) * n);
-	if (!str)
-		return (-1);
-	*(str + n) = 0;
 	va_start(ap, format);
+	str = extract_str(format, n, ap);
 	va_end(ap);
 	return (print_str(str, n));
 }
