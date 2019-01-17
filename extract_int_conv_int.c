@@ -1,0 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   extract_int_conv_int.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
+/*   Updated: 2019/01/16 23:31:24 by apion            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdarg.h>
+#include "utils.h"
+
+static int		extract_arg(va_list ap)
+{
+	return (va_arg(ap, int));
+}
+
+static int		get_size(int value, char *base)
+{
+	int		size;
+	int		b;
+
+	b = 0;
+	while (*(base + b))
+		b++;
+	size = 1 + (value < 0);
+	while (value /= b)
+		size++;
+	return (size);
+}
+
+static void		fill_str(int value, char *base, char *str, t_specs *specs)
+{
+	int		b;
+	int		i;
+	int		j;
+
+	b = 0;
+	while (*(base + b))
+		b++;
+	i = 0;
+	i += fill_start_specs(str, specs);
+	j = specs->width_arg;
+	printf("b= %d\n", b);
+	printf("j= %d\n", j);
+	while (j--)
+	{
+		*(str + i + j) = *(base + (specs->is_neg ? -(value % b) : value % b));
+		value /= b;
+	}
+	i += specs->width_arg;
+}
+
+unsigned int	extract_int_conv_int(va_list ap, t_specs *specs,
+							char *base, char *str)
+{
+	int		value;
+
+	value = extract_arg(ap);
+	specs->is_neg = value < 0;
+	if (specs->is_neg && specs->flags & PLUS)
+		specs->flags ^= PLUS;
+	if (specs->is_neg && specs->flags & SPACE)
+		specs->flags ^= SPACE;
+	specs->width_arg = get_size(value, base) - specs->is_neg;
+	if (str)
+		fill_str(value, base, str, specs);
+	return (1);
+}
