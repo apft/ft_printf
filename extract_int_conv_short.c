@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
-/*   Updated: 2019/01/18 18:51:36 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/18 19:26:49 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int				extract_int_conv_short(va_list ap, t_specs *specs,
 	value = extract_arg(ap);
 	specs->is_neg = value < 0;
 	specs->width_arg = get_size(value, base) - specs->is_neg;
+	if (!value && (specs->flags & PREFIX) && (specs->flags & (HEXA | HEXA_C)))
+		specs->flags ^= PREFIX;
 	if (!value && (specs->flags & PRECISION) && !specs->precision)
 		specs->width_arg -= 1;
 	filter_specs(specs);

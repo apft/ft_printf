@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:20:32 by apion             #+#    #+#             */
-/*   Updated: 2019/01/18 19:02:35 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/18 19:33:41 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static void		print_test(char *f)
 
 int		main(void)
 {
-	print_test("|%d|%.d|%.2d|%2.d|%2.1d|%+d|%-4d|\n");
-	print_test("|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n");
-	print_test("|%035d|%05.d|%-25.17d|\n");
-	print_test("|%x|%.x|%.2x|%2.x|%2.1x|%+x|%-4x|\n");
+//	print_test("|%d|%.d|%.2d|%2.d|%2.1d|%+d|%-4d|\n");
+//	print_test("|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n");
+//	print_test("|%035d|%05.d|%-25.17d|\n");
+//	print_test("|%x|%.x|%.2x|%2.x|%2.1x|%+x|%-4x|\n");
 //	print_test("|%5x|%-5x|%+5x|%+-5x|% 5x|%05x|%5.0x|%5.2x|%x|\n");
-//	print_test("|%035x|%05.x|%-25.17x|\n");
+	print_test("|%035x|%05.x|%-25.17x||%#0 16.10x|\n");
 //	print_test("|%X|%.X|%.2X|%2.X|%2.1X|%+X|%-4X|\n");
 //	print_test("|%5X|%-5X|%+5X|%+-5X|% 5X|%05X|%5.0X|%5.2X|%X|\n");
 //	print_test("|%035X|%05.X|%-25.17X|\n");
@@ -51,6 +51,8 @@ int		main(void)
 //	printf("|%+5.4d|\n", 422);
 //	ft_printf("|%+5.4d|\n", -422);
 //	printf("|%+5.4d|\n", -422);
+	ft_printf("|%+#X|%#hhx|%#-3hx|%12llX|\n", 422, 51233545, 0, 0);
+	printf("|%+#X|%#hhx|%#-3hx|%12llX|\n", 422, 51233545, 0, 0);
 	ft_printf("|%+d %hhu|\n", 422, 51233545);
 	printf("|%+d %hhu|\n", 422, 51233545);
 	ft_printf("|%+d %hhu|\n", 422, -51233545);

@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/01/18 19:00:29 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/18 19:09:03 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	parse_type(char *f, t_specs *specs, va_list ap, char *str)
 	return (0);
 }
 
-int		parse_specs(char **f, t_specs *specs, va_list ap, char *str)
+int			parse_specs(char **f, t_specs *specs, va_list ap, char *str)
 {
 	++(*f);
 	while (**f && !parse_type(*f, specs, ap, str))
