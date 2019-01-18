@@ -6,31 +6,12 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/01/16 23:54:31 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/18 19:00:29 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "utils.h"
-
-void	print_specs(t_specs *specs)
-{
-	printf("-\t+\t^\t#\t0\thh\th\tl\tll\twidth\tprec\tneg\ttype\n");
-	printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
-			specs->flags & LEFT,
-			specs->flags & PLUS,
-			specs->flags & SPACE,
-			specs->flags & PREFIX,
-			specs->flags & PAD,
-			specs->flags & CHAR,
-			specs->flags & SHORT,
-			specs->flags & LONG,
-			specs->flags & LONG_LONG,
-			specs->width,
-			specs->precision,
-			specs->is_neg,
-			specs->type);
-}
 
 static int	parse_nbr(char **str)
 {
@@ -46,15 +27,13 @@ static int	parse_nbr(char **str)
 static void	parse_width(char **f, t_specs *specs)
 {
 	specs->flags |= WIDTH;
-	specs->width = parse_nbr(f);
+	specs->width_min = parse_nbr(f);
 }
 
 static void	parse_precision(char **f, t_specs *specs)
 {
 	++(*f);
 	specs->flags |= PRECISION;
-	if (specs->flags & PAD)
-		specs->flags ^= PAD;
 	specs->precision = parse_nbr(f);
 }
 
@@ -68,11 +47,11 @@ static int	parse_type(char *f, t_specs *specs, va_list ap, char *str)
 		return (extract_int_conv_u(ap, specs, "0123456789", str));
 	if (*f == 'x' && (specs->type = HEXA))
 		return (extract_int_conv_u(ap, specs, "0123456789abcdef", str));
-	if (*f == 'X' && (specs->type = HEXA_CAP))
+	if (*f == 'X' && (specs->type = HEXA_C))
 		return (extract_int_conv_u(ap, specs, "0123456789ABCDEF", str));
 	if (*f == 'f' && (specs->type = FLOAT))
 		return (FLOAT);
-	if (*f == 'c' && (specs->type = T_CHAR))
+	if (*f == 'c' && (specs->type = CHAR))
 		return (0);
 	if (*f == 's' && (specs->type = STRING))
 		return (0);
@@ -90,16 +69,16 @@ int		parse_specs(char **f, t_specs *specs, va_list ap, char *str)
 	{
 		specs->flags |= (**f == '-') ? LEFT : 0;
 		specs->flags |= (**f == '+') ? PLUS : 0;
-		specs->flags |= (**f == ' ' && !(specs->flags & PLUS)) ? SPACE : 0;
+		specs->flags |= (**f == ' ') ? SPACE : 0;
 		specs->flags |= (**f == '#') ? PREFIX : 0;
-		specs->flags |= (**f == '0' && !(specs->flags & LEFT)
-				&& !(specs->precision)) ? PAD : 0;
-		specs->flags |= (**f == 'h' && *((*f) + 1) == 'h') ? CHAR : 0;
-		specs->flags |= (!(specs->flags & CHAR)
-				&& **f == 'h' && *((*f) + 1) != 'h') ? SHORT : 0;
-		specs->flags |= (**f == 'l' && *((*f) + 1) != 'l') ? LONG : 0;
-		specs->flags |= (**f == 'L' || **f == 'q'
-			|| (**f == 'l' && *((*f) + 1) == 'l')) ? LONG_LONG : 0;
+		specs->flags |= (**f == '0') ? PAD : 0;
+		specs->flags |= (**f == 'h' && *((*f) + 1) == 'h') ? MOD_HH : 0;
+		specs->flags |= (!(specs->flags & MOD_HH)
+				&& **f == 'h' && *((*f) + 1) != 'h') ? MOD_H : 0;
+		specs->flags |= (**f == 'l' && *((*f) + 1) == 'l') ? MOD_LL : 0;
+		specs->flags |= (!(specs->flags & MOD_LL)
+				&& **f == 'l' && *((*f) + 1) != 'l') ? MOD_L : 0;
+		specs->flags |= (**f == 'L') ? MOD_LD : 0;
 		if (**f >= '1' && **f <= '9')
 			parse_width(f, specs);
 		if (**f == '.')
@@ -107,15 +86,5 @@ int		parse_specs(char **f, t_specs *specs, va_list ap, char *str)
 		if (**f)
 			++(*f);
 	}
-	print_specs(specs);
-	int width = 0;
-	width += (specs->type & INT)
-					&& (specs->flags & PLUS || specs->flags & SPACE) ? 1 : 0;
-	width += (specs->flags & PREFIX) ? 1 : 0;
-	width += (specs->type & HEXA || specs->type & HEXA_CAP) ? 1 : 0;
-	width += specs->width_arg < specs->precision ? specs->precision : specs->width_arg;
-	if (specs->width < width)
-		specs->width = width;
-	printf("size= %d\n", specs->width);
 	return (1);
 }

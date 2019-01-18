@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
-/*   Updated: 2019/01/16 23:31:24 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/18 18:39:45 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,28 @@ static void		fill_str(int value, char *base, char *str, t_specs *specs)
 	while (*(base + b))
 		b++;
 	i = 0;
-	i += fill_start_specs(str, specs);
+	i += fill_start(str, specs);
 	j = specs->width_arg;
-	printf("b= %d\n", b);
-	printf("j= %d\n", j);
 	while (j--)
 	{
 		*(str + i + j) = *(base + (specs->is_neg ? -(value % b) : value % b));
 		value /= b;
 	}
 	i += specs->width_arg;
+	fill_end(str + i, i, specs);
 }
 
-unsigned int	extract_int_conv_int(va_list ap, t_specs *specs,
+int				extract_int_conv_int(va_list ap, t_specs *specs,
 							char *base, char *str)
 {
 	int		value;
 
 	value = extract_arg(ap);
 	specs->is_neg = value < 0;
-	if (specs->is_neg && specs->flags & PLUS)
-		specs->flags ^= PLUS;
-	if (specs->is_neg && specs->flags & SPACE)
-		specs->flags ^= SPACE;
 	specs->width_arg = get_size(value, base) - specs->is_neg;
+	if (!value && (specs->flags & PRECISION) && !specs->precision)
+		specs->width_arg -= 1;
+	filter_specs(specs);
 	if (str)
 		fill_str(value, base, str, specs);
 	return (1);

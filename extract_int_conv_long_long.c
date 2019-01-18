@@ -5,23 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 19:10:11 by apion             #+#    #+#             */
-/*   Updated: 2019/01/16 19:23:49 by apion            ###   ########.fr       */
+/*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
+/*   Updated: 2019/01/18 18:52:08 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "utils.h"
 
-static long long		extract_arg(va_list ap)
+static long long	extract_arg(va_list ap)
 {
-	return (va_arg(ap, unsigned long long));
+	return (va_arg(ap, long long));
 }
 
-static unsigned int		get_size(long long value, char *base)
+static int			get_size(long long value, char *base)
 {
-	unsigned int	size;
-	unsigned int	b;
+	int		size;
+	int		b;
 
 	b = 0;
 	while (*(base + b))
@@ -32,18 +32,40 @@ static unsigned int		get_size(long long value, char *base)
 	return (size);
 }
 
-static void				fill_str(long long value, char *base, char *str)
+static void			fill_str(long long value, char *base, char *str,
+						t_specs *specs)
 {
+	int		b;
+	int		i;
+	int		j;
+
+	b = 0;
+	while (*(base + b))
+		b++;
+	i = 0;
+	i += fill_start(str, specs);
+	j = specs->width_arg;
+	while (j--)
+	{
+		*(str + i + j) = *(base + (specs->is_neg ? -(value % b) : value % b));
+		value /= b;
+	}
+	i += specs->width_arg;
+	fill_end(str + i, i, specs);
 }
 
-unsigned int			extract_int_conv_long_long(va_list ap, t_specs *specs,
-								char *base, char *str)
+int					extract_int_conv_long_long(va_list ap, t_specs *specs,
+						char *base, char *str)
 {
 	long long	value;
 
 	value = extract_arg(ap);
-	specs->width = get_size(value, base);
+	specs->is_neg = value < 0;
+	specs->width_arg = get_size(value, base) - specs->is_neg;
+	if (!value && (specs->flags & PRECISION) && !specs->precision)
+		specs->width_arg -= 1;
+	filter_specs(specs);
 	if (str)
-		fill_str(value, base, str);
-	return (specs->width);
+		fill_str(value, base, str, specs);
+	return (1);
 }

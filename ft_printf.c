@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 12:09:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/16 22:34:13 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/18 18:34:56 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,20 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include "utils.h"
-#include "dbg_utils.h"
 
 static ssize_t	print_str(const char *str, size_t size)
 {
 	ssize_t	ret;
 
 	ret = write(1, str, size);
-	free(str);
+	free((void *)str);
 	return (ret);
 }
 
-static unsigned int	parse_size(const char *f, va_list ap)
+static int		parse_size(const char *f, va_list ap)
 {
 	t_specs		specs;
-	unsigned int	n;
+	int			n;
 
 	n = 0;
 	while (*f)
@@ -44,11 +43,11 @@ static unsigned int	parse_size(const char *f, va_list ap)
 	return (n);
 }
 
-static char		*extract_str(const char *f, unsigned int n, va_list ap)
+static char		*extract_str(const char *f, int n, va_list ap)
 {
-	char			*str;
-	t_specs			specs;
-	unsigned int	i;
+	char		*str;
+	int			i;
+	t_specs		specs;
 
 	str = (char *)malloc(sizeof(*str) * (n + 1));
 	if (!str)
@@ -71,12 +70,11 @@ static char		*extract_str(const char *f, unsigned int n, va_list ap)
 int				ft_printf(const char *restrict format, ...)
 {
 	va_list		ap;
-	unsigned int	n;
+	int			n;
 	char		*str;
 
 	va_start(ap, format);
 	n = parse_size(format, ap);
-	dbg_print_nbr("n", n);
 	va_end(ap);
 	va_start(ap, format);
 	str = extract_str(format, n, ap);
