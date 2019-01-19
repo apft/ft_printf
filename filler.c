@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 10:52:44 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 12:39:29 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int		fill_start_left(char *str, t_specs *specs)
 
 	i = fill_prefix(str, specs);
 	if ((specs->flags & PAD) || (specs->flags & PRECISION))
-		i += fill_char(str + i, specs->type & STRING ? ' ' : '0',
+		i += fill_char(str + i, specs->type & (STRING | PERCENT) ? ' ' : '0',
 				specs->precision - specs->width_arg);
 	return (i);
 }
@@ -71,10 +71,10 @@ static int		fill_start_normal(char *str, t_specs *specs)
 			i += fill_char(str + i, ' ', specs->width - specs->width_prefix
 					- pf_max(specs->width_arg, specs->precision));
 		i += fill_prefix(str + i, specs);
-		if ((specs->type & STRING) && (specs->flags & PRECISION))
+		if ((specs->type & (STRING | PERCENT)) && (specs->flags & PRECISION))
 			i += fill_char(str + i, ' ', pf_min(specs->width, specs->precision)
 					- specs->width_arg);
-		if (!(specs->type & STRING) && (specs->flags & PRECISION))
+		if (!(specs->type & (STRING | PERCENT)) && (specs->flags & PRECISION))
 			i += fill_char(str + i, '0', specs->precision - specs->width_arg);
 	}
 	return (i);

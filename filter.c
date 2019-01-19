@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 10:31:09 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 13:32:51 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ void	print_specs(t_specs *specs)
 			specs->width,
 			specs->is_neg,
 			specs->type);
+}
+
+static void	reset_precision(t_specs *specs)
+{
+	if (specs->flags & PRECISION)
+		specs->flags ^= PRECISION;
+	specs->precision = 0;
 }
 
 static int	compute_width(t_specs *specs)
@@ -73,7 +80,7 @@ void	filter_specs(t_specs *specs)
 		specs->flags ^= PLUS;
 	if (specs->is_neg && (specs->flags & SPACE))
 		specs->flags ^= SPACE;
-	if ((specs->type & (CHAR | POINTER)) && (specs->flags & PRECISION))
-		specs->flags ^= PRECISION;
+	if (specs->type & (CHAR | POINTER | PERCENT))
+		reset_precision(specs);
 	specs->width = compute_width(specs);
 }
