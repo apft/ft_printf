@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/01/18 18:29:24 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 09:16:12 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,20 @@ static int	compute_width(t_specs *specs)
 
 void	filter_specs(t_specs *specs)
 {
-	if ((specs->flags & PREFIX)
-			&& (specs->type & (CHAR | INT | POINTER | STRING | UINT)))
+	if ((specs->type & (CHAR | INT | POINTER | STRING | UINT))
+			&& (specs->flags & PREFIX))
 		specs->flags ^=  PREFIX;
-	if ((specs->flags & PREFIX) && (specs->type & OCTAL))
+	if ((specs->type & OCTAL) && (specs->flags & PREFIX))
 		specs->precision += 1;
-	if ((specs->flags & PAD) && (specs->flags & PRECISION)
-			&& (specs->type & (INT | OCTAL | UINT | HEXA | HEXA_C)))
+	if ((specs->type & (INT | OCTAL | UINT | HEXA | HEXA_C))
+			&& (specs->flags & PAD) && (specs->flags & PRECISION))
 		specs->flags ^= PAD;
 	if ((specs->flags & PAD) && (specs->flags & LEFT))
 		specs->flags ^= PAD;
-	if ((specs->flags & SPACE)
-			&& specs->type & (OCTAL | UINT | HEXA | HEXA_C))
+	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C))
+			&& (specs->flags & SPACE))
 		specs->flags ^= SPACE;
-	if ((specs->flags & PLUS)
-			&& specs->type & (OCTAL | UINT | HEXA | HEXA_C))
+	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C)) && (specs->flags & PLUS))
 		specs->flags ^= PLUS;
 	if ((specs->flags & SPACE) && (specs->flags & PLUS))
 		specs->flags ^= SPACE;
@@ -77,5 +76,7 @@ void	filter_specs(t_specs *specs)
 		specs->flags ^= PLUS;
 	if (specs->is_neg && (specs->flags & SPACE))
 		specs->flags ^= SPACE;
+	if ((specs->type & (CHAR | POINTER)) && (specs->flags & PRECISION))
+		specs->flags ^= PRECISION;
 	specs->width = compute_width(specs);
 }
