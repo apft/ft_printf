@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 10:59:28 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 18:59:00 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_specs
 	int		is_neg;
 }				t_specs;
 
-enum	flags
+enum	e_flags
 {
 	LEFT = 1,
 	PLUS = 1 << 1,
@@ -48,7 +48,7 @@ enum	flags
 	MOD_LD = 1 << 11
 };
 
-enum	type
+enum	e_type
 {
 	INT = 1,
 	OCTAL = 1 << 1,
