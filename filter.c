@@ -6,13 +6,13 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 13:32:51 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 13:59:19 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	print_specs(t_specs *specs)
+void		print_specs(t_specs *specs)
 {
 	printf("-\t+\t^\t#\t0\thh\th\tl\tll\tw_min\tprec\tw_arg\tw_pref\twidth\tneg\ttype\n");
 	printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
@@ -43,7 +43,7 @@ static void	reset_precision(t_specs *specs)
 
 static int	compute_width(t_specs *specs)
 {
-	int 	width_print;
+	int		width_print;
 
 	if (specs->is_neg || specs->flags & (PLUS | SPACE | PREFIX))
 		specs->width_prefix += 1;
@@ -57,11 +57,11 @@ static int	compute_width(t_specs *specs)
 	return (pf_max(specs->width_min, specs->width_prefix + width_print));
 }
 
-void	filter_specs(t_specs *specs)
+void		filter_specs(t_specs *specs)
 {
-	if ((specs->type & (CHAR | INT | POINTER | STRING | UINT))
+	if ((specs->type & (CHAR | INT | STRING | UINT))
 			&& (specs->flags & PREFIX))
-		specs->flags ^=  PREFIX;
+		specs->flags ^= PREFIX;
 	if ((specs->type & OCTAL) && (specs->flags & PREFIX))
 		specs->precision += 1;
 	if ((specs->type & (INT | OCTAL | UINT | HEXA | HEXA_C))
@@ -80,7 +80,7 @@ void	filter_specs(t_specs *specs)
 		specs->flags ^= PLUS;
 	if (specs->is_neg && (specs->flags & SPACE))
 		specs->flags ^= SPACE;
-	if (specs->type & (CHAR | POINTER | PERCENT))
+	if (specs->type & (CHAR | PERCENT))
 		reset_precision(specs);
 	specs->width = compute_width(specs);
 }

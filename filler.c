@@ -6,13 +6,13 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 12:39:29 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 13:37:30 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-static int	fill_prefix(char *str, t_specs *specs)
+static int		fill_prefix(char *str, t_specs *specs)
 {
 	int	i;
 
