@@ -6,12 +6,19 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/01/18 14:28:37 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 10:59:28 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
+
+# define BASE_DEC "0123456789"
+# define BASE_OCT "01234567"
+# define BASE_HEXA "0123456789abcdef"
+# define BASE_HEXA_C "0123456789ABCDEF"
+
+# define NULL_STR "(null)"
 
 typedef struct	s_specs
 {
