@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:20:32 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 14:10:45 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 21:18:29 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,28 @@ static void		print_test(char *f)
 
 int		main(void)
 {
-	int 	a = 42;
-	ft_printf("|%p|%4p|%020hhp|%#p|%12.4p|\n", &a, &a, &a, &a, &a);
-	printf("|%p|%4p|%020hhp|%#p|%12.4p|\n", &a, &a, &a, &a, &a);
-	ft_printf("|%p|%4p|%020p|%#p|%12.4p|\n", 0, 0, 0, 0, 0);
-	printf("|%p|%4p|%020p|%#p|%12.4p|\n", 0, 0, 0, 0, 0);
-	ft_printf("|%#lx|%#4lx|%#020lx|%##lx|%#12.4lx|\n", 0, 0, 0, 0, 0);
-	printf("|%#lx|%#4lx|%#020lx|%##lx|%#12.4lx|\n", 0, 0, 0, 0, 0);
-	ft_printf("|%%|%3%|%4.2%|%4.%|%-012.15%|%.2%|\n", 42);
-	printf("|%%|%3%|%4.2%|%4.%|%-012.15%|%.2%|\n", 42);
-	ft_printf("|%c%c%c%c|\n", 'a', 'B', 0, '*');
-	printf("|%c%c%c%c|\n", 'a', 'B', 0, '*');
-	ft_printf("|%4c|%-11.4c|%05c|%.c|\n", 'a', 'B', 0, '*');
-	printf("|%4c|%-11.4c|%05c|%.c|\n", 'a', 'B', 0, '*');
-	ft_printf("%s|%5c|%s\n", "This is a string.", '\0', "hidden part...");
-	printf("%s|%5c|%s\n", "This is a string.", '\0', "hidden part...");
+	ft_printf("%f\n", 0.);
+	ft_printf("%f\n", -1.);
+	ft_printf("%f\n", 1.);
+	ft_printf("%f\n", 2.);
+	ft_printf("%f\n", 0.875);
+	ft_printf("%f\n", 5.2/2);
+	printf("%f\n", 5.2/2);
+//	int 	a = 42;
+//	ft_printf("|%p|%4p|%020hhp|%#p|%12.4p|\n", &a, &a, &a, &a, &a);
+//	printf("|%p|%4p|%020hhp|%#p|%12.4p|\n", &a, &a, &a, &a, &a);
+//	ft_printf("|%p|%4p|%020p|%#p|%12.4p|\n", 0, 0, 0, 0, 0);
+//	printf("|%p|%4p|%020p|%#p|%12.4p|\n", 0, 0, 0, 0, 0);
+//	ft_printf("|%#lx|%#4lx|%#020lx|%##lx|%#12.4lx|\n", 0, 0, 0, 0, 0);
+//	printf("|%#lx|%#4lx|%#020lx|%##lx|%#12.4lx|\n", 0, 0, 0, 0, 0);
+//	ft_printf("|%%|%3%|%4.2%|%4.%|%-012.15%|%.2%|\n", 42);
+//	printf("|%%|%3%|%4.2%|%4.%|%-012.15%|%.2%|\n", 42);
+//	ft_printf("|%c%c%c%c|\n", 'a', 'B', 0, '*');
+//	printf("|%c%c%c%c|\n", 'a', 'B', 0, '*');
+//	ft_printf("|%4c|%-11.4c|%05c|%.c|\n", 'a', 'B', 0, '*');
+//	printf("|%4c|%-11.4c|%05c|%.c|\n", 'a', 'B', 0, '*');
+//	ft_printf("%s|%5c|%s\n", "This is a string.", '\0', "hidden part...");
+//	printf("%s|%5c|%s\n", "This is a string.", '\0', "hidden part...");
 //	ft_printf("|%s|%-32s|%23.12s|%10.2s|\n", "This is another string.", "and a second one", "one more", "final one ?");
 //	printf("|%s|%-32s|%23.12s|%10.2s|\n", "This is another string.", "and a second one", "one more", "final one ?");
 //	ft_printf("|%.12s|%-13.5s|%3.12s|%3.12s|%10.s|\n", "This is another string.", "and a second one", "one more", "sdfljhgidfghoisufghskjhg", "final one ?");
