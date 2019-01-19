@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 10:46:52 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 12:11:22 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int				extract_str_conv(va_list ap, t_specs *specs, char *str)
 	char	*value;
 
 	value = extract_arg(ap);
+	if (!value)
+		value = NULL_STR;
 	specs->width_arg = get_size(value);
 	filter_specs(specs);
 	if (str)
