@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 12:29:48 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 12:40:05 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 14:12:27 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int				extract_percent_conv(t_specs *specs, char *str)
 	value = '%';
 	specs->width_arg = 1;
 	filter_specs(specs);
-	print_specs(specs);
 	if (str)
 		fill_str(value, str, specs);
 	return (1);
