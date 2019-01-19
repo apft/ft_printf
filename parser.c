@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/01/18 19:09:03 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 09:11:03 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	parse_type(char *f, t_specs *specs, va_list ap, char *str)
 	if (*f == 'f' && (specs->type = FLOAT))
 		return (FLOAT);
 	if (*f == 'c' && (specs->type = CHAR))
-		return (0);
+		return (extract_char_conv(ap, specs, str));
 	if (*f == 's' && (specs->type = STRING))
 		return (0);
 	if (*f == 'p' && (specs->type = POINTER))
