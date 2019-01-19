@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 09:19:59 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 12:10:34 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static void				fill_str(unsigned char value, char *str, t_specs *specs)
 
 	i = 0;
 	i += fill_start(str, specs);
-	if (value)
-		*(str + i++) = value;
+	*(str + i++) = value;
 	fill_end(str + i, i, specs);
 }
 
