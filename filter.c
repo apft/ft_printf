@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 09:16:12 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/19 10:31:09 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,20 @@ void	print_specs(t_specs *specs)
 			specs->type);
 }
 
-static int	f_max(int a, int b)
-{
-	return (a < b ? b : a);
-}
-
 static int	compute_width(t_specs *specs)
 {
-	int 	width;
+	int 	width_print;
 
-	width = 0;
 	if (specs->is_neg || specs->flags & (PLUS | SPACE | PREFIX))
 		specs->width_prefix += 1;
 	if ((specs->flags & PREFIX) && specs->type & (HEXA | HEXA_C))
 		specs->width_prefix += 1;
-	width = f_max(specs->width_min,
-			specs->width_prefix + f_max(specs->precision, specs->width_arg));
-	return (width);
+	width_print = 0;
+	if ((specs->type & STRING) && (specs->flags & PRECISION))
+		width_print = pf_min(specs->precision, specs->width_arg);
+	else
+		width_print = pf_max(specs->precision, specs->width_arg);
+	return (pf_max(specs->width_min, specs->width_prefix + width_print));
 }
 
 void	filter_specs(t_specs *specs)
