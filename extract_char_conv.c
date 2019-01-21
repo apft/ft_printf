@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 12:10:34 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/21 15:40:55 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ static void				fill_str(unsigned char value, char *str, t_specs *specs)
 	fill_end(str + i, i, specs);
 }
 
-int						extract_char_conv(va_list ap, t_specs *specs, char *str)
+int						extract_char_conv(unsigned char value, t_specs *specs, char *str)
 {
-	unsigned char	value;
-
-	value = extract_arg(ap);
 	specs->width_arg = 1;
 	filter_specs(specs);
 	if (str)

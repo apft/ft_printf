@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:20:32 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 21:18:29 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/21 15:43:07 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,22 @@ static void		print_test(char *f)
 
 int		main(void)
 {
-	ft_printf("%f\n", 0.);
-	ft_printf("%f\n", -1.);
-	ft_printf("%f\n", 1.);
-	ft_printf("%f\n", 2.);
-	ft_printf("%f\n", 0.875);
-	ft_printf("%f\n", 5.2/2);
-	printf("%f\n", 5.2/2);
+	ft_printf("4567 |%-10]5d| plip\n", 12);
+	printf("4567 |%-10]5d| plip\n", 12);
+	ft_printf("4567 |%10]5d| plip\n", 12);
+	printf("4567 |%10]5d| plip\n", 12);
+	printf("|%10.5d|\n", -12);
+	printf("|%10d|\n", -12);
+	printf("|%010d|\n", -12);
+	printf("|%-10.5d|\n", -12);
+	printf("|%-010.5d|\n", -12);
+//	ft_printf("%f\n", 0.);
+//	ft_printf("%f\n", -1.);
+//	ft_printf("%f\n", 1.);
+//	ft_printf("%f\n", 2.);
+//	ft_printf("%f\n", 0.875);
+//	ft_printf("%f\n", 5.2/2);
+//	printf("%f\n", 5.2/2);
 //	int 	a = 42;
 //	ft_printf("|%p|%4p|%020hhp|%#p|%12.4p|\n", &a, &a, &a, &a, &a);
 //	printf("|%p|%4p|%020hhp|%#p|%12.4p|\n", &a, &a, &a, &a, &a);

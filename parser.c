@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 17:49:36 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/24 18:28:36 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,20 @@ static void	parse_precision(char **f, t_specs *specs)
 	specs->precision = parse_nbr(f);
 }
 
+int		is_valid(char *c)
+{
+	int		i;
+
+	i = 0;
+	while (VALID_CHAR[i])
+		if (c == VALID_CHAR[i++])
+			return (1);
+	return (0);
+}
 static int	parse_type(char *f, t_specs *specs, va_list ap, char *str)
 {
+	if (!is_valid(*f))
+		return (extract_char_conv(*f, specs, str));
 	if ((*f == 'd' || *f == 'i') && (specs->type = INT))
 		return (extract_int_conv(ap, specs, BASE_DEC, str));
 	if (*f == 'o' && (specs->type = OCTAL))
@@ -52,7 +64,7 @@ static int	parse_type(char *f, t_specs *specs, va_list ap, char *str)
 	if (*f == 'f' && (specs->type = FLOAT))
 		return (extract_float_conv(ap, specs, str));
 	if (*f == 'c' && (specs->type = CHAR))
-		return (extract_char_conv(ap, specs, str));
+		return (extract_char_conv((unsigned char)va_arg(ap, int), specs, str));
 	if (*f == 's' && (specs->type = STRING))
 		return (extract_str_conv(ap, specs, str));
 	if (*f == 'p' && (specs->type = POINTER))
