@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 19:00:17 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 18:28:31 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 19:57:03 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int						extract_int_conv_ulong(va_list ap, t_specs *specs,
 							char *str)
 {
 	unsigned long	value;
-	char			*base; 
+	char			*base;
 
 	value = extract_arg(ap);
 	base = get_base(specs->type);
