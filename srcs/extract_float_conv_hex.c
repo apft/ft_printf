@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 17:46:04 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 20:30:13 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,26 @@ static int		get_size_exp(int exp)
 
 static void		fill_str(union u_double *value, char *b, char *str, t_specs *specs)
 {
-	double	a;
-	int		i;
-	int		j;
-	int		digit;
-	int		exp;
+	unsigned long	a;
+	int				i;
+	int				j;
+	int				exp;
 
-	a = value->field.sign ? -value->field.sign * value->n : value->n;
+	a = value->field.significand;
 	exp = value->field.exponent - FLOAT_EXP_BIAS;
 	i = 0;
 	i += filler(str, specs, FILL_START);
-	j = 0;
-	while (a > 0.0 && j++ < 15)
+	j = get_size(a);
+	while (j-- && a)
 	{
-		digit = (int)a;
-		printf("%c-", *(b + (char)digit));
-		*(str + i++) = *(b + (char)digit);
-		a -= digit;
-		a *= 16;
+		printf("%c-", *(b + a % 16));
+		*(str + i + j) = *(b + a % 16);
+		a >>= 4;
 	}
+	*(str + i++) = value->field.exponent ? '1' : '0';
+	if (value->field.significand)
+		*(str + i++) = '.';
+	i += get_size(value->field.significand) - j;
 	*(str + i++) = 'p';
 	*(str + i++) = exp < 0 ? '-' : '+';
 	j = get_size_exp(exp);
@@ -86,12 +87,15 @@ static void		fill_str(union u_double *value, char *b, char *str, t_specs *specs)
 	}
 }
 
-int				extract_float_conv_hex(va_list ap, t_specs *specs, char *b, char *str)
+int				extract_float_conv_hex(va_list ap, t_specs *specs, char *str)
 {
 	union u_double	value;
+	char			*base;
 
 	value.n = extract_arg(ap);
-	dbg_print(value);
+	base = get_base(specs->type);
+	printf("b= %s\n", base);
+//	dbg_print(value);
 	specs->is_neg = value.field.sign;
 	specs->flags |= PREFIX;
 	specs->type |= specs->type & FLOAT_HEXA ? HEXA : HEXA_C;
@@ -99,9 +103,9 @@ int				extract_float_conv_hex(va_list ap, t_specs *specs, char *b, char *str)
 	specs->width_arg += get_size(value.field.significand);
 	specs->width_arg += 2 + get_size_exp(value.field.exponent - FLOAT_EXP_BIAS);
 	filter_specs(specs);
-	print_specs(specs);
+//	print_specs(specs);
 	printf("sign\texp\n%d\t%d\n", value.field.sign, value.field.exponent - FLOAT_EXP_BIAS);
 	if (str)
-		fill_str(&value, b, str, specs);
+		fill_str(&value, base, str, specs);
 	return (1);
 }
