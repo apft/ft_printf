@@ -6,11 +6,12 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 13:37:30 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 18:38:31 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "filler.h"
 
 static int		fill_prefix(char *str, t_specs *specs)
 {
@@ -80,15 +81,14 @@ static int		fill_start_normal(char *str, t_specs *specs)
 	return (i);
 }
 
-int				fill_start(char *str, t_specs *specs)
+int				filler(char *str, t_specs *specs, int start)
 {
-	if (specs->flags & LEFT)
-		return (fill_start_left(str, specs));
-	return (fill_start_normal(str, specs));
-}
-
-int				fill_end(char *str, int start, t_specs *specs)
-{
+	if (start == FILL_START)
+	{
+		if (specs->flags & LEFT)
+			return (fill_start_left(str, specs));
+		return (fill_start_normal(str, specs));
+	}
 	if (specs->flags & LEFT)
 		return (fill_char(str, ' ', specs->width - start));
 	return (0);

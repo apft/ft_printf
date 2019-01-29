@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_int_conv_long_long.c                       :+:      :+:    :+:   */
+/*   extract_int_conv_long.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
-/*   Updated: 2019/01/18 19:28:40 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 18:13:20 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "utils.h"
+#include "filter.h"
+#include "filler.h"
 
-static long long	extract_arg(va_list ap)
+static long		extract_arg(va_list ap)
 {
-	return (va_arg(ap, long long));
+	return (va_arg(ap, long));
 }
 
-static int			get_size(long long value, char *base)
+static int		get_size(long value, char *base)
 {
 	int		size;
 	int		b;
@@ -26,14 +28,13 @@ static int			get_size(long long value, char *base)
 	b = 0;
 	while (*(base + b))
 		b++;
-	size = 1 + (value < 0);
+	size = 1;
 	while (value /= b)
 		size++;
 	return (size);
 }
 
-static void			fill_str(long long value, char *base, char *str,
-						t_specs *specs)
+static void		fill_str(long value, char *base, char *str, t_specs *specs)
 {
 	int		b;
 	int		i;
@@ -43,7 +44,7 @@ static void			fill_str(long long value, char *base, char *str,
 	while (*(base + b))
 		b++;
 	i = 0;
-	i += fill_start(str, specs);
+	i += filler(str, specs, FILL_START);
 	j = specs->width_arg;
 	while (j--)
 	{
@@ -51,17 +52,18 @@ static void			fill_str(long long value, char *base, char *str,
 		value /= b;
 	}
 	i += specs->width_arg;
-	fill_end(str + i, i, specs);
+	filler(str + i, specs, i);
 }
 
-int					extract_int_conv_long_long(va_list ap, t_specs *specs,
-						char *base, char *str)
+int				extract_int_conv_long(va_list ap, t_specs *specs, char *str)
 {
-	long long	value;
+	long	value;
+	char	*base;
 
 	value = extract_arg(ap);
+	base = get_base(specs->type);
 	specs->is_neg = value < 0;
-	specs->width_arg = get_size(value, base) - specs->is_neg;
+	specs->width_arg = get_size(value, base);
 	if (!value && (specs->flags & PREFIX) && (specs->flags & (HEXA | HEXA_C)))
 		specs->flags ^= PREFIX;
 	if (!value && (specs->flags & PRECISION) && !specs->precision)

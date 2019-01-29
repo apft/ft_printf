@@ -6,14 +6,30 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/01/24 18:28:36 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 19:13:56 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "utils.h"
+#include "parser.h"
 
-static int	parse_nbr(char **str)
+t_parser	g_parser[] =
+{
+	{'d', INT, &extract_int_conv},
+	{'i', INT, &extract_int_conv},
+	{'o', OCTAL, &extract_int_conv_u},
+	{'u', UINT, &extract_int_conv_u},
+	{'x', HEXA, &extract_int_conv_u},
+	{'X', HEXA_C, &extract_int_conv_u},
+	{'f', FLOAT, &extract_float_conv},
+	{'a', FLOAT_HEXA, &extract_float_conv},
+	{'A', FLOAT_HEXA_C, &extract_float_conv},
+	{'c', CHAR, &extract_char_conv},
+	{'s', STRING, &extract_str_conv},
+	{'p', POINTER, &extract_pointer_conv},
+	{'%', PERCENT, &extract_percent_conv}
+};
+
+static int	parse_nbr(const char **str)
 {
 	int		n;
 
@@ -24,57 +40,44 @@ static int	parse_nbr(char **str)
 	return (n);
 }
 
-static void	parse_width(char **f, t_specs *specs)
+static void	parse_width(const char **f, t_specs *specs)
 {
 	specs->flags |= WIDTH;
 	specs->width_min = parse_nbr(f);
 }
 
-static void	parse_precision(char **f, t_specs *specs)
+static void	parse_precision(const char **f, t_specs *specs)
 {
 	++(*f);
 	specs->flags |= PRECISION;
 	specs->precision = parse_nbr(f);
 }
 
-int		is_valid(char *c)
+static int	parse_type(const char *f, t_specs *specs, va_list ap, char *str)
 {
 	int		i;
+	int		size;
+	int		is_valid;
 
 	i = 0;
+	is_valid = 0;
 	while (VALID_CHAR[i])
-		if (c == VALID_CHAR[i++])
-			return (1);
-	return (0);
-}
-static int	parse_type(char *f, t_specs *specs, va_list ap, char *str)
-{
-	if (!is_valid(*f))
-		return (extract_char_conv(*f, specs, str));
-	if ((*f == 'd' || *f == 'i') && (specs->type = INT))
-		return (extract_int_conv(ap, specs, BASE_DEC, str));
-	if (*f == 'o' && (specs->type = OCTAL))
-		return (extract_int_conv_u(ap, specs, BASE_OCT, str));
-	if (*f == 'u' && (specs->type = UINT))
-		return (extract_int_conv_u(ap, specs, BASE_DEC, str));
-	if (*f == 'x' && (specs->type = HEXA))
-		return (extract_int_conv_u(ap, specs, BASE_HEXA, str));
-	if (*f == 'X' && (specs->type = HEXA_C))
-		return (extract_int_conv_u(ap, specs, BASE_HEXA_C, str));
-	if (*f == 'f' && (specs->type = FLOAT))
-		return (extract_float_conv(ap, specs, str));
-	if (*f == 'c' && (specs->type = CHAR))
-		return (extract_char_conv((unsigned char)va_arg(ap, int), specs, str));
-	if (*f == 's' && (specs->type = STRING))
-		return (extract_str_conv(ap, specs, str));
-	if (*f == 'p' && (specs->type = POINTER))
-		return (extract_pointer_conv(ap, specs, BASE_HEXA, str));
-	if (*f == '%' && (specs->type = PERCENT))
-		return (extract_percent_conv(specs, str));
+		if (*f == VALID_CHAR[i++])
+			is_valid = 1;
+	if (!is_valid)
+		return (handle_char_conv(*f, specs, str));
+	i = 0;
+	size = sizeof(g_parser) / sizeof(t_parser);
+	while (i < size)
+	{
+		if (*f == g_parser[i].type && (specs->type = g_parser[i].flag))
+			return (g_parser[i].f(ap, specs, str));
+		++i;
+	}
 	return (0);
 }
 
-int			parse_specs(char **f, t_specs *specs, va_list ap, char *str)
+int			parse_specs(const char **f, t_specs *specs, va_list ap, char *str)
 {
 	++(*f);
 	while (**f && !parse_type(*f, specs, ap, str))

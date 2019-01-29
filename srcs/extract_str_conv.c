@@ -6,12 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 12:11:22 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 18:37:21 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "utils.h"
+#include "filter.h"
+#include "filler.h"
 
 static char		*extract_arg(va_list ap)
 {
@@ -34,7 +36,7 @@ static void		fill_str(char *value, char *str, t_specs *specs)
 	int		j;
 
 	i = 0;
-	i += fill_start(str, specs);
+	i += filler(str, specs, FILL_START);
 	j = 0;
 	if (specs->flags & PRECISION)
 	{
@@ -46,14 +48,11 @@ static void		fill_str(char *value, char *str, t_specs *specs)
 		while (*(value + j))
 			*(str + i++) = *(value + j++);
 	}
-	fill_end(str + i, i, specs);
+	filler(str + i, specs, i);
 }
 
-int				extract_str_conv(va_list ap, t_specs *specs, char *str)
+int				handle_str_conv(char *value, t_specs *specs, char *str)
 {
-	char	*value;
-
-	value = extract_arg(ap);
 	if (!value)
 		value = NULL_STR;
 	specs->width_arg = get_size(value);
@@ -61,4 +60,9 @@ int				extract_str_conv(va_list ap, t_specs *specs, char *str)
 	if (str)
 		fill_str(value, str, specs);
 	return (1);
+}
+
+int				extract_str_conv(va_list ap, t_specs *specs, char *str)
+{
+	return (handle_str_conv(extract_arg(ap), specs, str));
 }

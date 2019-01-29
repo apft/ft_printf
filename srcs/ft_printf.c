@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 12:09:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/18 18:34:56 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 18:48:03 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include "utils.h"
+#include "parser.h"
 
 static ssize_t	print_str(const char *str, size_t size)
 {
@@ -32,7 +33,7 @@ static int		parse_size(const char *f, va_list ap)
 	n = 0;
 	while (*f)
 	{
-		specs = (t_specs){0};
+		specs = (t_specs){0, 0, 0, 0, 0, 0, 0, 0};
 		if (*f== '%' && parse_specs(&f, &specs, ap, 0))
 			n += specs.width;
 		else
@@ -55,7 +56,7 @@ static char		*extract_str(const char *f, int n, va_list ap)
 	i = 0;
 	while (*f)
 	{
-		specs = (t_specs){0};
+		specs = (t_specs){0, 0, 0, 0, 0, 0, 0, 0};
 		if (*f== '%' && parse_specs(&f, &specs, ap, str + i))
 			i += specs.width;
 		else

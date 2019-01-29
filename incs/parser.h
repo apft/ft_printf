@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_pointer_conv.c                             :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/19 12:29:48 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 14:07:54 by apion            ###   ########.fr       */
+/*   Created: 2019/01/29 11:02:20 by apion             #+#    #+#             */
+/*   Updated: 2019/01/29 19:07:49 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "utils.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-int		extract_pointer_conv(va_list ap, t_specs *specs, char *base, char *str)
+# include <stdarg.h>
+# include "utils.h"
+# include "extractor.h"
+
+typedef struct	s_parser
 {
-	specs->flags &= ~(MOD_HH | MOD_H | MOD_LL);
-	specs->flags |= PREFIX | MOD_L;
-	specs->type |= HEXA;
-	return (extract_int_conv_u(ap, specs, base, str));
-}
+	char	type;
+	int		flag;
+	int		(*f)(va_list, t_specs *, char *);
+}				t_parser;
+
+int			parse_specs(const char **f, t_specs *specs, va_list ap, char *str);
+
+#endif

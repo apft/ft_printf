@@ -6,14 +6,17 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/28 18:28:41 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 17:46:04 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "utils.h"
 #include "utils_float.h"
+#include "filter.h"
+#include "filler.h"
 
+#include <stdio.h>
 static void		dbg_print(union u_double value)
 {
 	printf("\e[4mvalue\e[0m\n");
@@ -31,7 +34,7 @@ static double		extract_arg(va_list ap)
 	return (va_arg(ap, double));
 }
 
-static int		get_size(unsigned long n, char *base)
+static int		get_size(unsigned long n)
 {
 	int		size;
 
@@ -63,7 +66,7 @@ static void		fill_str(union u_double *value, char *b, char *str, t_specs *specs)
 	a = value->field.sign ? -value->field.sign * value->n : value->n;
 	exp = value->field.exponent - FLOAT_EXP_BIAS;
 	i = 0;
-	i += fill_start(str, specs);
+	i += filler(str, specs, FILL_START);
 	j = 0;
 	while (a > 0.0 && j++ < 15)
 	{
@@ -91,9 +94,9 @@ int				extract_float_conv_hex(va_list ap, t_specs *specs, char *b, char *str)
 	dbg_print(value);
 	specs->is_neg = value.field.sign;
 	specs->flags |= PREFIX;
-	specs->type |= specs->type & FLOAT_HEX ? HEXA : HEXA_C;
+	specs->type |= specs->type & FLOAT_HEXA ? HEXA : HEXA_C;
 	specs->width_arg = specs->is_neg;
-	specs->width_arg += get_size(value.field.significand, b);
+	specs->width_arg += get_size(value.field.significand);
 	specs->width_arg += 2 + get_size_exp(value.field.exponent - FLOAT_EXP_BIAS);
 	filter_specs(specs);
 	print_specs(specs);

@@ -6,12 +6,13 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/01/19 13:59:19 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 18:39:30 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
+#include <stdio.h>
 void		print_specs(t_specs *specs)
 {
 	printf("-\t+\t^\t#\t0\thh\th\tl\tll\tw_min\tprec\tw_arg\tw_pref\twidth\tneg\ttype\n");

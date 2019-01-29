@@ -6,14 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/01/24 18:28:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 18:06:43 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# define VALID_CHAR "%-+ #0hlL.123456789diouxXfcsp"
+# define VALID_CHAR "%-+ #0hlL.123456789diouxXfaAcsp"
 
 # define BASE_DEC "0123456789"
 # define BASE_OCT "01234567"
@@ -34,7 +34,7 @@ typedef struct	s_specs
 	int		is_neg;
 }				t_specs;
 
-enum	e_flags
+enum			e_flags
 {
 	LEFT = 1,
 	PLUS = 1 << 1,
@@ -50,7 +50,7 @@ enum	e_flags
 	MOD_LD = 1 << 11
 };
 
-enum	e_type
+enum			e_type
 {
 	INT = 1,
 	OCTAL = 1 << 1,
@@ -58,10 +58,16 @@ enum	e_type
 	HEXA = 1 << 3,
 	HEXA_C = 1 << 4,
 	FLOAT = 1 << 5,
-	CHAR = 1 << 6,
-	STRING = 1 << 7,
-	POINTER = 1 << 8,
-	PERCENT = 1 << 9
+	FLOAT_HEXA = 1 << 6,
+	FLOAT_HEXA_C = 1 << 7,
+	CHAR = 1 << 8,
+	STRING = 1 << 9,
+	POINTER = 1 << 10,
+	PERCENT = 1 << 11
 };
+
+int				pf_min(int a, int b);
+int				pf_max(int a, int b);
+char			*get_base(int type);
 
 #endif
