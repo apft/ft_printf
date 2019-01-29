@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:20:32 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 19:19:13 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 19:26:25 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,26 @@ int		main(void)
 	printf("%s|%-5c|%s\n", 0, '\0', "hidden part...");
 	ft_printf("%c\n", 0);
 	printf("%c\n", 0);
-//	print_test("|%5u|%5o|%5x|%5X|%#5o|%#5x|%#5X|%#10.8x|\n");
-//	print_test("|%d|%.d|%.2d|%2.d|%2.1d|%+d|%-4d|\n");
-//	print_test("|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n");
-//	print_test("|%035d|%05.d|%-25.17d|\n");
-//	print_test("|%035ld|%05.ld|%-25.17ld|\n");
-//	print_test("|%ld|%.ld|%.2ld|%2.ld|%2.1ld|%+ld|%-4ld|\n");
-//	print_test("|%5ld|%-5ld|%+5ld|%+-5ld|% 5ld|%05ld|%5.0ld|%5.2ld|%ld|\n");
-//	print_test("|%lld|%.lld|%.2lld|%2.lld|%2.1lld|%+lld|%-4lld|\n");
-//	print_test("|%5lld|%-5lld|%+5lld|%+-5lld|% 5lld|%05lld|%5.0lld|%5.2lld|%lld|\n");
-//	print_test("|%035lld|%05.lld|%-25.17lld|\n");
-//	print_test("|%lu|%.lu|%.2lu|%2.lu|%2.1lu|%+lu|%-4lu|\n");
-//	print_test("|%llu|%.llu|%.2llu|%2.llu|%2.1llu|%+llu|%-4llu|\n");
-//	print_test("|%x|%.x|%.2x|%2.x|%2.1x|%+x|%-4x|\n");
-//	print_test("|%5x|%-5x|%+5x|%+-5x|% 5x|%05x|%5.0x|%5.2x|%x|\n");
-//	print_test("|%035x|%05.x|%-25.17x||%#0 16.10x|\n");
-//	print_test("|%X|%.X|%.2X|%2.X|%2.1X|%+X|%-4X|\n");
-//	print_test("|%5X|%-5X|%+5X|%+-5X|% 5X|%05X|%5.0X|%5.2X|%X|\n");
-//	print_test("|%035X|%05.X|%-25.17X|\n");
-//	print_test("|%o|%.o|%.2o|%2.o|%2.1o|%+o|%-4o|\n");
-//	print_test("|%5o|%-5o|%+5o|%+-5o|% 5o|%05o|%5.0o|%5.2o|%o|\n");
+	print_test("|%5u|%5o|%5x|%5X|%#5o|%#5x|%#5X|%#10.8x|\n");
+	print_test("|%d|%.d|%.2d|%2.d|%2.1d|%+d|%-4d|\n");
+	print_test("|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n");
+	print_test("|%035d|%05.d|%-25.17d|\n");
+	print_test("|%035ld|%05.ld|%-25.17ld|\n");
+	print_test("|%ld|%.ld|%.2ld|%2.ld|%2.1ld|%+ld|%-4ld|\n");
+	print_test("|%5ld|%-5ld|%+5ld|%+-5ld|% 5ld|%05ld|%5.0ld|%5.2ld|%ld|\n");
+	print_test("|%lld|%.lld|%.2lld|%2.lld|%2.1lld|%+lld|%-4lld|\n");
+	print_test("|%5lld|%-5lld|%+5lld|%+-5lld|% 5lld|%05lld|%5.0lld|%5.2lld|%lld|\n");
+	print_test("|%035lld|%05.lld|%-25.17lld|\n");
+	print_test("|%lu|%.lu|%.2lu|%2.lu|%2.1lu|%+lu|%-4lu|\n");
+	print_test("|%llu|%.llu|%.2llu|%2.llu|%2.1llu|%+llu|%-4llu|\n");
+	print_test("|%x|%.x|%.2x|%2.x|%2.1x|%+x|%-4x|\n");
+	print_test("|%5x|%-5x|%+5x|%+-5x|% 5x|%05x|%5.0x|%5.2x|%x|\n");
+	print_test("|%035x|%05.x|%-25.17x||%#0 16.10x|\n");
+	print_test("|%X|%.X|%.2X|%2.X|%2.1X|%+X|%-4X|\n");
+	print_test("|%5X|%-5X|%+5X|%+-5X|% 5X|%05X|%5.0X|%5.2X|%X|\n");
+	print_test("|%035X|%05.X|%-25.17X|\n");
+	print_test("|%o|%.o|%.2o|%2.o|%2.1o|%+o|%-4o|\n");
+	print_test("|%5o|%-5o|%+5o|%+-5o|% 5o|%05o|%5.0o|%5.2o|%o|\n");
 	print_test("|%035o|%05.o|%-25.17o|\n");
 
 //	ft_printf("|%05.d|\n", 0);
