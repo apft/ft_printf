@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 10:24:24 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 18:50:06 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/29 20:14:01 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ char	*get_base(int type)
 {
 	if (type & OCTAL)
 		return (BASE_OCT);
-	if (type & HEXA)
+	if (type & (HEXA | FLOAT_HEXA))
 		return (BASE_HEXA);
-	if (type & HEXA_C)
+	if (type & (HEXA_C | FLOAT_HEXA_C))
 		return (BASE_HEXA_C);
 	return (BASE_DEC);
 }
