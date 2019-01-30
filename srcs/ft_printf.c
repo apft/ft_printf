@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 12:09:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 16:50:07 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/30 21:56:19 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 #include "utils.h"
 #include "parser.h"
 
-static ssize_t	print_str(const char *str, size_t size)
+static int	print_str(int fd, const char *str, size_t size)
 {
-	ssize_t	ret;
+	int	ret;
 
-	ret = write(1, str, size);
+	ret = write(fd, str, size);
 	free((void *)str);
 	return (ret);
 }
@@ -81,5 +81,34 @@ int				ft_printf(const char *restrict format, ...)
 	va_start(ap, format);
 	str = extract_str(format, n, ap);
 	va_end(ap);
-	return (print_str(str, n));
+	return (print_str(1, str, n));
+}
+
+int				ft_printf_fd(int fd, const char *restrict format, ...)
+{
+	va_list		ap;
+	int			n;
+	char		*str;
+
+	va_start(ap, format);
+	n = parse_size(format, ap);
+	va_end(ap);
+	va_start(ap, format);
+	str = extract_str(format, n, ap);
+	va_end(ap);
+	return (print_str(fd, str, n));
+}
+
+int				ft_printf_str(char **str, const char *restrict format, ...)
+{
+	va_list		ap;
+	int			n;
+
+	va_start(ap, format);
+	n = parse_size(format, ap);
+	va_end(ap);
+	va_start(ap, format);
+	*str = extract_str(format, n, ap);
+	va_end(ap);
+	return (*str ? n : -1);
 }
