@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/01/29 19:24:47 by apion            ###   ########.fr        #
+#    Updated: 2019/01/30 13:38:21 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,14 +58,17 @@ TEST_FLOAT		:= test_float
 TEST_FLOAT_BIN	:= $(TEST_FLOAT).bin
 MAIN_FLOAT		:= test/main_float.c
 
+TEST_BEHAVIOUR		:= test_behaviour
+TEST_BEHAVIOUR_BIN	:= $(TEST_BEHAVIOUR).bin
+MAIN_BEHAVIOUR		:= test/float_behaviour.c
+
+
 
 .PHONY: all
 all: $(NAME)
 
 $(NAME): $(addprefix $(O_DIR)/, $(O_FILES))
 	$(AR) rs $@ $?
-
-.SECONDEXPANSION:
 
 $(O_DIR)/%.o: %.c
 $(O_DIR)/%.o: %.c $(D_DIR)/%.d | $(O_DIR)/$(C_DIR)
@@ -95,13 +98,19 @@ include $(wildcard $(D_DIR)/*.d)
 # --- Tests --- #
 
 $(TEST_INT_BIN): $(NAME) $(MAIN_INT)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
 
 $(TEST_INT): $(TEST_INT_BIN)
 	./$^
 
 $(TEST_FLOAT_BIN): $(NAME) $(MAIN_FLOAT)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
 
 $(TEST_FLOAT): $(TEST_FLOAT_BIN)
+	./$^
+
+$(TEST_BEHAVIOUR_BIN): $(NAME) $(MAIN_BEHAVIOUR)
+	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
+
+$(TEST_BEHAVIOUR): $(TEST_BEHAVIOUR_BIN)
 	./$^
