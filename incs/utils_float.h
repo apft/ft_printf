@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 17:05:32 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/30 23:06:32 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define FLOAT_EXP_MAX 2047
 # define FLOAT_LONG_EXP_BIAS 1023
 # define FLOAT_LONG_EXP_MAX 2047
+
+# define FLOAT_MASK_RIGHT 0b1111UL
 
 union					u_double
 {

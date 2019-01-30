@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 17:25:07 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/30 23:07:16 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,9 @@ static void		fill_str(union u_double *value, char *b, char *str, t_specs *specs)
 		*(str + i++) = '.';
 	n = value->field.frac;
 	i += n ? get_size(n) : 0;
-	j = 0;
-	while (n)
-	{
-		*(str + i - (++j)) = *(b + (n & 0b1111UL));
-		n >>= 4;
-	}
+	j = -1;
+	while (n >> (4 * (++j)))
+		*(str + i - j) = *(b + ((n >> (4 * j)) & FLOAT_MASK_RIGHT));
 	exp = value->field.exp - FLOAT_EXP_BIAS;
 	*(str + i++) = 'p';
 	*(str + i++) = value->field.exp && exp < 0 ? '-' : '+';
@@ -93,7 +90,8 @@ int				extract_float_conv_hex(va_list ap, t_specs *specs, char *str)
 			return (handle_str_conv("nan", specs, str));
 	}
 	base = get_base(specs->type);
-//	dbg_print(value);
+//	if (str)
+//		dbg_print(value);
 	specs->is_neg = value.field.sign;
 	specs->flags |= PREFIX;
 	specs->type |= specs->type & FLOAT_HEXA ? HEXA : HEXA_C;
@@ -101,9 +99,12 @@ int				extract_float_conv_hex(va_list ap, t_specs *specs, char *str)
 	if (value.field.frac || (specs->flags & PRECISION && specs->precision))
 		specs->width_arg += 1;
 	specs->width_arg += value.field.frac ? get_size(value.field.frac) : 0;
-	specs->width_arg += 2 + get_size_exp(value.field.exp - FLOAT_EXP_BIAS);
+	specs->width_arg += 2 + (value.field.exp ? get_size_exp(value.field.exp - FLOAT_EXP_BIAS) : 1);
+//	if (str)
+//		printf("w_arg= %d\n", specs->width_arg);
 	filter_specs(specs);
-//	print_specs(specs);
+//	if (str)
+//		print_specs(specs);
 //	printf("sign\texp\n%d\t%d\n", value.field.sign, value.field.exp - FLOAT_EXP_BIAS);
 	if (str)
 		fill_str(&value, base, str, specs);

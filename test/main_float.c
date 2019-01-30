@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:20:32 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 20:02:58 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/30 22:28:49 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ static void		test_float_hexa(double d)
 {
 	char *f;
 
-	f = "%a\n";
+	f = "|%a|%10a|%10.a|%10.0a|%.1a|%10.2a|%10.5a|\n";
 	printf("\nstr: %snbr: %f\n", f, d);
 	ft_printf(f, d, d, d, d, d, d, d, d);
-	printf("printf:\t");
 	printf(f, d, d, d, d, d, d, d, d);
 }
 
