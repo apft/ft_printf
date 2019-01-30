@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 12:09:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 19:56:31 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/30 16:50:07 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static char		*extract_str(const char *f, int n, va_list ap)
 	int			i;
 	t_specs		specs;
 
+	printf("\e[1mn= %d\e[0m\n", n);
 	str = (char *)malloc(sizeof(*str) * (n + 1));
 	if (!str)
 		return (0);
