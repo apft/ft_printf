@@ -6,19 +6,21 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 15:17:17 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/30 17:05:32 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_FLOAT_H
 # define UTILS_FLOAT_H
 
-# define F_SIZE_SIGN 1
-# define F_SIZE_EXP 11
-# define F_SIZE_FRAC 52
+# define FLOAT_SIZE_SIGN 1
+# define FLOAT_SIZE_EXP 11
+# define FLOAT_SIZE_FRAC 52
 
 # define FLOAT_EXP_BIAS 1023
+# define FLOAT_EXP_MAX 2047
 # define FLOAT_LONG_EXP_BIAS 1023
+# define FLOAT_LONG_EXP_MAX 2047
 
 union					u_double
 {
@@ -26,9 +28,9 @@ union					u_double
 	unsigned long		l;
 	struct
 	{
-		unsigned long	frac:F_SIZE_FRAC;
-		unsigned int	exp:F_SIZE_EXP;
-		unsigned int	sign:F_SIZE_SIGN;
+		unsigned long	frac:FLOAT_SIZE_FRAC;
+		unsigned int	exp:FLOAT_SIZE_EXP;
+		unsigned int	sign:FLOAT_SIZE_SIGN;
 	}					field;
 };
 
