@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 20:12:46 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/30 16:35:33 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	parse_type(const char *f, t_specs *specs, va_list ap, char *str)
 
 	i = 0;
 	is_valid = 0;
-	while (VALID_CHAR[i])
+	while (!is_valid && VALID_CHAR[i])
 		if (*f == VALID_CHAR[i++])
 			is_valid = 1;
 	if (!is_valid)
