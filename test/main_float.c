@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:20:32 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 22:28:49 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/31 17:56:49 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,17 @@ int		main(void)
 //	printf("%.0f\n", 32.5);
 //	printf("%.0f\n", 23.5);
 //	printf("%f\n", -5./0);
-	test_float_hexa(0);
-	test_float_hexa(1);
-	test_float_hexa(2);
-	test_float_hexa(32);
+//	test_float_hexa(0);
+//	test_float_hexa(1);
+//	test_float_hexa(2);
+//	test_float_hexa(32);
 	test_float_hexa(-32);
 	test_float_hexa(1.42);
-	test_float_hexa(0.42);
-	test_float_hexa(6.42);
-	test_float_hexa(.0625);
+	test_float_hexa(0x1.098d859e26148p+3);
+	test_float_hexa(0x1.098d959e26148p+3);
+//	test_float_hexa(0.42);
+//	test_float_hexa(6.42);
+//	test_float_hexa(.0625);
 //	ft_printf("%8.7d\n", 123456);
 //	printf("%8.7d\n", 123456);
 //	ft_printf("%.0f\n", 151.5);

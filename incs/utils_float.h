@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 23:06:32 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/31 18:23:51 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define FLOAT_LONG_EXP_MAX 2047
 
 # define FLOAT_MASK_RIGHT 0b1111UL
+# define FLOAT_MASK_LEFT (0b1111UL << 60)
+
+# include "utils.h"
 
 union					u_double
 {
@@ -36,7 +39,9 @@ union					u_double
 	}					field;
 };
 
+void					pf_round(unsigned long n, char *base, char *str,
+								t_specs *specs);
 void					print_bits(long n, unsigned int size);
-void					dbg_print(union u_double value);
+void					dbg_print(union u_double *value);
 
 #endif

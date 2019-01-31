@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 23:07:16 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/31 18:24:27 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "utils.h"
 #include "utils_float.h"
 #include "filter.h"
-#include "filler.h"
+#include "filler_float.h"
 #include "extractor.h"
 
 #include <stdio.h>
@@ -28,7 +28,8 @@ static int		get_size(unsigned long n)
 	int		size;
 
 	size = 1;
-	while (n >>= 4)
+	n <<= 12;
+	while (n <<= 4)
 		++size;
 //	printf("arg_size= %d\n", size);
 	return (size);
@@ -50,28 +51,23 @@ static void		fill_str(union u_double *value, char *b, char *str, t_specs *specs)
 	unsigned long	n;
 	int				i;
 	int				j;
-	int				exp;
 
-	i = filler(str, specs, FILL_START);
-	*(str + i++) = value->field.exp ? '1' : '0';
-	if (value->field.frac || (specs->flags & PRECISION && specs->precision))
-		*(str + i++) = '.';
-	n = value->field.frac;
-	i += n ? get_size(n) : 0;
-	j = -1;
-	while (n >> (4 * (++j)))
-		*(str + i - j) = *(b + ((n >> (4 * j)) & FLOAT_MASK_RIGHT));
-	exp = value->field.exp - FLOAT_EXP_BIAS;
-	*(str + i++) = 'p';
-	*(str + i++) = value->field.exp && exp < 0 ? '-' : '+';
-	j = value->field.exp ? get_size_exp(exp) : 0;
-	if (!value->field.exp)
-		*(str + i) = '0';
-	while (j--)
+	i = fill_float_pref_radix(value, str, specs);
+	n = value->field.frac << 12;
+	j = 0;
+	if (specs->flags & PRECISION)
 	{
-		*(str + i + j) = '0' + (exp < 0 ? -(exp % 10) : exp % 10);
-		exp /= 10;
+		while ((j + 1) < specs->precision && n << (4 * j))
+			*(str + i++) = *(b + (((n << (4 * j++)) & FLOAT_MASK_LEFT) >> 60));
+		if (specs->precision)
+			pf_round(n, b, str + i++, specs);
 	}
+	else
+		while (n << (4 * j))
+			*(str + i++) = *(b + (((n << (4 * j++)) & FLOAT_MASK_LEFT) >> 60));
+	while (j++ < specs->precision)
+		*(str + i++) = '0';
+	fill_float_exp(value, str + i, specs);
 }
 
 int				extract_float_conv_hex(va_list ap, t_specs *specs, char *str)
@@ -95,13 +91,9 @@ int				extract_float_conv_hex(va_list ap, t_specs *specs, char *str)
 	specs->is_neg = value.field.sign;
 	specs->flags |= PREFIX;
 	specs->type |= specs->type & FLOAT_HEXA ? HEXA : HEXA_C;
-	specs->width_arg = 1 + specs->is_neg;
-	if (value.field.frac || (specs->flags & PRECISION && specs->precision))
-		specs->width_arg += 1;
-	specs->width_arg += value.field.frac ? get_size(value.field.frac) : 0;
-	specs->width_arg += 2 + (value.field.exp ? get_size_exp(value.field.exp - FLOAT_EXP_BIAS) : 1);
-//	if (str)
-//		printf("w_arg= %d\n", specs->width_arg);
+	if (!(specs->flags & PRECISION))
+		specs->precision = value.field.frac ? get_size(value.field.frac) : 0;
+	specs->width_suffix = 2 + (value.field.exp ? get_size_exp(value.field.exp - FLOAT_EXP_BIAS) : 1);
 	filter_specs(specs);
 //	if (str)
 //		print_specs(specs);

@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 18:39:30 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/31 15:39:55 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include <stdio.h>
 void		print_specs(t_specs *specs)
 {
-	printf("-\t+\t^\t#\t0\thh\th\tl\tll\tw_min\tprec\tw_arg\tw_pref\twidth\tneg\ttype\n");
-	printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
+	printf("-\t+\t^\t#\t0\t.\thh\th\tl\tll\tw_min\tprec\tw_arg\tw_pref\tw_suff\twidth\tneg\ttype\n");
+	printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
 			!!(specs->flags & LEFT),
 			!!(specs->flags & PLUS),
 			!!(specs->flags & SPACE),
 			!!(specs->flags & PREFIX),
 			!!(specs->flags & PAD),
+			!!(specs->flags & PRECISION),
 			!!(specs->flags & MOD_HH),
 			!!(specs->flags & MOD_H),
 			!!(specs->flags & MOD_L),
@@ -30,6 +31,7 @@ void		print_specs(t_specs *specs)
 			specs->precision,
 			specs->width_arg,
 			specs->width_prefix,
+			specs->width_suffix,
 			specs->width,
 			specs->is_neg,
 			specs->type);
@@ -42,6 +44,13 @@ static void	reset_precision(t_specs *specs)
 	specs->precision = 0;
 }
 
+static int	compute_width_float(t_specs *specs)
+{
+	specs->width_arg = specs->is_neg + specs->width_prefix + 1
+		+ (specs->precision ? 1 : 0) + specs->precision + specs->width_suffix;
+	return (pf_max(specs->width_min, specs->width_arg));
+}
+
 static int	compute_width(t_specs *specs)
 {
 	int		width_print;
@@ -50,12 +59,14 @@ static int	compute_width(t_specs *specs)
 		specs->width_prefix += 1;
 	if ((specs->flags & PREFIX) && specs->type & (HEXA | HEXA_C))
 		specs->width_prefix += 1;
-	width_print = 0;
+	if (specs->type & (FLOAT | FLOAT_HEXA | FLOAT_HEXA_C))
+		return (compute_width_float(specs));
+	width_print = specs->width_prefix;
 	if ((specs->type & STRING) && (specs->flags & PRECISION))
-		width_print = pf_min(specs->precision, specs->width_arg);
+		width_print += pf_min(specs->precision, specs->width_arg);
 	else
-		width_print = pf_max(specs->precision, specs->width_arg);
-	return (pf_max(specs->width_min, specs->width_prefix + width_print));
+		width_print += pf_max(specs->precision, specs->width_arg);
+	return (pf_max(specs->width_min, width_print));
 }
 
 void		filter_specs(t_specs *specs)

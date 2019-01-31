@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 18:06:43 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/31 12:07:30 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_specs
 	int		width_min;
 	int		width_arg;
 	int		width_prefix;
+	int		width_suffix;
 	int		width;
 	int		is_neg;
 }				t_specs;

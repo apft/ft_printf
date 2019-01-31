@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 22:00:15 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 22:09:41 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/31 12:08:04 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ unsigned int	parse_size(const char *f, va_list ap)
 	n = 0;
 	while (*f)
 	{
-		specs = (t_specs){0, 0, 0, 0, 0, 0, 0, 0};
+		specs = (t_specs){0, 0, 0, 0, 0, 0, 0, 0, 0};
 		if (*f == '%' && parse_specs(&f, &specs, ap, 0))
 			n += specs.width;
 		else
@@ -56,7 +56,7 @@ char			*extract_str(const char *f, unsigned int n, va_list ap)
 	i = 0;
 	while (*f)
 	{
-		specs = (t_specs){0, 0, 0, 0, 0, 0, 0, 0};
+		specs = (t_specs){0, 0, 0, 0, 0, 0, 0, 0, 0};
 		if (*f == '%' && parse_specs(&f, &specs, ap, str + i))
 			i += specs.width;
 		else

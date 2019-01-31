@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/01/29 18:38:31 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/31 15:43:24 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,24 @@ static int		fill_char(char *str, char c, int size)
 	return (i);
 }
 
+static int		fill_start_float(char *str, t_specs *specs)
+{
+	int		i;
+	int		size;
+
+	size = specs->width;
+	size -= specs->is_neg + specs->width_prefix + 1 + specs->width_suffix;
+	i = 0;
+	if ((specs->type & (FLOAT_HEXA | FLOAT_HEXA_C)) && specs->flags & PRECISION)
+		size -= specs->precision ? 1 + specs->precision : 0;
+	else if ((specs->type & (FLOAT_HEXA | FLOAT_HEXA_C)))
+		size -= specs->width_arg ? 1 + specs->width_arg : 0;
+	else
+		size -= 1 + specs->precision;
+	printf("size= %d\n", size);
+	return (fill_char(str, ' ', size));
+}
+
 static int		fill_start_left(char *str, t_specs *specs)
 {
 	int		i;
@@ -68,6 +86,8 @@ static int		fill_start_normal(char *str, t_specs *specs)
 	{
 		if ((specs->type & STRING) && (specs->flags & PRECISION))
 			i += fill_char(str + i, ' ', specs->width - specs->precision);
+		else if (specs->type & (FLOAT | FLOAT_HEXA | FLOAT_HEXA_C))
+			i += fill_char(str + i, ' ', specs->width - specs->width_arg);
 		else
 			i += fill_char(str + i, ' ', specs->width - specs->width_prefix
 					- pf_max(specs->width_arg, specs->precision));
@@ -75,7 +95,7 @@ static int		fill_start_normal(char *str, t_specs *specs)
 		if ((specs->type & (STRING | PERCENT)) && (specs->flags & PRECISION))
 			i += fill_char(str + i, ' ', pf_min(specs->width, specs->precision)
 					- specs->width_arg);
-		if (!(specs->type & (STRING | PERCENT)) && (specs->flags & PRECISION))
+		if (!(specs->type & (STRING | PERCENT | FLOAT | FLOAT_HEXA | FLOAT_HEXA_C)) && (specs->flags & PRECISION))
 			i += fill_char(str + i, '0', specs->precision - specs->width_arg);
 	}
 	return (i);

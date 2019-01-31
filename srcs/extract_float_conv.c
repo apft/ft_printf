@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 15:18:49 by apion            ###   ########.fr       */
+/*   Updated: 2019/01/31 15:36:37 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ int				extract_float_conv(va_list ap, t_specs *specs, char *str)
 	exp = ((value.l << 1UL) >> 53) - 1023;
 	printf("sign\texp\n%d\t%d\n", sign, exp);
 	printf("sign\texp\n%d\t%d\n", value.field.sign, value.field.exp - 1023);
+	if (specs->flags & PRECISION && !specs->precision)
+		specs->precision = 1;
+	if ((specs->type & FLOAT) && !(specs->flags & PRECISION))
+		specs->precision = 6;
 	//printf("%f\n%llu\n", value.n, value.n);
 //	specs->is_neg = value < 0;
 //	specs->width_arg = get_size(value, base) - specs->is_neg;
