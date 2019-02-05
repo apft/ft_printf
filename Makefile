@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/02/04 12:11:03 by apion            ###   ########.fr        #
+#    Updated: 2019/02/05 10:06:57 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ C_FILES		:= srcs/extract_char_conv.c \
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
 
+TEST_LIBUNIT	:= test/test_printf
+
 TEST_DIR		:= test/old
 TEST_BIN		:= test/.bin
 TEST_INT		:= test_int
@@ -65,8 +67,6 @@ MAIN_FLOAT		:= $(TEST_DIR)/main_float.c
 TEST_BEHAVIOUR		:= test_behaviour
 TEST_BEHAVIOUR_BIN	:= $(TEST_BEHAVIOUR).bin
 MAIN_BEHAVIOUR		:= $(TEST_DIR)/float_behaviour.c
-
-
 
 .PHONY: all
 all: $(NAME)
@@ -100,6 +100,10 @@ re: fclean all
 include $(wildcard $(D_DIR)/*.d)
 
 # --- Tests --- #
+
+.PHONY: test
+test:
+	$(MAKE) -C $(TEST_LIBUNIT) $@
 
 $(TEST_INT_BIN): $(NAME) $(MAIN_INT)
 	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $(TEST_BIN)/$@
