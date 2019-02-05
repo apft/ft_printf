@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 14:51:35 by apion             #+#    #+#             */
-/*   Updated: 2019/02/04 15:33:10 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/05 20:32:52 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		main(void)
 //	n += test_extract_percent_conv_launcher();
 //	n += test_extract_pointer_conv_launcher();
 //	n += test_extract_float_conv_launcher();
-//	n += test_extract_float_conv_hex_launcher();
+	n += test_extract_float_conv_hex_launcher();
 	if (n)
 		return (1);
 	return (0);

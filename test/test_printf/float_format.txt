@@ -1,0 +1,26 @@
+start_block
+"Float hexa %#: 0.0",test_float_hexa_null,double,0.0
+"Float hexa %#: -0.0",test_float_hexa_null_neg,double,-0.0
+"Float hexa %#: >0",test_float_hexa_pos_one,double,1.0
+"Float hexa %#: >0",test_float_hexa_pos_two,double,42.0
+"Float hexa %#: <0",test_float_hexa_neg,double,-123.0
+"Float hexa %#: 0<x<1",test_float_hexa_inf_one,double,0.42
+"Float hexa %#: 0.01<x<0.1",test_float_hexa_inf_zero_one,double,0.0625
+"Float hexa %#: 1.42",test_float_hexa_den,double,1.42
+"Float hexa %#: round even top",test_float_hexa_round_even_top,double,32.5
+"Float hexa %#: round even down",test_float_hexa_round_even_down,double,23.5
+"Float hexa %#: round even top neg",test_float_hexa_round_even_top_neg,double,-67.5
+"Float hexa %#: round even down neg",test_float_hexa_round_even_down_neg,double,-68.5
+end_block
+a,"|%a|%10a|%10.a|%10.0a|%.1a|%10.2a|%10.5a|"
+a,"|%5a|%-5a|%+5a|%+-5a|% 5a|%05a|%5.0a|%5.2a|%a|"
+a,"|%10.5a|%10a|%010a|%-10.5a|%-010.5a|"
+a,"|%a|%.a|%.2a|%2.a|%2.1a|%+a|%-4a|"
+a,"|%5a|%-5a|%+5a|%+-5a|% 5a|%05a|%5.0a|%5.2a|%a|"
+a,"|%035a|%05.a|%-25.17a|"
+A,"|%A|%10A|%10.A|%10.0A|%.1A|%10.2A|%10.5A|"
+A,"|%5A|%-5A|%+5A|%+-5A|% 5A|%05A|%5.0A|%5.2A|%A|"
+A,"|%10.5A|%10A|%010A|%-10.5A|%-010.5A|"
+A,"|%A|%.A|%.2A|%2.A|%2.1A|%+A|%-4A|"
+A,"|%5A|%-5A|%+5A|%+-5A|% 5A|%05A|%5.0A|%5.2A|%A|"
+A,"|%035A|%05.A|%-25.17A|"
