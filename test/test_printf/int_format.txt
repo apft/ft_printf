@@ -1,22 +1,36 @@
-"Int %d: <0",test_int_neg,int,5,"|%10.5d|%10d|%010d|%-10.5d|%-010.5d|",-12
-"Int %d: 0",test_int_null,int,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n",0
-"Int %d: >0",test_int_pos,int,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n",42
-"Int %d: <0",test_int_neg2,int,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n",-123
-"Int %d: int min",test_int_min,int,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n",INT_MIN
-"Int %d: int max",test_int_max,int,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n",INT_MAX
-"Int %d: long min",test_long_min,long,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n",LONG_MIN
-"Int %d: long max",test_long_max,long,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|\n",LONG_MAX
-"Int %d: long long min",test_long_long_min,long long,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|",0x1000000000000000
-"Int %d: long long max",test_long_long_max,long long,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|",0x7FFFFFFFFFFFFFFF
-"Int %d: long long",test_long_long,long long,9,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|",-1
-"Int %i: <0",test_int_neg_i,int,5,"|%10.5i|%10i|%010i|%-10.5i|%-010.5i|",-12
-"Int %i: 0",test_int_null_i,int,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|\n",0
-"Int %i: >0",test_int_pos_i,int,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|\n",42
-"Int %i: <0",test_int_neg2_i,int,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|\n",-123
-"Int %i: int min",test_int_min_i,int,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|\n",INT_MIN
-"Int %i: int max",test_int_max_i,int,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|\n",INT_MAX
-"Int %i: long min",test_long_min_i,long,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|\n",LONG_MIN
-"Int %i: long max",test_long_max_i,long,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|\n",LONG_MAX
-"Int %i: long long min",test_long_long_min_i,long long,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|",0x1000000000000000
-"Int %i: long long max",test_long_long_max_i,long long,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|",0x7FFFFFFFFFFFFFFF
-"Int %i: long long",test_long_long_i,long long,9,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|",-1
+start_block
+"Int %#: 0",test_int_null,int,0
+"Int %#: >0",test_int_pos,int,42
+"Int %#: <0",test_int_neg,int,-123
+"Int %#: int min",test_int_min,int,INT_MIN
+"Int %#: int max",test_int_max,int,INT_MAX
+"Int %#: long min",test_long_min,long,LONG_MIN
+"Int %#: long max",test_long_max,long,LONG_MAX
+"Int %#: long long min",test_long_long_min,long long,0x1000000000000000
+"Int %#: long long max",test_long_long_max,long long,0x7FFFFFFFFFFFFFFF
+"Int %#: long long",test_long_long,long long,-1
+end_block
+d,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|"
+i,"|%5i|%-5i|%+5i|%+-5i|% 5i|%05i|%5.0i|%5.2i|%i|"
+d,"|%10.5d|%10d|%010d|%-10.5d|%-010.5d|"
+d,"|%d|%.d|%.2d|%2.d|%2.1d|%+d|%-4d|"
+d,"|%5d|%-5d|%+5d|%+-5d|% 5d|%05d|%5.0d|%5.2d|%d|"
+d,"|%035d|%05.d|%-25.17d|"
+ld,"|%035ld|%05.ld|%-25.17ld|"
+ld,"|%ld|%.ld|%.2ld|%2.ld|%2.1ld|%+ld|%-4ld|"
+ld,"|%5ld|%-5ld|%+5ld|%+-5ld|% 5ld|%05ld|%5.0ld|%5.2ld|%ld|"
+lld,"|%lld|%.lld|%.2lld|%2.lld|%2.1lld|%+lld|%-4lld|"
+lld,"|%5lld|%-5lld|%+5lld|%+-5lld|% 5lld|%05lld|%5.0lld|%5.2lld|%lld|"
+lld,"|%035lld|%05.lld|%-25.17lld|"
+u,"|%5u|%5o|%5x|%5X|%#5o|%#5x|%#5X|%#10.8x|"
+lu,"|%lu|%.lu|%.2lu|%2.lu|%2.1lu|%+lu|%-4lu|"
+llu,"|%llu|%.llu|%.2llu|%2.llu|%2.1llu|%+llu|%-4llu|"
+x,"|%x|%.x|%.2x|%2.x|%2.1x|%+x|%-4x|"
+x,"|%5x|%-5x|%+5x|%+-5x|% 5x|%05x|%5.0x|%5.2x|%x|"
+x,"|%035x|%05.x|%-25.17x||%#0 16.10x|"
+X,"|%X|%.X|%.2X|%2.X|%2.1X|%+X|%-4X|"
+X,"|%5X|%-5X|%+5X|%+-5X|% 5X|%05X|%5.0X|%5.2X|%X|"
+X,"|%035X|%05.X|%-25.17X|"
+o,"|%o|%.o|%.2o|%2.o|%2.1o|%+o|%-4o|"
+o,"|%5o|%-5o|%+5o|%+-5o|% 5o|%05o|%5.0o|%5.2o|%o|"
+o,"|%035o|%05.o|%-25.17o|"
