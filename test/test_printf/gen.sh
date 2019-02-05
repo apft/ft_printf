@@ -26,7 +26,28 @@ fi
 includes="<stdio.h> <string.h> <stdlib.h> \"ft_printf.h\" \"utils.h\""
 variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\tchar\t*out;\n"
 
-read_block ()
+get_type_var()
+{
+	local var=$2;
+	[ $1 = "ld" -o $1 = "lu" ] && var="long"
+	[ $1 = "lld" -o $1 = "llu" ] && var="long long"
+	echo $var
+}
+
+get_value()
+{
+	local v=$2
+	if [ ${v:0:3} != "INT" -a ${v:0:3} != "LON" ]
+	then
+		[ $1 = "ld" ] && v="${v}L"
+		[ $1 = "lld" ] && v="${v}LL"
+		[ $1 = "lu" ] && v="${v}LU"
+		[ $1 = "llu" ] && v="${v}LLU"
+	fi
+	echo $v
+}
+
+read_block()
 {
 	in_block=-1;
 	while read data_line
@@ -41,8 +62,8 @@ read_block ()
 			title=`echo ${data_line} | cut -d ',' -f 1 | sed "s/#/$1 ${count[$(get_index_count $type)]}/"`
 			proto=`echo ${data_line} | cut -d ',' -f 2`
 			proto="${proto}_${type}_${count[$(get_index_count $type)]}"
-			type_var=`echo ${data_line} | cut -d ',' -f 3`
-			value=`echo ${data_line} | cut -d ',' -f 4`
+			type_var=$(get_type_var $type `echo ${data_line} | cut -d ',' -f 3`)
+			value=$(get_value $type `echo ${data_line} | cut -d ',' -f 4`)
 			file="${prefix}_${proto}_${count[$(get_index_count $type)]}.c"
 			nbr_arg=$(( `echo $format | tr -dc '|' | wc -c` - 1))
 			#[ $debug -eq 1 ] && echo $type   ${count[$(get_index_count $type)]}   $title   $proto   $value   $file   $nbr_arg
