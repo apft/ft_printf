@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/01/31 18:24:27 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/05 20:40:42 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,18 @@ static void		fill_str(union u_double *value, char *b, char *str, t_specs *specs)
 	j = 0;
 	if (specs->flags & PRECISION)
 	{
+		if (!specs->precision)
+		{
+			pf_round(n, b, str + i, specs);
+			++j;
+		}
 		while ((j + 1) < specs->precision && n << (4 * j))
 			*(str + i++) = *(b + (((n << (4 * j++)) & FLOAT_MASK_LEFT) >> 60));
-		if (specs->precision)
+		if (j < specs->precision && n << (4 * j))
+		{
 			pf_round(n, b, str + i++, specs);
+			++j;
+		}
 	}
 	else
 		while (n << (4 * j))
