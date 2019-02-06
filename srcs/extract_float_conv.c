@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/01/31 15:36:37 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 23:00:46 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int				extract_float_conv(va_list ap, t_specs *specs, char *str)
 	//printf("%f\n%llu\n", value.n, value.n);
 //	specs->is_neg = value < 0;
 //	specs->width_arg = get_size(value, base) - specs->is_neg;
-//	if (!value && (specs->flags & PREFIX) && (specs->flags & (HEXA | HEXA_C)))
+//	if (!value && (specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C)))
 //		specs->flags ^= PREFIX;
 //	if (!value && (specs->flags & PRECISION) && !specs->precision)
 //		specs->width_arg -= 1;
