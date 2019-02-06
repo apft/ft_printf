@@ -3,7 +3,7 @@
 debug=1;
 TEST_TYPE="str_char"
 
-data="str_char_format.txt"
+data="${TEST_TYPE}_format.txt"
 
 template_folder="template"
 template_launcher=${template_folder}/00_launcher_${TEST_TYPE}.c

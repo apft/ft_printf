@@ -1,17 +1,18 @@
 #!/bin/sh
 
 debug=1;
+TEST_TYPE="int"
 
-data="int_format.txt"
+data="${TEST_TYPE}_format.txt"
 
 template_folder="template"
 template_launcher=${template_folder}/00_launcher.c
-template_header=${template_folder}/test_int.h
+template_header=${template_folder}/test_${TEST_TYPE}.h
 
-folder="test_int"
+folder="test_${TEST_TYPE}"
 [ ! -d $folder ] && mkdir $folder
 launcher="$folder/00_launcher.c"
-header="$folder/test_int.h"
+header="$folder/test_${TEST_TYPE}.h"
 if [ ! -f $launcher ]
 then
 	[ $debug -eq 1 ] && echo "get template file: ${template_launcher}"
