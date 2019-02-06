@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 14:41:23 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 14:42:41 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "utils_float.h"
 #include "float_round.h"
 #include "filter.h"
+#include "filler.h"
 #include "filler_float.h"
 #include "extractor.h"
 
@@ -100,6 +101,7 @@ int				extract_float_conv_hex(va_list ap, t_specs *specs, char *str)
 //		dbg_print(value);
 	specs->is_neg = value.field.sign;
 	specs->flags |= PREFIX;
+	specs->type |= specs->type & FLOAT_HEXA ? HEXA : HEXA_C;
 	if (!(specs->flags & PRECISION))
 		specs->precision = value.field.frac ? get_size(value.field.frac) : 0;
 	specs->width_suffix = 2 + (value.field.exp ? get_size_exp(value.field.exp - FLOAT_EXP_BIAS) : 1);
