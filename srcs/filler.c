@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 14:34:10 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 11:47:59 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int		fill_prefix(char *str, t_specs *specs)
 		*(str + i++) = ' ';
 	if (specs->flags & PREFIX)
 		*(str + i++) = '0';
-	if ((specs->flags & PREFIX) && (specs->type & HEXA))
+	if ((specs->flags & PREFIX) && (specs->type & (HEXA | FLOAT_HEXA)))
 		*(str + i++) = 'x';
-	if ((specs->flags & PREFIX) && (specs->type & HEXA_C))
+	if ((specs->flags & PREFIX) && (specs->type & (HEXA_C | FLOAT_HEXA_C)))
 		*(str + i++) = 'X';
 	return (i);
 }
@@ -80,10 +80,7 @@ static int		fill_start_normal(char *str, t_specs *specs)
 	if (specs->flags & PAD)
 	{
 		i += fill_prefix(str + i, specs);
-		if (specs->type & (FLOAT | FLOAT_HEXA | FLOAT_HEXA_C))
-			i += fill_char(str + i, '0', specs->width - specs->width_arg);
-		else
-			i += fill_char(str + i, '0', specs->width - i - specs->width_arg);
+		i += fill_char(str + i, '0', specs->width - i - specs->width_arg);
 	}
 	else
 	{
