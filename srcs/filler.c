@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 15:28:58 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 19:51:53 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int		fill_start_left(char *str, t_specs *specs)
 
 	i = fill_prefix(str, specs);
 	if ((specs->flags & PAD) || (specs->flags & PRECISION))
-		i += fill_char(str + i, specs->type & (STRING | PERCENT) ? ' ' : '0',
+		i += fill_char(str + i, specs->type & PERCENT ? ' ' : '0',
 				specs->precision - specs->width_arg);
 	return (i);
 }
@@ -108,6 +108,8 @@ int				filler(char *str, t_specs *specs, int start)
 {
 	if (start == FILL_START)
 	{
+		if ((specs->flags & LEFT) && (specs->type & STRING))
+			return (0);
 		if (specs->flags & LEFT)
 			return (fill_start_left(str, specs));
 		return (fill_start_normal(str, specs));
