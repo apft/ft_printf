@@ -6,7 +6,7 @@
 /*   By: gguichar <gguichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 14:23:32 by gguichar          #+#    #+#             */
-/*   Updated: 2018/12/06 11:30:36 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 18:57:46 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,18 @@ static int	run_tests(t_unit_test *lst)
 	lu_putchar('/');
 	lu_putnbr(total);
 	lu_putstr(" tests checked\n\n");
-	return (total == working);
+	return (total - working);
 }
 
 int			launch_tests(const char *name, t_unit_test **lst)
 {
 	int	res;
 
-	res = 0;
+	res = -1;
 	lu_putstr(name);
 	lu_putchar('\n');
-	if (lst != NULL && !run_tests(*lst))
-		res = -1;
+	if (lst != NULL)
+	   res = run_tests(*lst);
 	clear_tests(lst);
 	return (res);
 }
