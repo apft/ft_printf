@@ -1,27 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test_ptr_percent.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/04 14:51:35 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 18:41:19 by apion            ###   ########.fr       */
+/*   Created: 2019/02/06 18:39:19 by apion             #+#    #+#             */
+/*   Updated: 2019/02/06 18:39:37 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test_printf.h"
+#ifndef TEST_PTR_PERCENT
+# define TEST_PTR_PERCENT
 
-int		main(void)
-{
-	int		n;
 
-	n = 0;
-//	n += test_extract_int_conv_launcher();
-	n += test_extract_float_conv_hex_launcher();
-	n += test_extract_str_char_conv_launcher();
-	n += test_extract_ptr_percent_conv_launcher();
-	if (n)
-		return (1);
-	return (0);
-}
+#endif

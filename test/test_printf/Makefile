@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/02/06 18:21:15 by apion            ###   ########.fr        #
+#    Updated: 2019/02/06 18:41:00 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -432,7 +432,11 @@ C_FILES				:= main.c \
 						test_str_char/08_test_mix_all_null.c \
 						test_str_char/09_test_mix_null_medium.c \
 						test_str_char/10_test_undef_type.c \
-						test_str_char/11_test_undef_type_other.c
+						test_str_char/11_test_undef_type_other.c \
+						test_ptr_percent/00_launcher.c \
+						test_ptr_percent/01_test_ptr.c \
+						test_ptr_percent/02_test_ptr_null.c \
+						test_ptr_percent/03_test_percent.c
 O_FILES			:= $(C_FILES:%.c=%.o)
 D_FILES			:= $(C_FILES:%.c=%.d)
 DIRS			:= $(strip $(filter-out ./,$(sort $(dir $(C_FILES))))) .
