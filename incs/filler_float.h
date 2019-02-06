@@ -6,12 +6,12 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:26:42 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 14:24:08 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 19:07:27 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLER_FLOAT
-# define FILLER_FLOAT
+#ifndef FILLER_FLOAT_H
+# define FILLER_FLOAT_H
 
 # include "utils.h"
 # include "utils_float.h"
