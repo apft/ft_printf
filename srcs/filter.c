@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 12:11:16 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 19:22:40 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		filter_specs(t_specs *specs)
 		specs->flags ^= PAD;
 	if ((specs->flags & PAD) && (specs->flags & LEFT))
 		specs->flags ^= PAD;
-	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C))
+	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C | PERCENT))
 			&& (specs->flags & SPACE))
 		specs->flags ^= SPACE;
 	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C)) && (specs->flags & PLUS))
