@@ -24,7 +24,7 @@ then
 fi
 
 includes="<stdio.h> <string.h> <stdlib.h> \"ft_printf.h\" \"utils.h\""
-variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\tchar\t*out;\n"
+variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\tchar\t*out;\n\tint\t\tret;\n\tint\t\tret_exp;\n"
 
 get_type_var()
 {
@@ -81,21 +81,21 @@ read_block()
 					echo "\tbzero(str_printf, BUFF_SIZE);"
 					echo "\tformat = $format;"
 					echo "\tn = $value;"
-					printf "\tsprintf(str_printf, format"
+					printf "\tret_exp = sprintf(str_printf, format"
 					for i in `seq ${nbr_arg}`
 					do
 						printf ", n"
 					done
 					echo ");"
-					printf "\tft_printf_str(&out, format"
+					printf "\tret = ft_printf_str(&out, format"
 					for i in `seq ${nbr_arg}`
 					do
 						printf ", n"
 					done
 					echo ");\n"
-					echo "\terror = strcmp(str_printf, out);"
+					echo "\terror = ret != ret_exp || strcmp(str_printf, out);"
 					echo "\tif (error)"
-					echo "\t\tprint_diff(format, str_printf, out);"
+					echo "\t\tprint_diff(format, ret, ret_exp, str_printf, out);"
 					echo "\tfree(out);"
 					echo "\treturn (error);"
 					echo "}"
@@ -176,4 +176,4 @@ do
 		let count[$(get_index_count $type)]+=1
 	fi
 	[ "$line" = "end_block" ] && block=0;
-done < int_format.txt
+done < $data
