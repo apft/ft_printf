@@ -1,3 +1,4 @@
 "Pointer",test_ptr,"|%p|%4p|%020hhp|%#p|%12.4p|", &format, &format, &format, &format, &format
 "Pointer null",test_ptr_null,"|%p|%4p|%020p|%#p|%12.4p|", 0L, 0L, 0L, 0L, 0L
 "Percent",test_percent,"|%%|%3%|%4.2%|%4.%|%-012.15%|%.2%|%   %|% %|", 42
+"Percent hard",test_percent_hard,"|%%|%-%|%+%|%0%|% %|%#%|%-+ 7%|%0#.4%|", 42

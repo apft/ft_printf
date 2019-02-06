@@ -53,7 +53,7 @@ do
 			echo "\tformat = $format;"
 			echo "\tret_exp = sprintf(str_printf, format, $args);"
 			echo "\tret = ft_printf_str(&out, format, $args);"
-			echo "\terror = ret != ret_exp || strcmp(str_printf, out);"
+			echo "\terror = ret != ret_exp || memcmp(str_printf, out, ret_exp);"
 			echo "\tif (error)"
 			echo "\t\tprint_diff(format, ret, ret_exp, str_printf, out);"
 			echo "\tfree(out);"
