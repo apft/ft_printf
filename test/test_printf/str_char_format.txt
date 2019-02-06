@@ -1,0 +1,9 @@
+"Char easy",test_char_easy,"|%c%c%c%c|", 'a', 'B', 0, '*'
+"Char medium",test_char_medium,"|%4c|%-11.4c|%05c|%.c|", 'a', 'B', 0, '*'
+"Char null",test_char_null,"%c", 0
+"String medium",test_string_medium,"|%s|%-32s|%23.12s|%10.2s|", "This is another string.", "and a second one", "one more", "final one ?"
+"Strind medium other",test_string_medium_other,"|%.12s|%-13.5s|%3.12s|%3.12s|%10.s|", "This is another string.", "and a second one", "one more", "sdfljhgidfghoisufghskjhg", "final one ?"
+"String null & mix",test_string_null_mix,"%.1s|%5c|%s", 0, '\0', "hidden part..."
+"Char null & string",test_str_char_null,"%s|%5c|%s","This is a string.", '\0', "hidden part..."
+"Mix all null",test_mix_all_null,"%15s|%5c|%s", 0, 0, 0
+"Mix null medium",test_mix_null_medium,"%s|%-5c|%s", 0, '\0', "hidden part..."

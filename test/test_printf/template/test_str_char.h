@@ -1,26 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test_str_char.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/04 14:51:35 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 18:09:29 by apion            ###   ########.fr       */
+/*   Created: 2019/02/06 18:05:47 by apion             #+#    #+#             */
+/*   Updated: 2019/02/06 18:06:05 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test_printf.h"
+#ifndef TEST_STR_CHAR
+# define TEST_STR_CHAR
 
-int		main(void)
-{
-	int		n;
 
-	n = 0;
-//	n += test_extract_int_conv_launcher();
-	n += test_extract_float_conv_hex_launcher();
-	n += test_extract_str_char_conv_launcher();
-	if (n)
-		return (1);
-	return (0);
-}
+#endif
