@@ -7,3 +7,5 @@
 "Char null & string",test_str_char_null,"%s|%5c|%s","This is a string.", '\0', "hidden part..."
 "Mix all null",test_mix_all_null,"%15s|%5c|%s", 0, 0, 0
 "Mix null medium",test_mix_null_medium,"%s|%-5c|%s", 0, '\0', "hidden part..."
+"[undefined] wrong type 'T'",test_undef_type,"4567 |%-10T%5d| plip\n", 12
+"[undefined] wrong type ']'",test_undef_type_other,"4567 |%10]5d| plip\n", 12
