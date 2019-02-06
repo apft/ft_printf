@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/01/31 18:24:18 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 14:23:42 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		fill_float_pref_radix(union u_double *value, char *str, t_specs *specs)
 	return (i);
 }
 
-void	fill_float_exp(union u_double *value, char *str, t_specs *specs)
+int		fill_float_exp(union u_double *value, char *str, t_specs *specs)
 {
 	int		exp;
 	int		i;
@@ -41,6 +41,7 @@ void	fill_float_exp(union u_double *value, char *str, t_specs *specs)
 	j = specs->width_suffix - 2;
 	while ((exp /= (!(--j) ? 1 : 10)))
 		*(str + i++) = '0' + (exp < 0 ? -(exp % 10) : exp % 10);
+	return (i);
 }
 
 void	fill_float(union u_double *value, char *base, char *str, t_specs *specs)
