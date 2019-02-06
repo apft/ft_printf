@@ -5,7 +5,7 @@
 "Strind medium other",test_string_medium_other,"|%.12s|%-13.5s|%3.12s|%3.12s|%10.s|", "This is another string.", "and a second one", "one more", "sdfljhgidfghoisufghskjhg", "final one ?"
 "String null & mix",test_string_null_mix,"%.1s|%5c|%s", 0, '\0', "hidden part..."
 "Char null & string",test_str_char_null,"%s|%5c|%s","This is a string.", '\0', "hidden part..."
-"Mix all null",test_mix_all_null,"%15s|%5c|%s", 0, 0, 0
+"Mix all null",test_mix_all_null,"%15s|%5c|%s", 0L, 0, 0L
 "Mix null medium",test_mix_null_medium,"%s|%-5c|%s", 0, '\0', "hidden part..."
 "[undefined] wrong type 'T'",test_undef_type,"4567 |%-10T%5d| plip\n", 12
 "[undefined] wrong type ']'",test_undef_type_other,"4567 |%10]5d| plip\n", 12
