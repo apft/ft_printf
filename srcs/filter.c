@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 12:11:16 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 20:03:47 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	compute_width(t_specs *specs)
 
 void		filter_specs(t_specs *specs)
 {
-	if ((specs->type & (CHAR | INT | STRING | UINT))
+	if ((specs->type & (INT | UINT | CHAR | STRING | PERCENT))
 			&& (specs->flags & PREFIX))
 		specs->flags ^= PREFIX;
 	if ((specs->type & OCTAL) && (specs->flags & PREFIX))
@@ -82,10 +82,10 @@ void		filter_specs(t_specs *specs)
 		specs->flags ^= PAD;
 	if ((specs->flags & PAD) && (specs->flags & LEFT))
 		specs->flags ^= PAD;
-	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C))
+	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C | CHAR | STRING | PERCENT))
 			&& (specs->flags & SPACE))
 		specs->flags ^= SPACE;
-	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C)) && (specs->flags & PLUS))
+	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C | CHAR | STRING | PERCENT)) && (specs->flags & PLUS))
 		specs->flags ^= PLUS;
 	if ((specs->flags & SPACE) && (specs->flags & PLUS))
 		specs->flags ^= SPACE;
