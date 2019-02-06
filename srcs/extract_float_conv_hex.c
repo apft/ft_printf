@@ -6,13 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 15:06:21 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/06 15:14:48 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "utils.h"
 #include "utils_float.h"
+#include "float_round.h"
 #include "filter.h"
 #include "filler.h"
 #include "filler_float.h"
@@ -76,7 +77,8 @@ static void		fill_str(union u_double *value, char *b, char *str, t_specs *specs)
 			*(str + i++) = *(b + (((n << (4 * j++)) & FLOAT_MASK_LEFT) >> 60));
 	while (j++ < specs->precision)
 		*(str + i++) = '0';
-	fill_float_exp(value, str + i, specs);
+	i += fill_float_exp(value, str + i, specs);
+	filler(str + pf_max(i, specs->width_arg), specs, pf_max(i, specs->width_arg));
 }
 
 int				extract_float_conv_hex(va_list ap, t_specs *specs, char *str)
