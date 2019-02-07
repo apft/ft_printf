@@ -6,13 +6,13 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 15:23:11 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 11:29:35 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/07 15:04:49 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-void	print_diff(char *format, int ret, int exp, char *expected, char *result)
+void	print_diff(char *format, int ret, int exp, char *expected, char *result, int diff)
 {
 	int		err;
 
@@ -22,4 +22,5 @@ void	print_diff(char *format, int ret, int exp, char *expected, char *result)
 	printf("  --size exp : %d\n", exp);
 	printf("  --str ret  : %s\n", result);
 	printf("  --str exp  : %s\n", expected);
+	printf("  --diff cmp : %d\n", diff);
 }

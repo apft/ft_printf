@@ -25,13 +25,13 @@ then
 fi
 
 includes="<stdio.h> <string.h> <stdlib.h> \"ft_printf.h\" \"utils.h\""
-variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\tchar\t*out;\n\tint\t\tret;\n\tint\t\tret_exp;\n"
+variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\tchar\t*out;\n\tint\t\tret;\n\tint\t\tret_exp;\n\tint\t\tdiff;\n"
 
 get_type_var()
 {
 	local var=$2;
-	[ $1 = "ld" -o $1 = "lu" ] && var="long"
-	[ $1 = "lld" -o $1 = "llu" ] && var="long long"
+	[ ${1:0:1} = "l" ] && var="long"
+	[ ${1:1:1} = "l" ] && var+=" long"
 	echo $var
 }
 
@@ -44,6 +44,12 @@ get_value()
 		[ $1 = "lld" ] && v="${v}LL"
 		[ $1 = "lu" ] && v="${v}LU"
 		[ $1 = "llu" ] && v="${v}LLU"
+		[ $1 = "lx" ] && v="${v}LU"
+		[ $1 = "llx" ] && v="${v}LLU"
+		[ $1 = "lX" ] && v="${v}LU"
+		[ $1 = "llX" ] && v="${v}LLU"
+		[ $1 = "lo" ] && v="${v}LU"
+		[ $1 = "llo" ] && v="${v}LLU"
 	fi
 	echo $v
 }
@@ -94,9 +100,10 @@ read_block()
 						printf ", n"
 					done
 					echo ");\n"
-					echo "\terror = ret != ret_exp || strcmp(str_printf, out);"
+					echo "\tdiff = strcmp(out, str_printf);"
+					echo "\terror = ret != ret_exp || diff;"
 					echo "\tif (error)"
-					echo "\t\tprint_diff(format, ret, ret_exp, str_printf, out);"
+					echo "\t\tprint_diff(format, ret, ret_exp, str_printf, out, diff);"
 					echo "\tfree(out);"
 					echo "\treturn (error);"
 					echo "}"
@@ -140,6 +147,22 @@ get_index_count()
 	[ $1 = "x" ] && id=7
 	[ $1 = "X" ] && id=8
 	[ $1 = "o" ] && id=9
+	[ $1 = "hd" ] && id=10
+	[ $1 = "hhd" ] && id=11
+	[ $1 = "hu" ] && id=12
+	[ $1 = "hhu" ] && id=13
+	[ $1 = "hx" ] && id=14
+	[ $1 = "hhx" ] && id=15
+	[ $1 = "lx" ] && id=16
+	[ $1 = "llx" ] && id=17
+	[ $1 = "hX" ] && id=18
+	[ $1 = "hhX" ] && id=19
+	[ $1 = "lX" ] && id=20
+	[ $1 = "llX" ] && id=21
+	[ $1 = "ho" ] && id=21
+	[ $1 = "hho" ] && id=22
+	[ $1 = "lo" ] && id=23
+	[ $1 = "llo" ] && id=24
 	echo $id
 }
 
@@ -155,6 +178,22 @@ inc_count()
 	[ $1 = "x" ] && let count[7]+=1
 	[ $1 = "X" ] && let count[8]+=1
 	[ $1 = "o" ] && let count[9]+=1
+	[ $1 = "hd" ] && let count[10]+=1
+	[ $1 = "hhd" ] && let count[11]+=1
+	[ $1 = "hu" ] && let count[12]+=1
+	[ $1 = "hhu" ] && let count[13]+=1
+	[ $1 = "hx" ] && let count[14]+=1
+	[ $1 = "hhx" ] && let count[15]+=1
+	[ $1 = "lx" ] && let count[16]+=1
+	[ $1 = "llx" ] && let count[17]+=1
+	[ $1 = "hX" ] && let count[18]+=1
+	[ $1 = "hhX" ] && let count[19]+=1
+	[ $1 = "lX" ] && let count[20]+=1
+	[ $1 = "llX" ] && let count[21]+=1
+	[ $1 = "ho" ] && let count[21]+=1
+	[ $1 = "hho" ] && let count[22]+=1
+	[ $1 = "lo" ] && let count[23]+=1
+	[ $1 = "llo" ] && let count[24]+=1
 }
 
 data_block="data_block.txt"
@@ -164,8 +203,8 @@ head -n $(grep -n $end $data | cut -d ':' -f 1 | head -n 1) $data > ${data_block
 
 loop=0;
 block=-1;
-# count: d i ld ld u lu llu x X o
-count=(0 0 0 0 0 0 0 0 0 0)
+# count: d i hd hhd ld ld u hu hhu lu llu x hx hhx lx llx X hX hhX lX llX o ho hho lo llo
+count=(0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0)
 while read line
 do
 	[ "$line" = "start_block" ] && block=1;

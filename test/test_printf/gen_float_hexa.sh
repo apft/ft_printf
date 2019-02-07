@@ -25,7 +25,7 @@ then
 fi
 
 includes="<stdio.h> <string.h> <stdlib.h> \"ft_printf.h\" \"utils.h\""
-variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\tchar\t*out;\n\tint\t\tret;\n\tint\t\tret_exp;\n"
+variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\tchar\t*out;\n\tint\t\tret;\n\tint\t\tret_exp;\n\tint\t\tdiff;\n"
 
 read_block()
 {
@@ -73,9 +73,10 @@ read_block()
 						printf ", n"
 					done
 					echo ");\n"
-					echo "\terror = ret != ret_exp || strcmp(str_printf, out);"
+					echo "\tdiff = strcmp(out, str_printf);"
+					echo "\terror = ret != ret_exp || diff;"
 					echo "\tif (error)"
-					echo "\t\tprint_diff(format, ret, ret_exp, str_printf, out);"
+					echo "\t\tprint_diff(format, ret, ret_exp, str_printf, out, diff);"
 					echo "\tfree(out);"
 					echo "\treturn (error);"
 					echo "}"
