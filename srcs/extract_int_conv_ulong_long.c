@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 19:00:17 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 23:00:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/07 17:27:31 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ int							extract_int_conv_ulong_long(va_list ap,
 	specs->width_arg = get_size(value, base);
 	if (!value && (specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C)))
 		specs->flags ^= PREFIX;
-	if (!value && (specs->flags & PRECISION) && !specs->precision)
-		specs->width_arg -= 1;
+	if (!value && (((specs->flags & PRECISION) && !specs->precision)
+				|| ((specs->type & OCTAL) && (specs->flags & PREFIX))))
+		specs->width_arg = 0;
 	filter_specs(specs);
 	if (str)
 		fill_str(value, base, str, specs);
