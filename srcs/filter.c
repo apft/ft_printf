@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 20:03:47 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/07 17:25:03 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,11 @@ static int	compute_width(t_specs *specs)
 	if (specs->type & (FLOAT | FLOAT_HEXA | FLOAT_HEXA_C))
 		return (compute_width_float(specs));
 	if (specs->is_neg || specs->flags & (PLUS | SPACE | PREFIX))
-		specs->width_prefix += 1;
+		specs->width_prefix = 1;
+	if ((specs->type & OCTAL) && (specs->flags & PREFIX)
+			&& (!specs->width_arg || ((specs->flags & PRECISION)
+					&& specs->width_arg < specs->precision)))
+		specs->width_prefix = 0;
 	if ((specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C)))
 		specs->width_prefix += 1;
 	width_print = specs->width_prefix;
@@ -75,8 +79,8 @@ void		filter_specs(t_specs *specs)
 	if ((specs->type & (INT | UINT | CHAR | STRING | PERCENT))
 			&& (specs->flags & PREFIX))
 		specs->flags ^= PREFIX;
-	if ((specs->type & OCTAL) && (specs->flags & PREFIX))
-		specs->precision += 1;
+	if ((specs->type & OCTAL) && (specs->flags & PREFIX) && !specs->precision)
+		specs->precision = 1;
 	if ((specs->type & (INT | OCTAL | UINT | HEXA | HEXA_C))
 			&& (specs->flags & PAD) && (specs->flags & PRECISION))
 		specs->flags ^= PAD;
