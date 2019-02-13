@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/01/31 12:07:30 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 00:13:31 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,21 @@ typedef struct	s_specs
 	int		width;
 	int		is_neg;
 }				t_specs;
+
+union			u_value
+{
+	char				type_char;
+	unsigned char		type_uchar;
+	short				type_short;
+	unsigned short		type_ushort;
+	int					type_int;
+	unsigned int		type_uint;
+	long				type_long;
+	unsigned long		type_ulong;
+	long long			type_long_long;
+	unsigned long long	type_ulong_long;
+	void				*type_ptr;
+};
 
 enum			e_flags
 {
@@ -67,6 +82,7 @@ enum			e_type
 	PERCENT = 1 << 11
 };
 
+int				pf_strlen(const char *str);
 int				pf_min(int a, int b);
 int				pf_max(int a, int b);
 char			*get_base(int type);
