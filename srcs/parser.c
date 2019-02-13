@@ -6,27 +6,28 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/01/30 16:35:33 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 14:19:48 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "extractor.h"
 
 t_parser	g_parser[] =
 {
 	{'d', INT, &extract_int_conv},
 	{'i', INT, &extract_int_conv},
-	{'o', OCTAL, &extract_int_conv_u},
-	{'u', UINT, &extract_int_conv_u},
-	{'x', HEXA, &extract_int_conv_u},
-	{'X', HEXA_C, &extract_int_conv_u},
+	{'o', OCTAL, &extract_int_conv},
+	{'u', UINT, &extract_int_conv},
+	{'x', HEXA, &extract_int_conv},
+	{'X', HEXA_C, &extract_int_conv},
 	{'f', FLOAT, &extract_float_conv},
 	{'a', FLOAT_HEXA, &extract_float_conv_hex},
 	{'A', FLOAT_HEXA_C, &extract_float_conv_hex},
 	{'c', CHAR, &extract_char_conv},
 	{'s', STRING, &extract_str_conv},
 	{'p', POINTER, &extract_pointer_conv},
-	{'%', PERCENT, &extract_percent_conv}
+	{'%', PERCENT, &extract_char_conv}
 };
 
 static int	parse_nbr(const char **str)

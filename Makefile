@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/02/06 14:37:36 by apion            ###   ########.fr        #
+#    Updated: 2019/02/13 14:31:12 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,23 +24,8 @@ C_DIR		:= srcs
 H_DIR		:= incs
 O_DIR		:= .obj
 D_DIR		:= $(O_DIR)
-C_FILES		:= srcs/extract_char_conv.c \
-				srcs/extract_float_conv.c \
-				srcs/extract_float_conv_hex.c \
-				srcs/extract_int_conv.c \
-				srcs/extract_int_conv_char.c \
-				srcs/extract_int_conv_int.c \
-				srcs/extract_int_conv_long.c \
-				srcs/extract_int_conv_long_long.c \
-				srcs/extract_int_conv_short.c \
-				srcs/extract_int_conv_uchar.c \
-				srcs/extract_int_conv_uint.c \
-				srcs/extract_int_conv_ulong.c \
-				srcs/extract_int_conv_ulong_long.c \
-				srcs/extract_int_conv_ushort.c \
-				srcs/extract_percent_conv.c \
-				srcs/extract_pointer_conv.c \
-				srcs/extract_str_conv.c \
+C_FILES		:= srcs/extract_arg.c \
+				srcs/extractor.c \
 				srcs/filler.c \
 				srcs/filler_float.c \
 				srcs/filter.c \
@@ -49,25 +34,38 @@ C_FILES		:= srcs/extract_char_conv.c \
 				srcs/handler.c \
 				srcs/parser.c \
 				srcs/utils.c \
-				srcs/utils_float.c
+				srcs/utils_float.c \
+				srcs/handlers/handle_char_conv.c \
+				srcs/handlers/handle_float_conv.c \
+				srcs/handlers/handle_float_conv_hex.c \
+				srcs/handlers/handle_int_conv.c \
+				srcs/handlers/handle_int_conv_char.c \
+				srcs/handlers/handle_int_conv_int.c \
+				srcs/handlers/handle_int_conv_long.c \
+				srcs/handlers/handle_int_conv_long_long.c \
+				srcs/handlers/handle_int_conv_short.c \
+				srcs/handlers/handle_int_conv_uchar.c \
+				srcs/handlers/handle_int_conv_uint.c \
+				srcs/handlers/handle_int_conv_ulong.c \
+				srcs/handlers/handle_int_conv_ulong_long.c \
+				srcs/handlers/handle_int_conv_ushort.c \
+				srcs/handlers/handle_str_conv.c
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
 
-TEST_LIBUNIT	:= test/test_printf
-
-TEST_DIR		:= test/old
-TEST_BIN		:= test/.bin
 TEST_INT		:= test_int
 TEST_INT_BIN	:= $(TEST_INT).bin
-MAIN_INT		:= $(TEST_DIR)/main_int.c
+MAIN_INT		:= test/main_int.c
 
 TEST_FLOAT		:= test_float
 TEST_FLOAT_BIN	:= $(TEST_FLOAT).bin
-MAIN_FLOAT		:= $(TEST_DIR)/main_float.c
+MAIN_FLOAT		:= test/main_float.c
 
 TEST_BEHAVIOUR		:= test_behaviour
 TEST_BEHAVIOUR_BIN	:= $(TEST_BEHAVIOUR).bin
-MAIN_BEHAVIOUR		:= $(TEST_DIR)/float_behaviour.c
+MAIN_BEHAVIOUR		:= test/float_behaviour.c
+
+
 
 .PHONY: all
 all: $(NAME)
@@ -102,24 +100,20 @@ include $(wildcard $(D_DIR)/*.d)
 
 # --- Tests --- #
 
-.PHONY: test
-test:
-	$(MAKE) -C $(TEST_LIBUNIT) $@
-
 $(TEST_INT_BIN): $(NAME) $(MAIN_INT)
-	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $(TEST_BIN)/$@
+	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
 
 $(TEST_INT): $(TEST_INT_BIN)
-	./$(TEST_BIN)/$^
+	./$^
 
 $(TEST_FLOAT_BIN): $(NAME) $(MAIN_FLOAT)
-	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $(TEST_BIN)/$@
+	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
 
 $(TEST_FLOAT): $(TEST_FLOAT_BIN)
-	./$(TEST_BIN)/$^
+	./$^
 
 $(TEST_BEHAVIOUR_BIN): $(NAME) $(MAIN_BEHAVIOUR)
-	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $(TEST_BIN)/$@
+	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
 
 $(TEST_BEHAVIOUR): $(TEST_BEHAVIOUR_BIN)
-	./$(TEST_BIN)/$^
+	./$^

@@ -1,48 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_int_conv_short.c                           :+:      :+:    :+:   */
+/*   handle_int_conv_char.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 23:00:49 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 00:31:59 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
 #include "utils.h"
 #include "filter.h"
 #include "filler.h"
 
-static short	extract_arg(va_list ap)
+static int		get_length(char value, char *base)
 {
-	return ((short)va_arg(ap, int));
+	int		length;
+	int		base_length;
+
+	base_length = pf_strlen(base);
+	length = 1;
+	while (value /= base_length)
+		length++;
+	return (length);
 }
 
-static int		get_size(short value, char *base)
-{
-	int		size;
-	int		b;
-
-	b = 0;
-	while (*(base + b))
-		b++;
-	size = 1;
-	while (value /= b)
-		size++;
-	return (size);
-}
-
-static void		fill_str(short value, char *base, char *str, t_specs *specs)
+static void		fill_str(char value, char *base, char *str, t_specs *specs)
 {
 	int		b;
 	int		i;
 	int		j;
 
-	b = 0;
-	while (*(base + b))
-		b++;
+	b = pf_strlen(base);
 	i = 0;
 	i += filler(str, specs, FILL_START);
 	j = specs->width_arg;
@@ -55,15 +45,13 @@ static void		fill_str(short value, char *base, char *str, t_specs *specs)
 	filler(str + i, specs, i);
 }
 
-int				extract_int_conv_short(va_list ap, t_specs *specs, char *str)
+int				handle_int_conv_char(char value, t_specs *specs, char *str)
 {
-	short	value;
 	char	*base;
 
-	value = extract_arg(ap);
 	base = get_base(specs->type);
 	specs->is_neg = value < 0;
-	specs->width_arg = get_size(value, base);
+	specs->width_arg = get_length(value, base);
 	if (!value && (specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C)))
 		specs->flags ^= PREFIX;
 	if (!value && (specs->flags & PRECISION) && !specs->precision)
