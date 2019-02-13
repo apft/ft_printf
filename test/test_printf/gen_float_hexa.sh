@@ -10,17 +10,17 @@ template_launcher=${template_folder}/00_launcher_${TEST_TYPE}.c
 template_header=${template_folder}/test_${TEST_TYPE}.h
 
 folder="test_${TEST_TYPE}"
-[ ! -d $folder ] && mkdir $folder
+[ ! -d "$folder" ] && mkdir $folder
 launcher="$folder/00_launcher.c"
 header="$folder/test_${TEST_TYPE}.h"
 if [ ! -f $launcher ]
 then
-	[ $debug -eq 1 ] && echo "get template file: ${template_launcher}"
+	[ "$debug" -eq 1 ] && echo "get template file: ${template_launcher}"
 	cp ${template_launcher} $launcher
 fi
-if [ ! -f $header ]
+if [ ! -f "$header" ]
 then
-	[ $debug -eq 1 ] && echo "get template file: ${template_header}"
+	[ "$debug" -eq 1 ] && echo "get template file: ${template_header}"
 	cp ${template_header} $header
 fi
 
@@ -36,20 +36,21 @@ read_block()
 		if [ ${in_block} -eq 1 ]
 		then
 			loop=$((loop + 1))
-			[ $loop -le 9 ] && prefix="00$loop"
-			[ $loop -ge 10 -a $loop -le 99 ] && prefix="0$loop"
-			[ $loop -ge 100 ] && prefix=$loop
-			title=`echo ${data_line} | cut -d ',' -f 1 | sed "s/#/$1 ${count[$(get_index_count $type)]}/"`
+			[ "$loop" -le 9 ] && prefix="00$loop"
+			[ "$loop" -ge 10 -a $loop -le 99 ] && prefix="0$loop"
+			[ "$loop" -ge 100 ] && prefix=$loop
+			title=`echo ${data_line} | cut -d ',' -f 1 | cut -d \" -f 2 | sed "s/#/$1 ${count[$(get_index_count $type)]}/"`
+			title=`echo \"$prefix $title\"`
 			proto=`echo ${data_line} | cut -d ',' -f 2`
 			proto="${proto}_${type}_${count[$(get_index_count $type)]}"
 			type_var=`echo ${data_line} | cut -d ',' -f 3`
 			value=`echo ${data_line} | cut -d ',' -f 4`
 			file="${prefix}_${proto}_${count[$(get_index_count $type)]}.c"
 			nbr_arg=$(( `echo $format | tr -dc '|' | wc -c` - 1))
-			#[ $debug -eq 1 ] && echo $type   ${count[$(get_index_count $type)]}   $title   $proto   $value   $file   $nbr_arg
+			#[ "$debug" -eq 1 ] && echo $type   ${count[$(get_index_count $type)]}   $title   $proto   $value   $file   $nbr_arg
 			if [ ! -f "$folder/$file" ]
 			then
-				[ $debug -eq 1 ] && echo "generating file: $file"
+				[ "$debug" -eq 1 ] && echo "generating file: $file"
 				{
 					for inc in $includes
 					do
@@ -81,7 +82,7 @@ read_block()
 					echo "\treturn (error);"
 					echo "}"
 				} > $folder/$file
-				[ $debug -eq 1 ] && echo "add to launcher"
+				[ "$debug" -eq 1 ] && echo "add to launcher"
 				n_line=`cat $launcher | wc -l | tr -d ' '`
 				n=$((n_line - 2))
 				{
@@ -90,7 +91,7 @@ read_block()
 					tail -n 2 $launcher
 				} > $launcher.tmp
 				mv $launcher.tmp $launcher
-				[ $debug -eq 1 ] && echo "add to header"
+				[ "$debug" -eq 1 ] && echo "add to header"
 				n_line=`cat $header | wc -l | tr -d ' '`
 				n=$((n_line - 2))
 				{
@@ -123,7 +124,7 @@ inc_count()
 
 data_block="data_block.txt"
 end="end_block"
-[ $debug -eq 1 ] && echo "extract data block"
+[ "$debug" -eq 1 ] && echo "extract data block"
 head -n $(grep -n $end $data | cut -d ':' -f 1 | head -n 1) $data > ${data_block}
 
 loop=0;
@@ -133,7 +134,7 @@ count=(0 0)
 while read line
 do
 	[ "$line" = "start_block" ] && block=1;
-	if [ $block -eq 0 ]
+	if [ "$block" -eq 0 ]
 	then
 		type=`echo $line | cut -d ',' -f 1`
 		format=`echo $line | cut -d ',' -f 2`

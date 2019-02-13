@@ -10,17 +10,17 @@ template_launcher=${template_folder}/00_launcher_${TEST_TYPE}.c
 template_header=${template_folder}/test_${TEST_TYPE}.h
 
 folder="test_${TEST_TYPE}"
-[ ! -d $folder ] && mkdir $folder
+[ ! -d "$folder" ] && mkdir $folder
 launcher="$folder/00_launcher.c"
 header="$folder/test_${TEST_TYPE}.h"
-if [ ! -f $launcher ]
+if [ ! -f "$launcher" ]
 then
-	[ $debug -eq 1 ] && echo "get template file: ${template_launcher}"
+	[ "$debug" -eq 1 ] && echo "get template file: ${template_launcher}"
 	cp ${template_launcher} $launcher
 fi
-if [ ! -f $header ]
+if [ ! -f "$header" ]
 then
-	[ $debug -eq 1 ] && echo "get template file: ${template_header}"
+	[ "$debug" -eq 1 ] && echo "get template file: ${template_header}"
 	cp ${template_header} $header
 fi
 
@@ -30,17 +30,18 @@ variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\t
 loop=0;
 while read line
 do
-	title=`echo $line | cut -d ',' -f 1`
+	title=`echo $line | cut -d ',' -f 1 | cut -d \" -f 2`
 	proto=`echo $line | cut -d ',' -f 2`
 	format=`echo $line | cut -d ',' -f 3`
 	args=`echo $line | cut -d ',' -f 4-`
 	echo "$title  $proto  $format  $args"
 	loop=$((loop + 1))
-	[ $loop -le 9 ] && prefix="0$loop" || prefix=$loop
+	[ "$loop" -le 9 ] && prefix="0$loop" || prefix=$loop
 	file="${prefix}_${proto}.c"
+	title=`echo \"$prefix $title\"`
 	if [ ! -f "$folder/$file" ]
 	then
-		[ $debug -eq 1 ] && echo "generating file: $file"
+		[ "$debug" -eq 1 ] && echo "generating file: $file"
 		{
 			for inc in $includes
 			do
@@ -61,7 +62,7 @@ do
 			echo "\treturn (error);"
 			echo "}"
 		} > $folder/$file
-		[ $debug -eq 1 ] && echo "add to launcher"
+		[ "$debug" -eq 1 ] && echo "add to launcher"
 		n_line=`cat $launcher | wc -l | tr -d ' '`
 		n=$((n_line - 2))
 		{
@@ -70,7 +71,7 @@ do
 			tail -n 2 $launcher
 		} > $launcher.tmp
 		mv $launcher.tmp $launcher
-		[ $debug -eq 1 ] && echo "add to header"
+		[ "$debug" -eq 1 ] && echo "add to header"
 		n_line=`cat $header | wc -l | tr -d ' '`
 		n=$((n_line - 2))
 		{
