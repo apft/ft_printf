@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:57:53 by apion             #+#    #+#             */
-/*   Updated: 2019/02/13 00:03:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 14:18:54 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ void	extract_arg_uinteger(va_list ap, union u_value *value, int flag)
 
 char	*extract_arg_str(va_list ap)
 {
-	return (va_arg(ap, char *));
+	char	*str;
+
+	str = (char *)va_arg(ap, void *);
+	return (str);
 }

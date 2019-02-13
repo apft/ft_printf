@@ -6,11 +6,12 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/02/12 23:21:52 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 14:19:48 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "extractor.h"
 
 t_parser	g_parser[] =
 {
