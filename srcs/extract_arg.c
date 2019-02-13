@@ -6,12 +6,13 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:57:53 by apion             #+#    #+#             */
-/*   Updated: 2019/02/13 14:18:54 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 14:54:40 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "utils.h"
+#include "utils_float.h"
 
 void	extract_arg_integer(va_list ap, union u_value *value, int flag)
 {
@@ -39,4 +40,9 @@ char	*extract_arg_str(va_list ap)
 
 	str = (char *)va_arg(ap, void *);
 	return (str);
+}
+
+void	extract_arg_double(va_list ap, union u_double *value)
+{
+	value->type_dbl = va_arg(ap, double);
 }

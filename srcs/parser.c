@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/02/13 14:19:48 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 14:52:11 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_parser	g_parser[] =
 	{'x', HEXA, &extract_int_conv},
 	{'X', HEXA_C, &extract_int_conv},
 	{'f', FLOAT, &extract_float_conv},
-	{'a', FLOAT_HEXA, &extract_float_conv_hex},
-	{'A', FLOAT_HEXA_C, &extract_float_conv_hex},
+	{'a', FLOAT_HEXA, &extract_float_conv},
+	{'A', FLOAT_HEXA_C, &extract_float_conv},
 	{'c', CHAR, &extract_char_conv},
 	{'s', STRING, &extract_str_conv},
 	{'p', POINTER, &extract_pointer_conv},

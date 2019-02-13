@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:50:00 by apion             #+#    #+#             */
-/*   Updated: 2019/02/13 14:23:43 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 15:38:06 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,24 @@ int		extract_pointer_conv(va_list ap, t_specs *specs, char *str)
 	specs->flags |= PREFIX | MOD_L;
 	specs->type |= HEXA;
 	return (extract_int_conv(ap, specs, str));
+}
+
+int		extract_float_conv(va_list ap, t_specs *specs, char *str)
+{
+	union u_double	value;
+
+	value = (union u_double){0};
+	extract_arg_double(ap, &value);
+	if (value.field.exp == FLOAT_EXP_MAX)
+	{
+		if (!value.field.frac && !value.field.sign)
+			return (handle_str_conv("inf", specs, str));
+		if (!value.field.frac && value.field.sign)
+			return (handle_str_conv("-inf", specs, str));
+		if (value.field.frac)
+			return (handle_str_conv("nan", specs, str));
+	}
+	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
+		return (handle_float_conv_hex(&value, specs, str));
+	return (handle_float_conv(&value, specs, str));
 }

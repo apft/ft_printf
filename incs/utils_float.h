@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/01/31 18:23:51 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 14:54:40 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 union					u_double
 {
-	double				n;
-	unsigned long		l;
+	double				type_dbl;
+	unsigned long		type_long;
 	struct
 	{
 		unsigned long	frac:FLOAT_SIZE_FRAC;
