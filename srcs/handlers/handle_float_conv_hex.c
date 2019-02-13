@@ -6,11 +6,10 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 15:14:48 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 15:38:12 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
 #include "utils.h"
 #include "utils_float.h"
 #include "float_round.h"
@@ -20,11 +19,6 @@
 #include "extractor.h"
 
 #include <stdio.h>
-static double		extract_arg(va_list ap)
-{
-	return (va_arg(ap, double));
-}
-
 static int		get_size(unsigned long n)
 {
 	int		size;
@@ -48,7 +42,7 @@ static int		get_size_exp(int exp)
 	return (size);
 }
 
-static void		fill_str(union u_double *value, char *b, char *str, t_specs *specs)
+static void		fill_str(union u_double *value, char *b, char *str,										 t_specs *specs)
 {
 	unsigned long	n;
 	int				i;
@@ -81,34 +75,24 @@ static void		fill_str(union u_double *value, char *b, char *str, t_specs *specs)
 	filler(str + pf_max(i, specs->width_arg), specs, pf_max(i, specs->width_arg));
 }
 
-int				extract_float_conv_hex(va_list ap, t_specs *specs, char *str)
+int				handle_float_conv_hex(union u_double *value, t_specs *specs,
+									char *str)
 {
-	union u_double	value;
 	char			*base;
 
-	value.n = extract_arg(ap);
-	if (value.field.exp == FLOAT_EXP_MAX)
-	{
-		if (!value.field.frac && !value.field.sign)
-			return (handle_str_conv("inf", specs, str));
-		if (!value.field.frac && value.field.sign)
-			return (handle_str_conv("-inf", specs, str));
-		if (value.field.frac)
-			return (handle_str_conv("nan", specs, str));
-	}
 	base = get_base(specs->type);
 //	if (str)
 //		dbg_print(value);
-	specs->is_neg = value.field.sign;
+	specs->is_neg = value->field.sign;
 	specs->flags |= PREFIX;
 	if (!(specs->flags & PRECISION))
-		specs->precision = value.field.frac ? get_size(value.field.frac) : 0;
-	specs->width_suffix = 2 + (value.field.exp ? get_size_exp(value.field.exp - FLOAT_EXP_BIAS) : 1);
+		specs->precision = value->field.frac ? get_size(value->field.frac) : 0;
+	specs->width_suffix = 2 + (value->field.exp ? get_size_exp(value->field.exp - FLOAT_EXP_BIAS) : 1);
 	filter_specs(specs);
 //	if (str)
 //		print_specs(specs);
-//	printf("sign\texp\n%d\t%d\n", value.field.sign, value.field.exp - FLOAT_EXP_BIAS);
+//	printf("sign\texp\n%d\t%d\n", value->field.sign, value->field.exp - FLOAT_EXP_BIAS);
 	if (str)
-		fill_str(&value, base, str, specs);
+		fill_str(value, base, str, specs);
 	return (1);
 }

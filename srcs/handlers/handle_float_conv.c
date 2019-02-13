@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 23:00:46 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/13 14:59:34 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@
 #include "filler.h"
 
 #include <stdio.h>
-static double		extract_arg(va_list ap)
-{
-	return (va_arg(ap, double));
-}
-
-static int		get_size(double value, char *base)
+static int	get_size(double value, char *base)
 {
 	int		size;
 	int		b;
@@ -35,7 +30,7 @@ static int		get_size(double value, char *base)
 	return (size);
 }
 
-static void		fill_str(union u_double *value, char *str, t_specs *specs)
+static void	fill_str(union u_double *value, char *str, t_specs *specs)
 {
 	double	a;
 	int		p;
@@ -44,12 +39,12 @@ static void		fill_str(union u_double *value, char *str, t_specs *specs)
 
 	(void)str;
 	(void)specs;
-	a = value->field.sign ? -value->field.sign * value->n : value->n;
+	a = value->field.sign ? -value->field.sign * value->type_dbl : value->type_dbl;
 	p = 0;
 	while ((a /= 10) > 1.0)
 		p++;
 	a *= 10;
-	printf("n= %f\npow= %d\na= %f\n", value->n, p, a);
+	printf("n= %f\npow= %d\na= %f\n", value->type_dbl, p, a);
 	i = 0;
 	while (a > 0.0 && i < 15)
 	{
@@ -63,22 +58,20 @@ static void		fill_str(union u_double *value, char *str, t_specs *specs)
 	get_size(2.3, "01");
 }
 
-int				extract_float_conv(va_list ap, t_specs *specs, char *str)
+int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 {
-	union u_double	value;
 	int				sign;
 	int				exp;
 
-	value.n = extract_arg(ap);
-	sign = (value.l >> 63) & 1;
-	exp = ((value.l << 1UL) >> 53) - 1023;
+	sign = (value->type_long >> 63) & 1;
+	exp = ((value->type_long << 1UL) >> 53) - 1023;
 	printf("sign\texp\n%d\t%d\n", sign, exp);
-	printf("sign\texp\n%d\t%d\n", value.field.sign, value.field.exp - 1023);
+	printf("sign\texp\n%d\t%d\n", value->field.sign, value->field.exp - 1023);
 	if (specs->flags & PRECISION && !specs->precision)
 		specs->precision = 1;
 	if ((specs->type & FLOAT) && !(specs->flags & PRECISION))
 		specs->precision = 6;
-	//printf("%f\n%llu\n", value.n, value.n);
+	//printf("%f\n%llu\n", value->n, value->n);
 //	specs->is_neg = value < 0;
 //	specs->width_arg = get_size(value, base) - specs->is_neg;
 //	if (!value && (specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C)))
