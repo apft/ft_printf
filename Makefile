@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/02/13 14:35:39 by apion            ###   ########.fr        #
+#    Updated: 2019/02/14 12:35:22 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/filter.c \
 				srcs/float_round.c \
 				srcs/ft_printf.c \
-				srcs/handler.c \
+				srcs/wrapper.c \
 				srcs/parser.c \
 				srcs/utils.c \
 				srcs/utils_float.c \
