@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/02/13 14:31:12 by apion            ###   ########.fr        #
+#    Updated: 2019/02/14 12:35:22 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/filter.c \
 				srcs/float_round.c \
 				srcs/ft_printf.c \
-				srcs/handler.c \
+				srcs/wrapper.c \
 				srcs/parser.c \
 				srcs/utils.c \
 				srcs/utils_float.c \
@@ -53,19 +53,21 @@ C_FILES		:= srcs/extract_arg.c \
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
 
+TEST_LIBUNIT	:= test/test_printf
+
+TEST_DIR		:= test/old
+TEST_BIN		:= test/.bin
 TEST_INT		:= test_int
 TEST_INT_BIN	:= $(TEST_INT).bin
-MAIN_INT		:= test/main_int.c
+MAIN_INT		:= $(TEST_DIR)/main_int.c
 
 TEST_FLOAT		:= test_float
 TEST_FLOAT_BIN	:= $(TEST_FLOAT).bin
-MAIN_FLOAT		:= test/main_float.c
+MAIN_FLOAT		:= $(TEST_DIR)/main_float.c
 
 TEST_BEHAVIOUR		:= test_behaviour
 TEST_BEHAVIOUR_BIN	:= $(TEST_BEHAVIOUR).bin
-MAIN_BEHAVIOUR		:= test/float_behaviour.c
-
-
+MAIN_BEHAVIOUR		:= $(TEST_DIR)/float_behaviour.c
 
 .PHONY: all
 all: $(NAME)
@@ -100,20 +102,24 @@ include $(wildcard $(D_DIR)/*.d)
 
 # --- Tests --- #
 
+.PHONY: test
+test:
+	$(MAKE) -C $(TEST_LIBUNIT) $@
+
 $(TEST_INT_BIN): $(NAME) $(MAIN_INT)
-	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
+	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $(TEST_BIN)/$@
 
 $(TEST_INT): $(TEST_INT_BIN)
-	./$^
+	./$(TEST_BIN)/$^
 
 $(TEST_FLOAT_BIN): $(NAME) $(MAIN_FLOAT)
-	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
+	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $(TEST_BIN)/$@
 
 $(TEST_FLOAT): $(TEST_FLOAT_BIN)
-	./$^
+	./$(TEST_BIN)/$^
 
 $(TEST_BEHAVIOUR_BIN): $(NAME) $(MAIN_BEHAVIOUR)
-	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $@
+	$(CC) $(CFLAGS) $(CINCLUDES) $^ -o $(TEST_BIN)/$@
 
 $(TEST_BEHAVIOUR): $(TEST_BEHAVIOUR_BIN)
-	./$^
+	./$(TEST_BIN)/$^
