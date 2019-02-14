@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:09:23 by apion             #+#    #+#             */
-/*   Updated: 2019/02/14 13:57:44 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/14 17:50:48 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	print_borders()
 	printf("+\n");
 }
 
-static void	print_blocks_number(int n)
+static void	print_blocks_number(unsigned int n)
 {
 	int		i;
 	char	highlight;
@@ -40,7 +40,7 @@ static void	print_blocks_number(int n)
 	printf("\n");
 }
 
-static void	print_bits(int n)
+void	print_bits(unsigned int n)
 {
 	int		i;
 
@@ -50,7 +50,7 @@ static void	print_bits(int n)
 	printf("|");
 }
 
-static void	print_blocks(int *blocks)
+static void	print_blocks(unsigned int *blocks)
 {
 	int		i;
 
