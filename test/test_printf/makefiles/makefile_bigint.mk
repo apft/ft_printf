@@ -6,10 +6,21 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 14:38:00 by apion             #+#    #+#              #
-#    Updated: 2019/02/15 14:57:42 by apion            ###   ########.fr        #
+#    Updated: 2019/02/15 16:10:38 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-C_FILES_BIGINT = test_bigint/test_add/00_launcher.c \
+C_FILES_BIGINT		:= test_bigint/test_bigint.c
+
+C_FILES_BIGINT_CMP	:= test_bigint/test_cmp/00_launcher.c \
+						test_bigint/test_cmp/01_test_bigint_cmp_equal.c \
+						test_bigint/test_cmp/02_test_bigint_cmp_inf.c \
+						test_bigint/test_cmp/03_test_bigint_cmp_sup.c \
+						test_bigint/test_cmp/04_test_bigint_cmp_length_inf.c \
+						test_bigint/test_cmp/05_test_bigint_cmp_length_sup.c \
+						test_bigint/test_cmp/06_test_bigint_cmp_equal_null.c
+
+C_FILES_BIGINT_ADD	:= test_bigint/test_add/00_launcher.c \
 					test_bigint/test_add/01_test_bigint_add_bigint.c
 
+C_FILES_BIGINT		+= $(C_FILES_BIGINT_CMP) $(C_FILES_BIGINT_ADD)
