@@ -6,13 +6,13 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:09:23 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 11:31:01 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 12:35:39 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "bigint.h"
 
-#include <stdio.h>
 static void	print_borders()
 {
 	int		width_block;
@@ -61,7 +61,7 @@ static void	print_blocks(unsigned int *blocks)
 	printf("\n");
 }
 
-void	print_big_int(t_bigint *bigint)
+void	print_bigint(t_bigint *bigint)
 {
 	print_borders();
 	print_blocks(bigint->blocks);

@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/02/07 17:52:39 by apion            ###   ########.fr        #
+#    Updated: 2019/02/15 12:20:51 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,12 @@ LIBUNIT				= $(LIBUNIT_PATH)/$(LIBUNIT_NAME)
 NAME				= $(EXEC).out
 EXEC				= test
 C_DIR				=
-H_DIR				= . $(LIBUNIT_PATH)
+H_DIR				= . $(LIBUNIT_PATH) $(FTPRINTF_PATH)srcs/bigint
 D_DIR				= .dep/
 O_DIR				= .obj/
 C_FILES				:= main.c \
 						utils.c \
+						print_bigint.c \
 						test_int/001_test_int_null_d_0_0.c \
 						test_int/002_test_int_pos_d_0_0.c \
 						test_int/003_test_int_neg_d_0_0.c \
@@ -1109,7 +1110,9 @@ C_FILES				:= main.c \
 						test_ptr_percent/01_test_ptr.c \
 						test_ptr_percent/02_test_ptr_null.c \
 						test_ptr_percent/03_test_percent.c \
-						test_ptr_percent/04_test_percent_hard.c
+						test_ptr_percent/04_test_percent_hard.c \
+						test_bigint/00_launcher.c \
+						test_bigint/01_test_bigint_add_bigint.c
 O_FILES			:= $(C_FILES:%.c=%.o)
 D_FILES			:= $(C_FILES:%.c=%.d)
 DIRS			:= $(strip $(filter-out ./,$(sort $(dir $(C_FILES))))) .
