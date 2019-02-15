@@ -1,7 +1,7 @@
 #!/bin/sh
 
 debug=1;
-TEST_TYPE="ptr_percent"
+TEST_TYPE="str_char"
 
 data="${TEST_TYPE}_format.txt"
 
@@ -9,11 +9,11 @@ template_folder="template"
 template_launcher=${template_folder}/00_launcher_${TEST_TYPE}.c
 template_header=${template_folder}/test_${TEST_TYPE}.h
 
-folder="test_${TEST_TYPE}"
+folder="../test_${TEST_TYPE}"
 [ ! -d "$folder" ] && mkdir $folder
 launcher="$folder/00_launcher.c"
 header="$folder/test_${TEST_TYPE}.h"
-if [ ! -f $launcher ]
+if [ ! -f "$launcher" ]
 then
 	[ "$debug" -eq 1 ] && echo "get template file: ${template_launcher}"
 	cp ${template_launcher} $launcher
@@ -54,7 +54,7 @@ do
 			echo "\tformat = $format;"
 			echo "\tret_exp = sprintf(str_printf, format, $args);"
 			echo "\tret = ft_printf_str(&out, format, $args);"
-			echo "\tdiff = strcmp(out, str_printf);"
+			echo "\tdiff = memcmp(str_printf, out, ret_exp);"
 			echo "\terror = ret != ret_exp || diff;"
 			echo "\tif (error)"
 			echo "\t\tprint_diff(format, ret, ret_exp, str_printf, out, diff);"
