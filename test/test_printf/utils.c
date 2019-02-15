@@ -6,12 +6,12 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 15:23:11 by apion             #+#    #+#             */
-/*   Updated: 2019/02/20 12:56:18 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 12:15:53 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-//#include "bigint.h"
+#include "bigint.h"
 
 void	print_diff(char *format, int length_return, int length_expected,
 					char *expected, char *result, int diff)
@@ -31,14 +31,14 @@ void	print_diff(char *format, int length_return, int length_expected,
 	printf("  --diff cmp : %d\n", diff);
 }
 
-//void	print_diff_bigint(t_bigint *a, t_bigint *b, t_bigint *result,
-//	   					t_bigint *expected, int diff)
-//{
-//	printf("cmp(result, expected) = %d\n", diff);
-//	printf("a\tb\n");
-//	print_bigint(a);
-//	print_bigint(b);
-//	printf("result\texpected\n");
-//	print_bigint(result);
-//	print_bigint(expected);
-//}
+void	print_diff_bigint(t_bigint *a, t_bigint *b, t_bigint *result,
+	   					t_bigint *expected, int diff)
+{
+	printf("cmp(result, expected) = %d\n", diff);
+	printf("a\tb\n");
+	print_bigint(a);
+	print_bigint(b);
+	printf("result\texpected\n");
+	print_bigint(result);
+	print_bigint(expected);
+}
