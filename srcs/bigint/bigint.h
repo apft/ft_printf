@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:48:57 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 11:12:18 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 12:32:10 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_bigint
 }				t_bigint;
 
 void			print_bigint(t_bigint *value);
+int				bigint_cmp(t_bigint *a, t_bigint *b);
 void			bigint_add(t_bigint *r, t_bigint *a, t_bigint *b);
 void			bigint_shift_left(t_bigint *r, t_bigint *a, unsigned int shift);
 void			bigint_shift_left_self(t_bigint *a, unsigned int shift);
