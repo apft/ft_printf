@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/02/20 12:48:07 by apion            ###   ########.fr        #
+#    Updated: 2019/02/17 11:49:30 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CPPFLAGS	= -MMD -MP -MF $(D_DIR)/$*.d
 
 NAME		:= libftprintf.a
 C_DIR		:= srcs
-H_DIR		:= incs
+H_DIR		:= incs srcs/bigint
 O_DIR		:= .obj
 D_DIR		:= $(O_DIR)
 C_FILES		:= srcs/extract_arg.c \
@@ -31,7 +31,6 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/filter.c \
 				srcs/float_round.c \
 				srcs/ft_printf.c \
-				srcs/ft_vprintf.c \
 				srcs/wrapper.c \
 				srcs/parser.c \
 				srcs/utils.c \
@@ -50,9 +49,16 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/handlers/handle_int_conv_ulong.c \
 				srcs/handlers/handle_int_conv_ulong_long.c \
 				srcs/handlers/handle_int_conv_ushort.c \
-				srcs/handlers/handle_str_conv.c
+				srcs/handlers/handle_str_conv.c \
+				srcs/bigint/add.c \
+				srcs/bigint/cmp.c \
+				srcs/bigint/init.c \
+				srcs/bigint/shift.c \
+				srcs/bigint/sub.c \
+				srcs/bigint/utils.c
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
+DIRS		:= $(strip $(filter-out ./,$(sort $(dir $(C_FILES))))) .
 
 TEST_LIBUNIT	:= test/test_printf
 
@@ -77,10 +83,10 @@ $(NAME): $(addprefix $(O_DIR)/, $(O_FILES))
 	$(AR) rs $@ $?
 
 $(O_DIR)/%.o: %.c
-$(O_DIR)/%.o: %.c $(D_DIR)/%.d | $(O_DIR)/$(C_DIR)
+$(O_DIR)/%.o: %.c $(D_DIR)/%.d | $(addprefix $(O_DIR)/, $(DIRS))
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(CINCLUDES) -o $@ -c $<
 
-$(O_DIR)/$(C_DIR):
+$(addprefix $(O_DIR)/, $(DIRS)):
 	mkdir -p $@
 
 %.d: ;
