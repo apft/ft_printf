@@ -6,14 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 15:23:11 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 12:06:00 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 12:15:53 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "bigint.h"
 
-void	print_diff(char *format, int length_return, int length_expexted,
+void	print_diff(char *format, int length_return, int length_expected,
 					char *expected, char *result, int diff)
 {
 	int		length_diff;

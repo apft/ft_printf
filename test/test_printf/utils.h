@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 15:28:01 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 11:53:36 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 12:16:10 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define BUFF_SIZE 2048
 
-void	print_diff(char *format, int length_return, int length_expexted,
+void	print_diff(char *format, int length_return, int length_expected,
 					char *expected, char *result, int diff);
 void	print_diff_bigint(t_bigint *a, t_bigint *b, t_bigint *result,
 							t_bigint *epxected, int diff);
