@@ -6,11 +6,11 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:03:40 by apion             #+#    #+#             */
-/*   Updated: 2019/02/14 16:55:06 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 11:31:21 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "big_int.h"
+#include "bigint.h"
 
 void	bigint_add(t_bigint *result, t_bigint *a, t_bigint *b)
 {
