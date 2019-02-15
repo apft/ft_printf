@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   01_test_bigint_add_bigint.c                        :+:      :+:    :+:   */
+/*   08_test_bigint_add_int_carry.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/15 11:11:12 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 17:03:36 by apion            ###   ########.fr       */
+/*   Created: 2019/02/15 17:16:53 by apion             #+#    #+#             */
+/*   Updated: 2019/02/15 17:17:47 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "bigint.h"
 
-int		test_bigint_add_bigint(void)
+int		test_bigint_add_int_carry(void)
 {
 	t_bigint	a;
-	t_bigint	b;
+	int			n;
 	t_bigint	result;
 	t_bigint	expected;
 	int			diff;	
 
 	a = (t_bigint){1, {256, 0, 0, 0, 0}};
-	b = (t_bigint){2, {42, 789, 0, 0, 0}};
+	n = 0xffffffff;
 	bigint_init_null(&result);
-	expected = (t_bigint){2, {298, 789, 0, 0, 0}};
+	expected = (t_bigint){1, {n, 256, 0, 0, 0}};
 
-	bigint_add(&result, &a, &b);
+	bigint_add_int(&result, &a, n);
 	diff = bigint_cmp(&result, &expected);
 	if (diff)
-		print_diff_bigint(&a, &b, &result, &expected, diff);	
+		print_diff_bigint(&a, 0, &result, &expected, diff);	
 	return (diff);
 }

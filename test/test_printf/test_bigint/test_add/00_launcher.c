@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 11:02:33 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 15:06:29 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 17:20:05 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ int		test_bigint_add_launcher(void)
 
 	test_list = 0;
 	add_test(&test_list, "Add: bigint + bigint", &test_bigint_add_bigint);
-//	add_test(&test_list, "Add self: bigint + bigint", &test_bigint_add_bigint_self);
-//	add_test(&test_list, "Add null: bigint + (bigint)0", &test_bigint_add_bigint_null);
-//	add_test(&test_list, "Add carry: bigint + bigint", &test_bigint_add_bigint_carry);
-//	add_test(&test_list, "Add overflow: bigint + bigint", &test_bigint_add_bigint_overflow);
-//	add_test(&test_list, "Add: bigint + int", &test_bigint_add_int);
-//	add_test(&test_list, "Add null: bigint + 0", &test_bigint_add_int_null);
-//	add_test(&test_list, "Add carry: bigint + int", &test_bigint_add_int_carry);
-//	add_test(&test_list, "Add overflow: bigint + int", &test_bigint_add_int_overflow);
-	return (launch_tests("TEST BIGINT", &test_list));
+	add_test(&test_list, "Add self: bigint + bigint", &test_bigint_add_bigint_self);
+	add_test(&test_list, "Add null: bigint + (bigint)0", &test_bigint_add_bigint_null);
+	add_test(&test_list, "Add carry: bigint + bigint", &test_bigint_add_bigint_carry);
+	add_test(&test_list, "Add overflow: bigint + bigint", &test_bigint_add_bigint_overflow);
+	add_test(&test_list, "Add: bigint + int", &test_bigint_add_int);
+	add_test(&test_list, "Add null: bigint + 0", &test_bigint_add_int_null);
+	add_test(&test_list, "Add carry: bigint + int", &test_bigint_add_int_carry);
+	add_test(&test_list, "Add overflow: bigint + int", &test_bigint_add_int_overflow);
+	return (launch_tests("TEST BIGINT ADD", &test_list));
 }
-
