@@ -6,11 +6,11 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:09:23 by apion             #+#    #+#             */
-/*   Updated: 2019/02/14 17:50:48 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 11:31:01 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "big_int.h"
+#include "bigint.h"
 
 #include <stdio.h>
 static void	print_borders()

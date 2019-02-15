@@ -6,11 +6,11 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:58:42 by apion             #+#    #+#             */
-/*   Updated: 2019/02/14 18:27:37 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 11:32:11 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "big_int.h"
+#include "bigint.h"
 
 void	bigint_shift_left_self(t_bigint *result, unsigned int shift)
 {
