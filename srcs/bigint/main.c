@@ -6,11 +6,11 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:45:29 by apion             #+#    #+#             */
-/*   Updated: 2019/02/14 18:16:46 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 11:31:32 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "big_int.h"
+#include "bigint.h"
 
 #include <stdio.h>
 int		main(void)
