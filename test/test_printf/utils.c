@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 15:23:11 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 16:04:53 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/15 17:13:58 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ void	print_diff_bigint(t_bigint *a, t_bigint *b, t_bigint *result,
 	   					t_bigint *expected, int diff)
 {
 	printf("cmp_diff = %d\n", diff);
-	printf("a\tb\n");
-	print_bigint(a);
-	print_bigint(b);
+	printf("%s\t%s\n", a ? "a" : "", b ? "b" : "");
+	if (a)
+		print_bigint(a);
+	if (b)
+		print_bigint(b);
 	if (result && expected)
 	{
 		printf("result\texpected\n");

@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_bigint_add.h                                  :+:      :+:    :+:   */
+/*   test_bigint_init.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/15 11:02:24 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 17:20:37 by apion            ###   ########.fr       */
+/*   Created: 2019/02/15 17:09:16 by apion             #+#    #+#             */
+/*   Updated: 2019/02/15 17:10:43 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_BIGINT_ADD_H
-# define TEST_BIGINT_ADD_H
+#ifndef TEST_BIGINT_INIT_H
+# define TEST_BIGINT_INIT_H
 
-int		test_bigint_add_bigint(void);
-int		test_bigint_add_bigint_self(void);
-int		test_bigint_add_bigint_null(void);
-int		test_bigint_add_bigint_carry(void);
-int		test_bigint_add_bigint_overflow(void);
-int		test_bigint_add_int(void);
-int		test_bigint_add_int_null(void);
-int		test_bigint_add_int_carry(void);
-int		test_bigint_add_int_overflow(void);
+int		test_bigint_init_null(void);
+int		test_bigint_init_int(void);
+int		test_bigint_init_int_null(void);
+int		test_bigint_init_int_max(void);
 
 #endif
