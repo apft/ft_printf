@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:03:40 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 12:37:33 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 13:09:25 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 void	bigint_add(t_bigint *result, t_bigint *a, t_bigint *b)
 {
-	int				length;
 	int				i;
 	unsigned long	carry;
 	unsigned long	sum;
 
-	length = a->length < b ->length ? b->length : a->length;
-	result->length = length;
+	result->length = (a->length < b->length) ? b->length : a->length;
 	i = 0;
 	carry = 0UL;
-	while (i < length)
+	while (i < result->length)
 	{
 		sum = carry;
 		sum += (unsigned long)(a->blocks[i]) + (unsigned long)(b->blocks[i]);
