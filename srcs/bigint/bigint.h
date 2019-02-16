@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:48:57 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 12:17:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 18:26:16 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void			bigint_init_int(t_bigint *a, unsigned int n);
 int				bigint_cmp(t_bigint *a, t_bigint *b);
 void			bigint_add(t_bigint *r, t_bigint *a, t_bigint *b);
 void			bigint_add_int(t_bigint *result, t_bigint *a, unsigned int n);
+void			bigint_sub(t_bigint *r, t_bigint *a, t_bigint *b);
+void			bigint_sub_int(t_bigint *result, t_bigint *a, unsigned int n);
 void			bigint_shift_left(t_bigint *r, t_bigint *a, unsigned int shift);
 void			bigint_shift_left_self(t_bigint *a, unsigned int shift);
 
