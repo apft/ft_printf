@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_launcher.c                                      :+:      :+:    :+:   */
+/*   test_bigint_shift.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/15 15:05:22 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 14:21:44 by apion            ###   ########.fr       */
+/*   Created: 2019/02/16 13:56:58 by apion             #+#    #+#             */
+/*   Updated: 2019/02/16 13:57:38 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test_bigint.h"
+#ifndef TEST_BIGINT_SHIFT_H
+# define TEST_BIGINT_SHIFT_H
 
-int		test_bigint_launcher()
-{
-	int		n;
+int		test_bigint_shift_left_launcher(void);
 
-	n = 0;
-	n += test_bigint_init_launcher();
-	n += test_bigint_cmp_launcher();
-	n += test_bigint_add_launcher();
-	n += test_bigint_shift_launcher();
-	return (n);
-}
+#endif
