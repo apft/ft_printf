@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:58:42 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 16:30:03 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 17:17:39 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void		bigint_shift_left(t_bigint *result, t_bigint *input,
 			if ((i + 1) == input->length && carry)
 				result->length += 1;
 		}
-		if (!mod && offset)
-			while (offset--)
-				result->blocks[offset] = 0;
+		while (offset--)
+			result->blocks[offset] = 0;
 	}
 }
