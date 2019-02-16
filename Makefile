@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/02/15 17:05:27 by apion            ###   ########.fr        #
+#    Updated: 2019/02/16 18:25:41 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/bigint/add.c \
 				srcs/bigint/cmp.c \
 				srcs/bigint/init.c \
-				srcs/bigint/shift.c
+				srcs/bigint/shift.c \
+				srcs/bigint/sub.c
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
 DIRS		:= $(strip $(filter-out ./,$(sort $(dir $(C_FILES))))) .
