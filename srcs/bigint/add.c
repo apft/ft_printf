@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:03:40 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 17:20:56 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 12:37:33 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,31 @@
 void	bigint_add(t_bigint *result, t_bigint *a, t_bigint *b)
 {
 	int				length;
-	int				block;
+	int				i;
 	unsigned long	carry;
 	unsigned long	sum;
 
 	length = a->length < b ->length ? b->length : a->length;
 	result->length = length;
-	block = 0;
-	carry = 0L;
-	while (block < length)
+	i = 0;
+	carry = 0UL;
+	while (i < length)
 	{
-		sum = carry + (unsigned long)(a->blocks[block]) + (unsigned long)(b->blocks[block]);
+		sum = carry;
+		sum += (unsigned long)(a->blocks[i]) + (unsigned long)(b->blocks[i]);
 		carry = sum >> BIGINT_SIZE_BLOCK;
-		result->blocks[block] = sum & 0xffffffff;
-		++block;
+		result->blocks[i] = sum & BIGINT_MASK_BLOCK;
+		++i;
 	}
 	if (carry)
 	{
 		if (result->length < BIGINT_N_BLOCKS)
 		{
-			result->blocks[block] = carry;
+			result->blocks[i] = carry;
 			result->length += 1;
 		}
 		else
-			result->blocks[block] = BIGINT_OVERFLOW;
+			result->blocks[i] = BIGINT_OVERFLOW;
 	}
 }
 

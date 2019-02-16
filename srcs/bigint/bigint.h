@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:48:57 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 17:04:09 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 12:17:50 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define BIGINT_N_BLOCKS 4
 # define BIGINT_SIZE_BLOCK 32
 
+# define BIGINT_MASK_BLOCK 0xffffffff
 # define BIGINT_OVERFLOW 0xf
 # define BIGINT_UNDERFLOW 0xf0
 
