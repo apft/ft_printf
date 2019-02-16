@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 14:38:00 by apion             #+#    #+#              #
-#    Updated: 2019/02/16 14:21:57 by apion            ###   ########.fr        #
+#    Updated: 2019/02/16 17:00:08 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,14 @@ C_FILES_BIGINT_SHIFT	:= test_bigint/test_shift/00_launcher.c \
 	test_bigint/test_shift/test_shift_left/03_test_bigint_shift_left_pos.c \
 	test_bigint/test_shift/test_shift_left/04_test_bigint_shift_left_block.c \
 	test_bigint/test_shift/test_shift_left/05_test_bigint_shift_left_few_blocks.c \
-	test_bigint/test_shift/test_shift_left/06_test_bigint_shift_left_overflow.c
+	test_bigint/test_shift/test_shift_left/06_test_bigint_shift_left_overflow.c \
+	test_bigint/test_shift/test_shift_left_self/00_launcher.c \
+	test_bigint/test_shift/test_shift_left_self/01_test_bigint_shift_left_null_self.c \
+	test_bigint/test_shift/test_shift_left_self/02_test_bigint_shift_left_one_self.c \
+	test_bigint/test_shift/test_shift_left_self/03_test_bigint_shift_left_pos_self.c \
+	test_bigint/test_shift/test_shift_left_self/04_test_bigint_shift_left_block_self.c \
+	test_bigint/test_shift/test_shift_left_self/05_test_bigint_shift_left_few_blocks_self.c \
+	test_bigint/test_shift/test_shift_left_self/06_test_bigint_shift_left_overflow_self.c
 
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_INIT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_CMP)
