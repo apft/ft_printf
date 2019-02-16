@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:52:13 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 16:06:59 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 12:04:30 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		test_bigint_cmp_length_inf(void)
 	b = (t_bigint){4, {42, 42, 5689851, 12, 0}};
 	
 	diff = bigint_cmp(&a, &b);
-	err = !(diff < 0);
+	err = !(diff == -1);
 	if (err)
 		print_diff_bigint(&a, &b, 0, 0, diff);	
 	return (err);
