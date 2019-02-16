@@ -6,14 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 17:06:12 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 17:08:51 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 11:51:54 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libunit.h"
-#include "test_bigint_add.h"
+#include "test_bigint_init.h"
 
-int		test_bigint_add_launcher(void)
+int		test_bigint_init_launcher(void)
 {
 	t_unit_test *test_list;
 

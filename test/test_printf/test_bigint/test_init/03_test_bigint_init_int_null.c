@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_bigint.c                                      :+:      :+:    :+:   */
+/*   03_test_bigint_init_int_null.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/15 15:05:22 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 11:52:44 by apion            ###   ########.fr       */
+/*   Created: 2019/02/16 11:48:23 by apion             #+#    #+#             */
+/*   Updated: 2019/02/16 12:03:14 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test_bigint.h"
+#include "utils.h"
+#include "bigint.h"
 
-int		test_bigint_launcher()
+int		test_bigint_init_int_null(void)
 {
-	int		n;
+	t_bigint		a;
+	unsigned int	n;
+	int				err;
+	int				i;
 
 	n = 0;
-	n += test_bigint_init_launcher();
-	n += test_bigint_cmp_launcher();
-	n += test_bigint_add_launcher();
-	return (n);
+	bigint_init_int(&a, n);
+	err = 0;
+	i = 1;
+	while (!err && i < BIGINT_N_BLOCKS)
+		err += a.blocks[i++];
+	err += !(a.blocks[0]  == n) && !(a.length == 1);
+	if (err)
+	{
+		printf("a should be %#x = %u\n", n, n);
+		printf("length = %d\n", a.length);
+		print_bigint(&a);
+	}
+	return (err);
 }
