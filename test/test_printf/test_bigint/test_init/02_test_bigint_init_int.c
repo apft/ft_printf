@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 11:42:26 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 12:03:28 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 12:34:12 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		test_bigint_init_int(void)
 	i = 1;
 	while (!err && i < BIGINT_N_BLOCKS)
 		err += a.blocks[i++];
-	err += !(a.blocks[0]  == n) && !(a.length == 1);
+	err += !(a.blocks[0] == n) || !(a.length == 1);
 	if (err)
 	{
 		printf("a should be %#x = %u\n", n, n);
