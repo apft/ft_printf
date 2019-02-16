@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:38:42 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 16:50:13 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 12:10:31 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int		test_bigint_add_bigint_null(void)
 	int			diff;	
 
 	a = (t_bigint){2, {256, 23945870, 0, 0, 0}};
-	b = (t_bigint){0, {0, 0, 0, 0, 0}};
-	result = (t_bigint){0};
+	bigint_init_null(&b);
+	bigint_init_null(&result);
 	expected = (t_bigint){2, {256, 23945870, 0, 0, 0}};
 
 	bigint_add(&result, &a, &b);
