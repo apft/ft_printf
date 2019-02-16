@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 17:01:19 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 17:07:56 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 12:35:34 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ void	bigint_init_int(t_bigint *a, unsigned int n)
 {
 	bigint_init_null(a);
 	a->blocks[0] = n;
-	a->length += 1;
 }
