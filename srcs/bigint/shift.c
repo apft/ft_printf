@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:58:42 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 11:32:11 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/16 14:34:56 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,26 @@ void	bigint_shift_left(t_bigint *result, t_bigint *input, unsigned int shift)
 {
 	unsigned int	offset;
 	unsigned int	mod;
-	unsigned int	block;
-	unsigned int	tmp;
+	unsigned int	i;
+	unsigned int	carry;
 
 	offset = shift / BIGINT_SIZE_BLOCK;
 	mod = shift % BIGINT_SIZE_BLOCK;
-	block = input->length;
-	if ((!mod && block + offset > BIGINT_N_BLOCKS)
-				|| (mod && block + offset >= BIGINT_N_BLOCKS))
+	i = input->length;
+	if ((!mod && i + offset > BIGINT_N_BLOCKS)
+				|| (mod && i + offset >= BIGINT_N_BLOCKS))
 		result->blocks[BIGINT_N_BLOCKS] = BIGINT_OVERFLOW;
 	else
 	{
-		result->length = block + offset;
-		while (block--)
+		result->length = i + offset;
+		while (i--)
 		{
-			tmp = 0;
+			carry = 0;
 			if (mod)
-				tmp = input->blocks[block] >> (BIGINT_SIZE_BLOCK - mod);
-			result->blocks[block + offset + 1] += tmp;
-			result->blocks[block + offset] = input->blocks[block] << mod;
-			if (tmp)
+				carry = input->blocks[i] >> (BIGINT_SIZE_BLOCK - mod);
+			result->blocks[i + offset + 1] += carry;
+			result->blocks[i + offset] = input->blocks[i] << mod;
+			if ((i + 1) == input->length && carry)
 				result->length += 1;
 		}
 		if (!mod && offset)
