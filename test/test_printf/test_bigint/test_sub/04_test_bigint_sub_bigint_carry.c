@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:40:58 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 18:13:11 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/17 13:25:08 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int		test_bigint_sub_bigint_carry(void)
 	t_bigint	expected;
 	int			diff;	
 
-	a = (t_bigint){2, {257, BIGINT_BLOCK_MAX_VALUE, 0, 0, 0}};
-	b = (t_bigint){3, {42, 789, 468, 0, 0}};
+	a = (t_bigint){3, {42, 789, 468, 0, 0}};
+	b = (t_bigint){2, {257, BIGINT_BLOCK_MAX_VALUE, 0, 0, 0}};
 	bigint_init_null(&result);
-	expected = (t_bigint){3, {257 + 42,
-		(BIGINT_BLOCK_MAX_VALUE + 789) - BIGINT_BLOCK_MAX_VALUE - 1,
-		468 + 1,
+	expected = (t_bigint){3, {42 + (~257) -1,
+		789 + (~BIGINT_BLOCK_MAX_VALUE) - 1 - 1,
+		468 - 1,
 		0,
 		0}};
 
