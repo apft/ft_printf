@@ -5,23 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/15 15:05:22 by apion             #+#    #+#             */
-/*   Updated: 2019/02/17 12:11:50 by apion            ###   ########.fr       */
+/*   Created: 2019/02/17 11:55:13 by apion             #+#    #+#             */
+/*   Updated: 2019/02/17 12:13:16 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test_bigint.h"
+#include "libunit.h"
+#include "test_bigint_utils.h"
 
-int		test_bigint_launcher()
+int		test_bigint_utils_launcher(void)
 {
-	int		n;
+	t_unit_test	*test_list;
 
-	n = 0;
-	n += test_bigint_init_launcher();
-	n += test_bigint_cmp_launcher();
-	n += test_bigint_utils_launcher();
-	n += test_bigint_add_launcher();
-	n += test_bigint_shift_launcher();
-	n += test_bigint_sub_launcher();
-	return (n);
+	test_list = 0;
+	add_test(&test_list, "Is overflow: true", &test_bigint_is_overflow);
+	add_test(&test_list, "Is overflow: false", &test_bigint_is_overflow_false);
+	add_test(&test_list, "Is underflow: true", &test_bigint_is_underflow);
+	add_test(&test_list, "Is underflow: false", &test_bigint_is_underflow_false);
+	return (launch_tests("BIGINT UTILS", &test_list));
 }

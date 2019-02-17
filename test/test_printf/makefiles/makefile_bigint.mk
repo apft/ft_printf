@@ -6,13 +6,13 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 14:38:00 by apion             #+#    #+#              #
-#    Updated: 2019/02/16 18:35:09 by apion            ###   ########.fr        #
+#    Updated: 2019/02/17 12:13:03 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-C_FILES_BIGINT		:= test_bigint/00_launcher.c
+C_FILES_BIGINT			:= test_bigint/00_launcher.c
 
-C_FILES_BIGINT_CMP	:= test_bigint/test_cmp/00_launcher.c \
+C_FILES_BIGINT_CMP		:= test_bigint/test_cmp/00_launcher.c \
 	test_bigint/test_cmp/01_test_bigint_cmp_equal.c \
 	test_bigint/test_cmp/02_test_bigint_cmp_inf.c \
 	test_bigint/test_cmp/03_test_bigint_cmp_sup.c \
@@ -20,13 +20,19 @@ C_FILES_BIGINT_CMP	:= test_bigint/test_cmp/00_launcher.c \
 	test_bigint/test_cmp/05_test_bigint_cmp_length_sup.c \
 	test_bigint/test_cmp/06_test_bigint_cmp_equal_null.c
 
-C_FILES_BIGINT_INIT	:= test_bigint/test_init/00_launcher.c \
+C_FILES_BIGINT_INIT		:= test_bigint/test_init/00_launcher.c \
 	test_bigint/test_init/01_test_bigint_init_null.c \
 	test_bigint/test_init/02_test_bigint_init_int.c \
 	test_bigint/test_init/03_test_bigint_init_int_null.c \
 	test_bigint/test_init/04_test_bigint_init_int_max.c
 
-C_FILES_BIGINT_ADD	:= test_bigint/test_add/00_launcher.c \
+C_FILES_BIGINT_UTILS	:= test_bigint/test_utils/00_launcher.c \
+	test_bigint/test_utils/01_test_bigint_is_overflow.c \
+	test_bigint/test_utils/02_test_bigint_is_overflow_false.c \
+	test_bigint/test_utils/03_test_bigint_is_underflow.c \
+	test_bigint/test_utils/04_test_bigint_is_underflow_false.c
+
+C_FILES_BIGINT_ADD		:= test_bigint/test_add/00_launcher.c \
 	test_bigint/test_add/01_test_bigint_add_bigint.c \
 	test_bigint/test_add/02_test_bigint_add_bigint_self.c \
 	test_bigint/test_add/03_test_bigint_add_bigint_null.c \
@@ -53,7 +59,7 @@ C_FILES_BIGINT_SHIFT	:= test_bigint/test_shift/00_launcher.c \
 	test_bigint/test_shift/test_shift_left_self/05_test_bigint_shift_left_few_blocks_self.c \
 	test_bigint/test_shift/test_shift_left_self/06_test_bigint_shift_left_overflow_self.c
 
-C_FILES_BIGINT_SUB	:= test_bigint/test_sub/00_launcher.c \
+C_FILES_BIGINT_SUB		:= test_bigint/test_sub/00_launcher.c \
 	test_bigint/test_sub/01_test_bigint_sub_bigint.c \
 	test_bigint/test_sub/02_test_bigint_sub_bigint_self.c \
 	test_bigint/test_sub/03_test_bigint_sub_bigint_null.c \
@@ -66,6 +72,7 @@ C_FILES_BIGINT_SUB	:= test_bigint/test_sub/00_launcher.c \
 
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_INIT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_CMP)
+C_FILES_BIGINT		+= $(C_FILES_BIGINT_UTILS)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_ADD)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_SHIFT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_SUB)
