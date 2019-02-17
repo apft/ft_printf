@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:48:57 by apion             #+#    #+#             */
-/*   Updated: 2019/02/17 11:49:02 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/17 13:31:53 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int				bigint_is_overflow(t_bigint *a);
 int				bigint_is_underflow(t_bigint *a);
 void			bigint_init_null(t_bigint *a);
 void			bigint_init_int(t_bigint *a, unsigned int n);
-int				bigint_cmp(t_bigint *a, t_bigint *b);
+long			bigint_cmp(t_bigint *a, t_bigint *b);
 void			bigint_add(t_bigint *r, t_bigint *a, t_bigint *b);
 void			bigint_add_int(t_bigint *result, t_bigint *a, unsigned int n);
 void			bigint_sub(t_bigint *r, t_bigint *a, t_bigint *b);

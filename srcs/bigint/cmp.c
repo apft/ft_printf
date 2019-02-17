@@ -6,16 +6,16 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 12:24:36 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 16:17:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/17 13:35:04 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigint.h"
 
-int		bigint_cmp(t_bigint *a, t_bigint *b)
+long	bigint_cmp(t_bigint *a, t_bigint *b)
 {
 	unsigned int	block;
-	int				diff;
+	long 			diff;
 
 	if (a->length < b->length)
 		return (-1);
@@ -24,7 +24,7 @@ int		bigint_cmp(t_bigint *a, t_bigint *b)
 	block = a->length;
 	while (block--)
 	{
-		diff = a->blocks[block] - b->blocks[block];
+		diff = (long)a->blocks[block] - (long)b->blocks[block];
 		if (diff)
 			return (diff);
 	}
