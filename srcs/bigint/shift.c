@@ -6,17 +6,17 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:58:42 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 17:17:39 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/17 11:30:59 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigint.h"
 
-static int	is_shift_overflow(unsigned int block_id, unsigned int modulo)
+static int	is_shift_overflow(unsigned int block_id, unsigned int is_aligned)
 {
-	if (!modulo && block_id > BIGINT_N_BLOCKS)
+	if (!is_aligned && block_id > BIGINT_N_BLOCKS)
 		return (1);
-	if (modulo && block_id >= BIGINT_N_BLOCKS)
+	if (is_aligned && block_id >= BIGINT_N_BLOCKS)
 		return (1);
 	return (0);
 }
