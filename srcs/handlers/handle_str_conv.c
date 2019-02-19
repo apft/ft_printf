@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:57:52 by apion             #+#    #+#             */
-/*   Updated: 2019/02/13 14:18:46 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/19 18:33:02 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void		fill_str(char *value, char *str, t_specs *specs)
 
 int				handle_str_conv(char *value, t_specs *specs, char *str)
 {
-	specs->width_arg = pf_strlen(value);
+	if (specs->flags & PRECISION && specs->precision)
+		specs->width_arg = pf_strlen(value);
 	filter_specs(specs);
 	if (str)
 		fill_str(value, str, specs);
