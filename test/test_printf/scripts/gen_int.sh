@@ -95,7 +95,7 @@ read_block()
 						printf ", n"
 					done
 					echo ");"
-					printf "\tret = ft_printf_str(&out, format"
+					printf "\tret = ft_asprintf(&out, format"
 					for i in `seq ${nbr_arg}`
 					do
 						printf ", n"

@@ -53,7 +53,7 @@ do
 			echo "\tbzero(str_printf, BUFF_SIZE);"
 			echo "\tformat = $format;"
 			echo "\tret_exp = sprintf(str_printf, format, $args);"
-			echo "\tret = ft_printf_str(&out, format, $args);"
+			echo "\tret = ft_asprintf(&out, format, $args);"
 			echo "\tdiff = strcmp(out, str_printf);"
 			echo "\terror = ret != ret_exp || diff;"
 			echo "\tif (error)"
