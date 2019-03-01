@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:03:40 by apion             #+#    #+#             */
-/*   Updated: 2019/02/17 11:50:21 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/01 19:38:54 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void		bigint_add(t_bigint *result, t_bigint *a, t_bigint *b)
 {
 	if (bigint_is_overflow(a) || bigint_is_overflow(b))
 		result->blocks[BIGINT_N_BLOCKS] = BIGINT_OVERFLOW;
-	else {
+	else
+	{
 		result->length = (a->length < b->length) ? b->length : a->length;
-		if (sum_and_propagate_carry(result, a , b))
+		if (sum_and_propagate_carry(result, a, b))
 		{
 			if (result->length < BIGINT_N_BLOCKS)
 			{

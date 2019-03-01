@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/02/20 12:48:07 by apion            ###   ########.fr        #
+#    Updated: 2019/03/01 19:34:02 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,13 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/handlers/handle_int_conv_ulong.c \
 				srcs/handlers/handle_int_conv_ulong_long.c \
 				srcs/handlers/handle_int_conv_ushort.c \
-				srcs/handlers/handle_str_conv.c
+				srcs/handlers/handle_str_conv.c \
+				srcs/bigint/add.c \
+				srcs/bigint/cmp.c \
+				srcs/bigint/init.c \
+				srcs/bigint/shift.c \
+				srcs/bigint/sub.c \
+				srcs/bigint/utils.c
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
 

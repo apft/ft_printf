@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:19:35 by apion             #+#    #+#             */
-/*   Updated: 2019/02/17 13:48:09 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/01 19:39:38 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	sub_and_shrink_length(t_bigint *result, t_bigint *a, t_bigint *b)
 			result->blocks[i] = alpha - beta - carry;
 		else
 		{
-			result->blocks[i] = alpha + (~beta) - 1 - carry;
+			result->blocks[i] = alpha + (~beta) + 1 - carry;
 			carry = 1;
 		}
 		n_null_block = (result->blocks[i] == 0 && i) ? n_null_block + 1 : 0;
@@ -50,7 +50,6 @@ void		bigint_sub_int(t_bigint *result, t_bigint *a, unsigned int n)
 
 void		bigint_sub(t_bigint *result, t_bigint *a, t_bigint *b)
 {
-
 	if (bigint_is_underflow(a) || bigint_is_underflow(b)
 			|| bigint_cmp(a, b) < 0)
 		result->blocks[BIGINT_N_BLOCKS] = BIGINT_UNDERFLOW;
