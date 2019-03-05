@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 11:02:24 by apion             #+#    #+#             */
-/*   Updated: 2019/02/17 12:12:35 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/05 19:13:48 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ int		test_bigint_utils_launcher(void);
 int		test_bigint_add_launcher(void);
 int		test_bigint_shift_launcher(void);
 int		test_bigint_sub_launcher(void);
+int		test_bigint_mult_launcher(void);
 
 #endif
