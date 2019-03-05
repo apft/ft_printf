@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:09:23 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 12:35:39 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/05 21:53:17 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	print_borders()
 
 static void	print_blocks_number(unsigned int n)
 {
-	int		i;
-	char	highlight;
+	unsigned int	i;
+	char			highlight;
 
 	i = BIGINT_N_BLOCKS + 1;
 	printf("|");
