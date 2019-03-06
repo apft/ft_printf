@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 14:38:00 by apion             #+#    #+#              #
-#    Updated: 2019/03/05 19:18:49 by apion            ###   ########.fr        #
+#    Updated: 2019/03/06 14:10:07 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,9 @@ C_FILES_BIGINT_SUB		:= test_bigint/test_sub/00_launcher.c \
 C_FILES_BIGINT_MULT		:= test_bigint/test_mult/00_launcher.c \
 	test_bigint/test_mult/01_test_bigint_mult_int_one.c \
 	test_bigint/test_mult/02_test_bigint_mult_int_small.c \
-	test_bigint/test_mult/03_test_bigint_mult_int_medium.c
+	test_bigint/test_mult/03_test_bigint_mult_int_medium.c \
+	test_bigint/test_mult/04_test_bigint_mult_by_basis.c \
+	test_bigint/test_mult/05_test_bigint_mult.c
 
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_INIT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_CMP)
