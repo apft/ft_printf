@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 11:52:34 by apion             #+#    #+#             */
-/*   Updated: 2019/03/06 14:22:32 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/06 19:32:11 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,13 @@ void		bigint_mult_int(t_bigint *result, t_bigint *a, unsigned int n)
 
 void		bigint_mult_by_basis(t_bigint *result, t_bigint *a, t_bigint *basis)
 {
-	unsigned int	i;
 	unsigned int	basis_index;
 
 	basis_index = basis->length - 1;
 	if (a->length + basis_index > BIGINT_N_BLOCKS)
 		result->blocks[BIGINT_N_BLOCKS] = BIGINT_OVERFLOW;
 	else
-	{
-		i = 0;
-		while ((i + basis_index < a->length)
-				|| (i + basis_index < BIGINT_N_BLOCKS))
-		{
-			result->blocks[i + basis_index] = a->blocks[i];
-			++i;
-		}
-		result->length = a->length + basis_index;
-	}
+		bigint_shift_left(result, a, basis_index * BIGINT_SIZE_BLOCK);
 }
 
 static void	bigint_mult_by_smaller(t_bigint *result, t_bigint *a, t_bigint *b)
@@ -75,9 +65,10 @@ static void	bigint_mult_by_smaller(t_bigint *result, t_bigint *a, t_bigint *b)
 		bigint_init_null(&tmp);
 		basis.blocks[block] = 1;
 		bigint_mult_int(&tmp, a, b->blocks[block]);
-		bigint_mult_by_basis(&basis, &tmp, &basis);
-		bigint_add(result, &basis, result);
+		bigint_mult_by_basis(&tmp, &tmp, &basis);
+		bigint_add(result, &tmp, result);
 		basis.blocks[block] = 0;
+		basis.length += 1;
 		++block;
 	}
 }
