@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 17:18:13 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 12:55:46 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/06 19:11:43 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		test_bigint_add_int_overflow(void)
 		BIGINT_OVERFLOW}};
 
 	bigint_add_int(&result, &a, n);
-	diff = bigint_cmp(&result, &expected);
+	diff = !bigint_is_overflow(&result);
 	if (diff)
 		print_diff_bigint(&a, 0, &result, &expected, diff);	
 	return (diff);
