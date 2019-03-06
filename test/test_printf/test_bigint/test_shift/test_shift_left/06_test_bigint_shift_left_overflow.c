@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 14:16:04 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 14:28:47 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/06 19:13:18 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		test_bigint_shift_left_overflow(void)
 	expected = (t_bigint){1, {0, 0, 0, 0, BIGINT_OVERFLOW}};
 
 	bigint_shift_left(&result, &a, n);
-	diff = bigint_cmp(&result, &expected);
+	diff = !bigint_is_overflow(&result);
 	if (diff)
 		print_diff_bigint(&a, 0, &result, &expected, diff);	
 	return (diff);
