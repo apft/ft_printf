@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 14:38:00 by apion             #+#    #+#              #
-#    Updated: 2019/03/07 18:23:23 by apion            ###   ########.fr        #
+#    Updated: 2019/03/07 18:43:50 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,16 +70,27 @@ C_FILES_BIGINT_SHIFT	:= test_bigint/test_shift/00_launcher.c \
 	test_bigint/test_shift/test_shift_left_self/05_test_bigint_shift_left_few_blocks_self.c \
 	test_bigint/test_shift/test_shift_left_self/06_test_bigint_shift_left_overflow_self.c
 
-C_FILES_BIGINT_SUB		:= test_bigint/test_sub/00_launcher.c \
-	test_bigint/test_sub/01_test_bigint_sub_bigint.c \
-	test_bigint/test_sub/02_test_bigint_sub_bigint_self.c \
-	test_bigint/test_sub/03_test_bigint_sub_bigint_null.c \
-	test_bigint/test_sub/04_test_bigint_sub_bigint_carry.c \
-	test_bigint/test_sub/05_test_bigint_sub_bigint_underflow.c \
-	test_bigint/test_sub/06_test_bigint_sub_int.c \
-	test_bigint/test_sub/07_test_bigint_sub_int_null.c \
-	test_bigint/test_sub/08_test_bigint_sub_int_carry.c \
-	test_bigint/test_sub/09_test_bigint_sub_int_underflow.c
+C_FILES_BIGINT_SUB		:= test_bigint/test_sub/00_launcher.c
+C_FILES_BIGINT_SUB_BIGINT	:= test_bigint/test_sub/test_sub_bigint/00_launcher.c \
+	test_bigint/test_sub/test_sub_bigint/01_test_bigint_sub_bigint.c \
+	test_bigint/test_sub/test_sub_bigint/02_test_bigint_sub_bigint_self.c \
+	test_bigint/test_sub/test_sub_bigint/03_test_bigint_sub_bigint_null.c \
+	test_bigint/test_sub/test_sub_bigint/04_test_bigint_sub_bigint_carry.c \
+	test_bigint/test_sub/test_sub_bigint/05_test_bigint_sub_bigint_underflow.c \
+	test_bigint/test_sub/test_sub_bigint/06_test_bigint_sub_int.c \
+	test_bigint/test_sub/test_sub_bigint/07_test_bigint_sub_int_null.c \
+	test_bigint/test_sub/test_sub_bigint/08_test_bigint_sub_int_carry.c \
+	test_bigint/test_sub/test_sub_bigint/09_test_bigint_sub_int_underflow.c
+C_FILES_BIGINT_SUB_SELF		:= test_bigint/test_sub/test_sub_self/00_launcher.c \
+	test_bigint/test_sub/test_sub_self/01_test_bigint_sub_bigint.c \
+	test_bigint/test_sub/test_sub_self/02_test_bigint_sub_bigint_self.c \
+	test_bigint/test_sub/test_sub_self/03_test_bigint_sub_bigint_null.c \
+	test_bigint/test_sub/test_sub_self/04_test_bigint_sub_bigint_carry.c \
+	test_bigint/test_sub/test_sub_self/05_test_bigint_sub_bigint_underflow.c \
+	test_bigint/test_sub/test_sub_self/06_test_bigint_sub_int.c \
+	test_bigint/test_sub/test_sub_self/07_test_bigint_sub_int_null.c \
+	test_bigint/test_sub/test_sub_self/08_test_bigint_sub_int_carry.c \
+	test_bigint/test_sub/test_sub_self/09_test_bigint_sub_int_underflow.c
 
 C_FILES_BIGINT_MULT		:= test_bigint/test_mult/00_launcher.c
 C_FILES_BIGINT_MULT_BIGINT	:= test_bigint/test_mult/test_mult_bigint/00_launcher.c \
@@ -103,6 +114,8 @@ C_FILES_BIGINT		+= $(C_FILES_BIGINT_ADD_BIGINT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_ADD_SELF)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_SHIFT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_SUB)
+C_FILES_BIGINT		+= $(C_FILES_BIGINT_SUB_BIGINT)
+C_FILES_BIGINT		+= $(C_FILES_BIGINT_SUB_SELF)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_MULT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_MULT_BIGINT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_MULT_SELF)

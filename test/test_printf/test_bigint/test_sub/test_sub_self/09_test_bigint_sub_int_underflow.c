@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_bigint_sub.h                                  :+:      :+:    :+:   */
+/*   09_test_bigint_sub_int_underflow.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/15 11:02:24 by apion             #+#    #+#             */
-/*   Updated: 2019/03/07 18:42:42 by apion            ###   ########.fr       */
+/*   Created: 2019/02/15 17:18:13 by apion             #+#    #+#             */
+/*   Updated: 2019/03/07 18:36:40 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_BIGINT_SUB_H
-# define TEST_BIGINT_SUB_H
+#include "utils.h"
+#include "bigint.h"
 
-int		test_bigint_sub_bigint_launcher(void);
-int		test_bigint_sub_self_launcher(void);
+int		test_bigint_sub_self_int_underflow(void)
+{
+	t_bigint		a;
+	unsigned int	n;
+	int				err;
 
-#endif
+	n = 0xffcb10d;
+	a = (t_bigint){1, {0xff, 0, 0, 0, 0}};
+
+	bigint_sub_int(&a, &a, n);
+	err = !bigint_is_underflow(&a);
+	if (err)
+		print_bigint(&a);
+	return (err);
+}
