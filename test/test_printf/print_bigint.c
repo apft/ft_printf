@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:09:23 by apion             #+#    #+#             */
-/*   Updated: 2019/03/05 21:53:17 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/07 12:51:49 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	print_blocks_number(unsigned int n)
 	printf("\n");
 }
 
-void	print_bits(unsigned int n)
+static void	print_bits(unsigned int n)
 {
 	int		i;
 
