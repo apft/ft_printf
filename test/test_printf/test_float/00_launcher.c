@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   00_launcher_float.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/04 14:51:35 by apion             #+#    #+#             */
-/*   Updated: 2019/03/07 11:50:11 by apion            ###   ########.fr       */
+/*   Created: 2019/02/05 20:06:08 by apion             #+#    #+#             */
+/*   Updated: 2019/03/07 11:56:05 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test_printf.h"
+#include "libunit.h"
+#include "test_float.h"
 
-int		main(void)
+int		test_extract_float_launcher(void)
 {
-	int		n;
+	t_unit_test	*test_list;
 
-	n = 0;
-//	n += test_extract_int_conv_launcher();
-//	n += test_extract_float_conv_hex_launcher();
-//	n += test_extract_str_char_conv_launcher();
-//	n += test_extract_ptr_percent_conv_launcher();
-//	n += test_bigint_launcher();
-	n += test_extract_float_launcher();
-	printf("TOTAL ERROR= %d\n", n);
-	if (n)
-		return (1);
-	return (0);
+	test_list = 0;
+	add_test(&test_list, "1 Float %f 0: 4.423547891112", &test_float_conv);
+	return (launch_tests("TEST FLOAT %f", &test_list));
 }
