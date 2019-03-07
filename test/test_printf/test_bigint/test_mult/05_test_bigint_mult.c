@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 13:55:19 by apion             #+#    #+#             */
-/*   Updated: 2019/03/06 19:51:28 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/07 11:18:03 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int			test_bigint_mult_overflow(void)
 	t_bigint		b;
 	t_bigint		expected;
 
-	a = (t_bigint){1, {42, 0, 0, 0, 0}};
-	b = (t_bigint){4, {0, 0, 0, 1, 0}};
+	a = (t_bigint){2, {0x235, 0xc408, 0, 0, 0}};
+	b = (t_bigint){3, {0, 0x1049, 0x2e35d8b, 0, 0}};
 	expected = (t_bigint){4, {0, 0, 0, 42, BIGINT_OVERFLOW}};
 	return (test_bigint_mult(&a, &b, &expected, TEST_OVERFLOW));
 }

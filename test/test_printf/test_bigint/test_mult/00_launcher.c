@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:00:05 by apion             #+#    #+#             */
-/*   Updated: 2019/03/06 14:11:52 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/07 11:14:55 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int		test_bigint_mult_launcher(void)
 	add_test(&test_list, "Multiply medium: bigint * 0xffff (medium)", &test_bigint_mult_int_medium_medium);
 	add_test(&test_list, "Multiply medium: bigint * 0x10000 (carry)", &test_bigint_mult_int_medium_carry);
 	add_test(&test_list, "Multiply medium: bigint * 0x100 (overflow)", &test_bigint_mult_int_medium_overflow);
-	// TODO: test mult by 0
 	add_test(&test_list, "Multiply: bigint * basis (1)", &test_bigint_mult_by_basis_1);
 	add_test(&test_list, "Multiply: bigint * basis (2)", &test_bigint_mult_by_basis_2);
 	add_test(&test_list, "Multiply: bigint * basis (3)", &test_bigint_mult_by_basis_3);
