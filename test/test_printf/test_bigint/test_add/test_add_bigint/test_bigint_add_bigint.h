@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_bigint_add.h                                  :+:      :+:    :+:   */
+/*   test_bigint_add_bigint.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 11:02:24 by apion             #+#    #+#             */
-/*   Updated: 2019/02/15 17:20:37 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/07 18:15:21 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_BIGINT_ADD_H
-# define TEST_BIGINT_ADD_H
+#ifndef TEST_BIGINT_ADD_BIGINT_H
+# define TEST_BIGINT_ADD_BIGINT_H
 
 int		test_bigint_add_bigint(void);
 int		test_bigint_add_bigint_self(void);
