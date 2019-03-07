@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 14:38:00 by apion             #+#    #+#              #
-#    Updated: 2019/03/06 14:10:07 by apion            ###   ########.fr        #
+#    Updated: 2019/03/07 17:45:46 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,12 +70,21 @@ C_FILES_BIGINT_SUB		:= test_bigint/test_sub/00_launcher.c \
 	test_bigint/test_sub/08_test_bigint_sub_int_carry.c \
 	test_bigint/test_sub/09_test_bigint_sub_int_underflow.c
 
-C_FILES_BIGINT_MULT		:= test_bigint/test_mult/00_launcher.c \
-	test_bigint/test_mult/01_test_bigint_mult_int_one.c \
-	test_bigint/test_mult/02_test_bigint_mult_int_small.c \
-	test_bigint/test_mult/03_test_bigint_mult_int_medium.c \
-	test_bigint/test_mult/04_test_bigint_mult_by_basis.c \
-	test_bigint/test_mult/05_test_bigint_mult.c
+C_FILES_BIGINT_MULT		:= test_bigint/test_mult/00_launcher.c
+
+C_FILES_BIGINT_MULT_BIGINT	:= test_bigint/test_mult/test_mult_bigint/00_launcher.c \
+	test_bigint/test_mult/test_mult_bigint/01_test_bigint_mult_int_one.c \
+	test_bigint/test_mult/test_mult_bigint/02_test_bigint_mult_int_small.c \
+	test_bigint/test_mult/test_mult_bigint/03_test_bigint_mult_int_medium.c \
+	test_bigint/test_mult/test_mult_bigint/04_test_bigint_mult_by_basis.c \
+	test_bigint/test_mult/test_mult_bigint/05_test_bigint_mult.c
+
+C_FILES_BIGINT_MULT_SELF	:= test_bigint/test_mult/test_mult_self/00_launcher.c \
+	test_bigint/test_mult/test_mult_self/01_test_bigint_mult_int_one.c \
+	test_bigint/test_mult/test_mult_self/02_test_bigint_mult_int_small.c \
+	test_bigint/test_mult/test_mult_self/03_test_bigint_mult_int_medium.c \
+	test_bigint/test_mult/test_mult_self/04_test_bigint_mult_by_basis.c \
+	test_bigint/test_mult/test_mult_self/05_test_bigint_mult.c
 
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_INIT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_CMP)
@@ -84,3 +93,5 @@ C_FILES_BIGINT		+= $(C_FILES_BIGINT_ADD)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_SHIFT)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_SUB)
 C_FILES_BIGINT		+= $(C_FILES_BIGINT_MULT)
+C_FILES_BIGINT		+= $(C_FILES_BIGINT_MULT_BIGINT)
+C_FILES_BIGINT		+= $(C_FILES_BIGINT_MULT_SELF)
