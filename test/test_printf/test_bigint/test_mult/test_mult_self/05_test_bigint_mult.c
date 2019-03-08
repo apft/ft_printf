@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 13:55:19 by apion             #+#    #+#             */
-/*   Updated: 2019/03/07 17:44:05 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/08 12:24:48 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int			test_bigint_mult_self_easy(void)
 	t_bigint		b;
 	t_bigint		expected;
 
-	a = (t_bigint){2, {42, 3456, 0, 0, 0}};
-	b = (t_bigint){3, {234, 0, 12, 0, 0}};
-	expected = (t_bigint){4, {42*234, 234*3456, 42*12, 12*3456, 0}};
+	a = (t_bigint){2, {42, 4350, 0, 0, 0}};
+	b = (t_bigint){2, {254661, 13, 0, 0, 0}};
+	expected = (t_bigint){3, {10695762, 1107775896, 13*4350, 0, 0}};
 	return (test_bigint_mult_self(&a, &b, &expected, !TEST_OVERFLOW));
 }
 
@@ -31,9 +31,9 @@ int			test_bigint_mult_self_medium(void)
 	t_bigint		b;
 	t_bigint		expected;
 
-	a = (t_bigint){2, {42, 4350, 0, 0, 0}};
-	b = (t_bigint){2, {254661, 13, 0, 0, 0}};
-	expected = (t_bigint){3, {10695762, 1107775896, 13*4350, 0, 0}};
+	a = (t_bigint){2, {42, 3456, 0, 0, 0}};
+	b = (t_bigint){3, {234, 0, 12, 0, 0}};
+	expected = (t_bigint){4, {42*234, 234*3456, 42*12, 12*3456, 0}};
 	return (test_bigint_mult_self(&a, &b, &expected, !TEST_OVERFLOW));
 }
 
