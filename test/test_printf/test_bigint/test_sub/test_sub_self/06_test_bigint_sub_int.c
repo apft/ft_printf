@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_launcher.c                                      :+:      :+:    :+:   */
+/*   06_test_bigint_sub_int.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/17 14:00:05 by apion             #+#    #+#             */
-/*   Updated: 2019/03/08 12:10:52 by apion            ###   ########.fr       */
+/*   Created: 2019/02/15 17:11:27 by apion             #+#    #+#             */
+/*   Updated: 2019/03/08 11:41:42 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
 #include "bigint.h"
-#include "test_bigint_mult.h"
 
-int		test_bigint_mult_launcher(void)
+int		test_bigint_sub_self_int(void)
 {
-	int		n;
+	t_bigint		a;
+	t_bigint	a_cpy;
+	unsigned int	n;
+	t_bigint		expected;
+	int				diff;	
 
-	n = 0;
-	n += test_bigint_mult_bigint_launcher();
-	n += test_bigint_mult_self_launcher();
-	return (n);
+	a = (t_bigint){1, {256, 0, 0, 0, 0}};
+	bigint_copy(&a_cpy, &a);
+	n = 42;
+	expected = (t_bigint){1, {256 - n, 0, 0, 0, 0}};
+
+	bigint_sub_int(&a, &a, n);
+	diff = bigint_cmp(&a, &expected);
+	if (diff)
+		print_diff_bigint(&a_cpy, &a, &a, &expected, diff);
+	return (diff);
 }

@@ -6,12 +6,12 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 12:18:09 by apion             #+#    #+#             */
-/*   Updated: 2019/03/06 12:43:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/07 17:40:44 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigint.h"
-#include "test_bigint_mult.h"
+#include "test_bigint_mult_bigint.h"
 
 int			test_bigint_mult_by_basis_1(void)
 {

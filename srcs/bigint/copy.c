@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_bigint_mult.h                                 :+:      :+:    :+:   */
+/*   copy.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/05 19:11:23 by apion             #+#    #+#             */
-/*   Updated: 2019/03/07 17:38:15 by apion            ###   ########.fr       */
+/*   Created: 2019/03/08 11:35:55 by apion             #+#    #+#             */
+/*   Updated: 2019/03/08 11:42:51 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_BIGINT_MULT_H
-# define TEST_BIGINT_MULT_H
+#include "bigint.h"
 
-int		test_bigint_mult_bigint_launcher(void);
-int		test_bigint_mult_self_launcher(void);
+void	bigint_copy(t_bigint *dest, t_bigint *src)
+{
+	int		i;
 
-#endif
+	i = BIGINT_N_BLOCKS + 1;
+	while (i--)
+		dest->blocks[i] = src->blocks[i];
+	dest->length = src->length;
+}

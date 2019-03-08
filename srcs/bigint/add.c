@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:03:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/01 19:38:54 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/08 13:10:50 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	sum_and_propagate_carry(t_bigint *result, t_bigint *a, t_bigint *b)
 {
-	int				i;
+	unsigned int	i;
 	unsigned long	carry;
 	unsigned long	sum;
 

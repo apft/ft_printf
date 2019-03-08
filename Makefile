@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/07 12:58:12 by apion            ###   ########.fr        #
+#    Updated: 2019/03/08 12:13:39 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/handlers/handle_str_conv.c \
 				srcs/bigint/add.c \
 				srcs/bigint/cmp.c \
+				srcs/bigint/copy.c \
 				srcs/bigint/init.c \
 				srcs/bigint/mult.c \
 				srcs/bigint/shift.c \

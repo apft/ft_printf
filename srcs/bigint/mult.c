@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 11:52:34 by apion             #+#    #+#             */
-/*   Updated: 2019/03/06 19:32:11 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/08 13:13:10 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,25 @@ void		bigint_mult_by_basis(t_bigint *result, t_bigint *a, t_bigint *basis)
 static void	bigint_mult_by_smaller(t_bigint *result, t_bigint *a, t_bigint *b)
 {
 	unsigned int	block;
-	t_bigint		tmp;
+	t_bigint		tmp_mult;
+	t_bigint		tmp_total;
 	t_bigint		basis;
 
+	bigint_init_null(&tmp_total);
 	bigint_init_null(&basis);
 	block = 0;
 	while (block < b->length && !bigint_is_overflow(result))
 	{
-		bigint_init_null(&tmp);
+		bigint_init_null(&tmp_mult);
 		basis.blocks[block] = 1;
-		bigint_mult_int(&tmp, a, b->blocks[block]);
-		bigint_mult_by_basis(&tmp, &tmp, &basis);
-		bigint_add(result, &tmp, result);
+		bigint_mult_int(&tmp_mult, a, b->blocks[block]);
+		bigint_mult_by_basis(&tmp_mult, &tmp_mult, &basis);
+		bigint_add(&tmp_total, &tmp_total, &tmp_mult);
 		basis.blocks[block] = 0;
 		basis.length += 1;
 		++block;
 	}
+	bigint_copy(result, &tmp_total);
 }
 
 void		bigint_mult(t_bigint *result, t_bigint *a, t_bigint *b)
