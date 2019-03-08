@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 11:52:34 by apion             #+#    #+#             */
-/*   Updated: 2019/03/08 13:13:10 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/08 14:12:20 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void		bigint_mult_int(t_bigint *result, t_bigint *a, unsigned int n)
 
 	if (bigint_is_overflow(a))
 		result->blocks[BIGINT_N_BLOCKS] = BIGINT_OVERFLOW;
+	else if (bigint_is_underflow(a))
+		result->blocks[BIGINT_N_BLOCKS] = BIGINT_UNDERFLOW;
 	else
 	{
 		carry = 0UL;
