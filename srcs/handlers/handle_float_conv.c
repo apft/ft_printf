@@ -6,13 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/02/13 14:59:34 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/08 14:19:41 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "utils.h"
 #include "utils_float.h"
+#include "bigint.h"
 #include "filler.h"
 
 #include <stdio.h>
@@ -58,28 +59,109 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	get_size(2.3, "01");
 }
 
+int		compute_pow_ten(double n)
+{
+	int		pow_ten;
+
+	pow_ten = 0;
+	if (n > 10.0)
+	{
+		while (n > 10.0)
+		{
+			n /= 10;
+			++pow_ten;
+		}
+	}
+	else if (n < 1.0)
+	{
+		while (n < 1.0)
+		{
+			n *= 10;
+			--pow_ten;
+		}
+	}
+	return (pow_ten);
+}
+
+void	extract_mantissa(t_bigint *numerator, unsigned long frac)
+{
+	numerator->blocks[0] = (unsigned int)(frac & BIGINT_MASK_BLOCK);
+	numerator->blocks[1] = (unsigned int)(frac >> BIGINT_SIZE_BLOCK);
+}
+
+int		get_quotient_and_substract(t_bigint *numerator, t_bigint *denominator)
+{
+	int			quotient;
+	t_bigint	result_tmp;
+
+	printf("quotient\n");
+	if (bigint_cmp(numerator, denominator) < 0)
+		return (0);
+	quotient = 5;
+	bigint_mult_int(&result_tmp, denominator, quotient);
+	printf("quotient1: %d\n", quotient);
+	while (bigint_cmp(&result_tmp, numerator) < 0 && quotient++ < 9)
+		bigint_add(&result_tmp, &result_tmp, denominator);
+	printf("quotient2: %d\n", quotient);
+	while (bigint_cmp(&result_tmp, numerator) > 0 && quotient--)
+		bigint_sub(&result_tmp, &result_tmp, denominator);
+	printf("quotient3: %d\n", quotient);
+	print_bigint(numerator);
+	printf("quotient4: %d\n", quotient);
+	print_bigint(&result_tmp);
+	bigint_sub(numerator, numerator, &result_tmp);
+	return (quotient);
+}
+
+void	generate_bigints(union u_double *value)
+{
+	int		exp;
+	int		pow_ten;
+	t_bigint	numerator;
+	t_bigint	denominator;
+	t_bigint	bigint_pow_ten;
+	int			i;
+	int			digit;
+
+	extract_mantissa(&numerator, value->field.frac);
+	bigint_init_int(&denominator, 1);
+	bigint_init_int(&bigint_pow_ten, 1);
+	exp = value->field.exp - 1023;
+	pow_ten = compute_pow_ten(value->type_dbl);
+	printf("exp: %d\npow_ten: %d\n", exp, pow_ten);
+	if (exp >= 0)
+		bigint_shift_left_self(&numerator, exp);
+	else
+		bigint_shift_left_self(&denominator, -exp);
+	if (pow_ten > 0)
+	{
+		i = pow_ten;
+		while (i--)
+			bigint_mult_int(&bigint_pow_ten, &bigint_pow_ten, 10);
+		bigint_mult(&denominator, &denominator, &bigint_pow_ten);
+	}
+	else if (pow_ten < 0)
+	{
+		i = -pow_ten;
+		while (i--)
+			bigint_mult_int(&bigint_pow_ten, &bigint_pow_ten, 10);
+		bigint_mult(&numerator, &numerator, &bigint_pow_ten);
+	}
+	i = 0;
+	printf("here\n");
+	while (!bigint_is_underflow(&numerator))
+	{
+		digit = get_quotient_and_substract(&numerator, &denominator);
+		printf("%d ", digit);
+		bigint_mult_int(&numerator, &numerator, 10);
+		++i;
+	}
+}
+
 int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 {
-	int				sign;
-	int				exp;
-
-	sign = (value->type_long >> 63) & 1;
-	exp = ((value->type_long << 1UL) >> 53) - 1023;
-	printf("sign\texp\n%d\t%d\n", sign, exp);
-	printf("sign\texp\n%d\t%d\n", value->field.sign, value->field.exp - 1023);
-	if (specs->flags & PRECISION && !specs->precision)
-		specs->precision = 1;
-	if ((specs->type & FLOAT) && !(specs->flags & PRECISION))
-		specs->precision = 6;
-	//printf("%f\n%llu\n", value->n, value->n);
-//	specs->is_neg = value < 0;
-//	specs->width_arg = get_size(value, base) - specs->is_neg;
-//	if (!value && (specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C)))
-//		specs->flags ^= PREFIX;
-//	if (!value && (specs->flags & PRECISION) && !specs->precision)
-//		specs->width_arg -= 1;
-//	filter_specs(specs);
+	(void)specs;
 	if (str)
-		fill_str(&value, str, specs);
+		generate_bigints(value);
 	return (1);
 }
