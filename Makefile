@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/08 11:37:36 by apion            ###   ########.fr        #
+#    Updated: 2019/03/08 12:13:39 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CPPFLAGS	= -MMD -MP -MF $(D_DIR)/$*.d
 
 NAME		:= libftprintf.a
 C_DIR		:= srcs
-H_DIR		:= incs
+H_DIR		:= incs srcs/bigint
 O_DIR		:= .obj
 D_DIR		:= $(O_DIR)
 C_FILES		:= srcs/extract_arg.c \
@@ -61,6 +61,7 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/bigint/utils.c
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
+DIRS		:= $(strip $(filter-out ./,$(sort $(dir $(C_FILES))))) .
 
 TEST_LIBUNIT	:= test/test_printf
 
@@ -85,10 +86,10 @@ $(NAME): $(addprefix $(O_DIR)/, $(O_FILES))
 	$(AR) rs $@ $?
 
 $(O_DIR)/%.o: %.c
-$(O_DIR)/%.o: %.c $(D_DIR)/%.d | $(O_DIR)/$(C_DIR)
+$(O_DIR)/%.o: %.c $(D_DIR)/%.d | $(addprefix $(O_DIR)/, $(DIRS))
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(CINCLUDES) -o $@ -c $<
 
-$(O_DIR)/$(C_DIR):
+$(addprefix $(O_DIR)/, $(DIRS)):
 	mkdir -p $@
 
 %.d: ;
@@ -98,7 +99,8 @@ $(O_DIR)/$(C_DIR):
 clean:
 	$(RM) $(addprefix $(O_DIR)/, $(O_FILES))
 	$(RM) $(addprefix $(O_DIR)/, $(D_FILES))
-	rmdir -p $(O_DIR)/$(C_DIR)
+	rmdir $(addprefix $(O_DIR)/, $(DIRS)) 2> /dev/null || true
+	rmdir $(O_DIR) 2> /dev/null || true
 
 .PHONY: fclean
 fclean: clean
