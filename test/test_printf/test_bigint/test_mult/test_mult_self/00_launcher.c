@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 17:03:54 by apion             #+#    #+#             */
-/*   Updated: 2019/03/07 17:46:10 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/08 13:15:43 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,48 @@
 int		test_bigint_mult_self_int(t_bigint *a, unsigned int n, t_bigint *expected, int test_overflow)
 {
 	int			diff;
+	t_bigint	a_cpy;
 
+	bigint_copy(&a_cpy, a);
 	bigint_mult_int(a, a, n);
 	if (test_overflow == TEST_OVERFLOW)
 		diff = !bigint_is_overflow(a);
 	else
 		diff = bigint_cmp(a, expected);
 	if (diff)
-		print_diff_bigint(0, 0, a, expected, diff);	
+		print_diff_bigint(&a_cpy, 0, a, expected, diff);
 	return (diff ? 1 : 0);
 }
 
 int		test_bigint_mult_self_by_basis(t_bigint *a, t_bigint *b, t_bigint *expected, int test_overflow)
 {
 	int			diff;
+	t_bigint	a_cpy;
 
+	bigint_copy(&a_cpy, a);
 	bigint_mult_by_basis(a, a, b);
 	if (test_overflow == TEST_OVERFLOW)
 		diff = !bigint_is_overflow(a);
 	else
 		diff = bigint_cmp(a, expected);
 	if (diff)
-		print_diff_bigint(0, b, a, expected, diff);	
+		print_diff_bigint(&a_cpy, b, a, expected, diff);
 	return (diff ? 1 : 0);
 }
 
 int		test_bigint_mult_self(t_bigint *a, t_bigint *b, t_bigint *expected, int test_overflow)
 {
 	int			diff;
+	t_bigint	a_cpy;
 
+	bigint_copy(&a_cpy, a);
 	bigint_mult(a, a, b);
 	if (test_overflow == TEST_OVERFLOW)
 		diff = !bigint_is_overflow(a);
 	else
 		diff = bigint_cmp(a, expected);
 	if (diff)
-		print_diff_bigint(0, b, a, expected, diff);	
+		print_diff_bigint(&a_cpy, b, a, expected, diff);
 	return (diff ? 1 : 0);
 }
 
