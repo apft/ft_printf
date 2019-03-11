@@ -6,10 +6,11 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 14:51:35 by apion             #+#    #+#             */
-/*   Updated: 2019/03/07 11:50:11 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/11 19:02:05 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "test_printf.h"
 
 int		main(void)
