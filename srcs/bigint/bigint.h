@@ -6,14 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:48:57 by apion             #+#    #+#             */
-/*   Updated: 2019/03/08 11:43:04 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/11 15:58:15 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BIGINT_H
 # define BIGINT_H
 
-# define BIGINT_N_BLOCKS 4
+# define BIGINT_N_BLOCKS 33
 # define BIGINT_SIZE_BLOCK 32
 
 # define BIGINT_MASK_BLOCK 0xffffffff
@@ -27,6 +27,7 @@ typedef struct	s_bigint
 }				t_bigint;
 
 void			print_bigint(t_bigint *value);
+int				bigint_is_null(t_bigint *a);
 int				bigint_is_overflow(t_bigint *a);
 int				bigint_is_underflow(t_bigint *a);
 void			bigint_init_null(t_bigint *a);
