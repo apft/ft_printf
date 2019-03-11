@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:19:35 by apion             #+#    #+#             */
-/*   Updated: 2019/03/01 19:39:38 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/11 15:39:49 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	sub_and_shrink_length(t_bigint *result, t_bigint *a, t_bigint *b)
 {
-	int				i;
+	unsigned int	i;
 	int				n_null_block;
 	unsigned int	alpha;
 	unsigned int	beta;
@@ -27,11 +27,13 @@ static void	sub_and_shrink_length(t_bigint *result, t_bigint *a, t_bigint *b)
 	{
 		alpha = a->blocks[i];
 		beta = b->blocks[i];
+		a->blocks[i] += carry;
 		if (alpha >= beta)
-			result->blocks[i] = alpha - beta - carry;
+			result->blocks[i] = alpha - beta;
 		else
 		{
-			result->blocks[i] = alpha + (~beta) + 1 - carry;
+			a->blocks[i + 1] -= 1;
+			result->blocks[i] = (unsigned int)((1UL << 32) + alpha - beta);
 			carry = 1;
 		}
 		n_null_block = (result->blocks[i] == 0 && i) ? n_null_block + 1 : 0;
