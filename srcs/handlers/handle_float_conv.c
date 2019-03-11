@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/09 18:34:24 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/11 18:42:57 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,48 +17,6 @@
 #include "filler.h"
 
 #include <stdio.h>
-static int	get_size(double value, char *base)
-{
-	int		size;
-	int		b;
-
-	b = 0;
-	while (*(base + b))
-		b++;
-	size = 1 + (value < 0);
-	while (value /= b)
-		size++;
-	return (size);
-}
-
-static void	fill_str(union u_double *value, char *str, t_specs *specs)
-{
-	double	a;
-	int		p;
-	int		i;
-	int		digit;
-
-	(void)str;
-	(void)specs;
-	a = value->field.sign ? -value->field.sign * value->type_dbl : value->type_dbl;
-	p = 0;
-	while ((a /= 10) > 1.0)
-		p++;
-	a *= 10;
-	printf("n= %f\npow= %d\na= %f\n", value->type_dbl, p, a);
-	i = 0;
-	while (a > 0.0 && i < 15)
-	{
-		digit = (int)a;
-		printf("%c", '0' + (char)digit);
-		a -= digit;
-		a *= 10.0;
-		++i;
-	}
-	printf("\n");
-	get_size(2.3, "01");
-}
-
 int		compute_pow_ten(double n)
 {
 	int		pow_ten;
@@ -104,21 +62,15 @@ int		get_quotient_and_substract(t_bigint *numerator, t_bigint *denominator)
 	int			quotient;
 	t_bigint	result_tmp;
 
-//	printf("quotient\n");
 	if (bigint_cmp(numerator, denominator) < 0)
 		return (0);
 	quotient = 5;
+	bigint_init_null(&result_tmp);
 	bigint_mult_int(&result_tmp, denominator, quotient);
-//	printf("quotient1: %d\n", quotient);
 	while (bigint_cmp(&result_tmp, numerator) < 0 && quotient++)
 		bigint_add(&result_tmp, &result_tmp, denominator);
-//	printf("quotient2: %d\n", quotient);
 	while (bigint_cmp(&result_tmp, numerator) > 0 && quotient--)
 		bigint_sub(&result_tmp, &result_tmp, denominator);
-//	printf("quotient3: %d\n", quotient);
-//	print_bigint(numerator);
-//	printf("quotient4: %d\n", quotient);
-//	print_bigint(&result_tmp);
 	bigint_sub(numerator, numerator, &result_tmp);
 	return (quotient);
 }
@@ -134,7 +86,6 @@ void	generate_bigints(union u_double *value)
 	int			digit;
 
 	extract_mantissa(&numerator, value->field.frac, value->field.exp);
-	print_bigint(&numerator);
 	bigint_init_int(&denominator, 1);
 	exp = value->field.exp - 1023 - FLOAT_SIZE_FRAC;
 	pow_ten = compute_pow_ten(value->type_dbl);
@@ -159,7 +110,9 @@ void	generate_bigints(union u_double *value)
 		bigint_mult(&numerator, &numerator, &bigint_pow_ten);
 	}
 	i = 0;
-	while (!bigint_is_overflow(&numerator) && !bigint_is_underflow(&numerator) && i < 20)
+	if (bigint_is_overflow(&numerator))
+		return ;
+	while (!bigint_is_null(&numerator) && !bigint_is_underflow(&numerator))
 	{
 		digit = get_quotient_and_substract(&numerator, &denominator);
 		printf("%d ", digit);
