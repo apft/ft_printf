@@ -6,13 +6,33 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:19:35 by apion             #+#    #+#             */
-/*   Updated: 2019/03/11 18:21:21 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/11 18:55:38 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigint.h"
 
-static void	sub_and_shrink_length(t_bigint *result, t_bigint *a, t_bigint *b)
+static unsigned int	compute_substraction(unsigned long alpha,
+						unsigned long beta, unsigned long *carry, int no_carry)
+{
+	unsigned int	result;
+
+	if (no_carry)
+	{
+		result = (unsigned int)(alpha - beta - *carry);
+		*carry = 0;
+	}
+	else
+	{
+		result = (unsigned int)(
+				(1UL << BIGINT_SIZE_BLOCK) + alpha - beta - *carry);
+		*carry = 1;
+	}
+	return (result);
+}
+
+static void			sub_and_shrink_length(t_bigint *result,
+											t_bigint *a, t_bigint *b)
 {
 	unsigned int	i;
 	int				n_null_block;
@@ -28,15 +48,9 @@ static void	sub_and_shrink_length(t_bigint *result, t_bigint *a, t_bigint *b)
 		alpha = (unsigned long)a->blocks[i];
 		beta = (unsigned long)b->blocks[i];
 		if (alpha >= beta + carry)
-		{
-			result->blocks[i] = (unsigned int)((alpha - beta - carry) & BIGINT_MASK_BLOCK);
-			carry = 0;
-		}
+			result->blocks[i] = compute_substraction(alpha, beta, &carry, 1);
 		else
-		{
-			result->blocks[i] = (unsigned int)((1UL << BIGINT_SIZE_BLOCK) + alpha - beta - carry);
-			carry = 1;
-		}
+			result->blocks[i] = compute_substraction(alpha, beta, &carry, 0);
 		n_null_block = (result->blocks[i] == 0 && i) ? n_null_block + 1 : 0;
 		++i;
 	}
