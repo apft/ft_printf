@@ -6,11 +6,20 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 11:47:16 by apion             #+#    #+#             */
-/*   Updated: 2019/02/17 11:48:26 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/11 12:46:41 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigint.h"
+
+int		bigint_is_null(t_bigint *a)
+{
+	if (bigint_is_overflow(a) || bigint_is_underflow(a))
+		return (0);
+	if (a->length != 1 || a->blocks[0] != 0)
+		return (0);
+	return (1);
+}
 
 int		bigint_is_overflow(t_bigint *a)
 {
