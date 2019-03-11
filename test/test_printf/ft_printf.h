@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 18:55:48 by apion             #+#    #+#             */
-/*   Updated: 2019/02/04 15:43:27 by apion            ###   ########.fr       */
+/*   Updated: 2019/02/20 12:48:26 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 int		ft_printf(const char *restrict f, ...);
-int		ft_printf_fd(int fd, const char *restrict f, ...);
-int		ft_printf_str(char **str, const char *restrict f, ...);
+int		ft_dprintf(int fd, const char *restrict f, ...);
+int		ft_asprintf(char **str, const char *restrict f, ...);
 
 #endif
