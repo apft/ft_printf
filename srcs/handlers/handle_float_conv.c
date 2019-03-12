@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 20:07:41 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 20:11:25 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	generate_bigints_num_den(t_bigint *numerator, t_bigint *denominator,
 	extract_mantissa(numerator, value->field.frac, value->field.exp);
 	bigint_init_int(denominator, 1);
 	exp = value->field.exp - FLOAT_EXP_BIAS_DBL - FLOAT_SIZE_FRAC;
-	printf("exp: %d\npow_ten: %d\n", exp, pow_ten);
 	if (exp >= 0)
 		bigint_shift_left_self(numerator, exp);
 	else
@@ -159,7 +158,6 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 		*(str + i++) = '0';
 	while (i < specs->width)
 		*(str + i++) = ' ';
-	printf("\ni: %d\n", i);
 }
 
 static int	compute_width_arg_float(union u_double *value, t_specs *specs)
@@ -189,12 +187,7 @@ int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 	specs->width_prefix = specs->is_neg + !!(specs->flags & (PLUS | SPACE));
 	specs->width_arg = compute_width_arg_float(value, specs);
 	filter_specs(specs);
-	if (!str)
-		print_specs(specs);
 	if (str)
-	{
-		dbg_print(value);
 		fill_str(value, str, specs);
-	}
 	return (1);
 }
