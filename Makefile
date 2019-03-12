@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/12 17:39:45 by apion            ###   ########.fr        #
+#    Updated: 2019/03/12 19:46:01 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/handlers/handle_str_conv.c \
 				srcs/bigint/add.c \
 				srcs/bigint/cmp.c \
+				srcs/bigint/copy.c \
 				srcs/bigint/init.c \
 				srcs/bigint/mult.c \
 				srcs/bigint/shift.c \
@@ -98,6 +99,7 @@ $(addprefix $(O_DIR)/, $(DIRS)):
 clean:
 	$(RM) $(addprefix $(O_DIR)/, $(O_FILES))
 	$(RM) $(addprefix $(O_DIR)/, $(D_FILES))
+	rmdir $(addprefix $(O_DIR)/, $(DIRS)) 2> /dev/null || true
 	rmdir $(addprefix $(O_DIR)/, $(DIRS)) 2> /dev/null || true
 	rmdir $(O_DIR) 2> /dev/null || true
 
