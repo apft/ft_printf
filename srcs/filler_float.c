@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 16:56:06 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 18:40:05 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		fill_float_pref_radix(union u_double *value, char *str, t_specs *specs)
 	
 	i = filler(str, specs, FILL_START);
 	*(str + i++) = value->field.exp ? '1' : '0';
-	if (specs->precision)
+	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
 		*(str + i++) = '.';
 	return (i);
 }

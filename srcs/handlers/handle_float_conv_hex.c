@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_float_conv_hex.c                           :+:      :+:    :+:   */
+/*   handle_float_conv_hex.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 16:59:23 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 18:39:47 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int				handle_float_conv_hex(union u_double *value, t_specs *specs,
 
 	base = get_base(specs->type);
 	specs->is_neg = value->field.sign;
+	if (specs->flags & PREFIX)
+		specs->flags |= FLOAT_FORCE_POINT;
 	specs->flags |= PREFIX;
 	if (!(specs->flags & PRECISION))
 		specs->precision = value->field.frac ? get_size(value->field.frac) : 0;
