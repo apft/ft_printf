@@ -18,7 +18,6 @@
 #include "filler_float.h"
 #include "extractor.h"
 
-#include <stdio.h>
 static int		get_size(unsigned long n)
 {
 	int		size;
@@ -27,19 +26,21 @@ static int		get_size(unsigned long n)
 	n <<= 12;
 	while (n <<= 4)
 		++size;
-//	printf("arg_size= %d\n", size);
 	return (size);
 }
 
-static int		get_size_exp(int exp)
+static int		get_length_exp(unsigned int exp_biased)
 {
-	int		size;
+	int		length;
+	int		exp;
 
-	size = 1;
+	if (!exp_biased)
+		return (1);
+	exp = exp_biased - FLOAT_EXP_BIAS_DBL;
+	length = 1;
 	while (exp /= 10)
-		++size;
-//	printf("exp_size= %d\n", size);
-	return (size);
+		++length;
+	return (length);
 }
 
 static void		fill_str(union u_double *value, char *b, char *str,
@@ -82,17 +83,12 @@ int				handle_float_conv_hex(union u_double *value, t_specs *specs,
 	char			*base;
 
 	base = get_base(specs->type);
-//	if (str)
-//		dbg_print(value);
 	specs->is_neg = value->field.sign;
 	specs->flags |= PREFIX;
 	if (!(specs->flags & PRECISION))
 		specs->precision = value->field.frac ? get_size(value->field.frac) : 0;
-	specs->width_suffix = 2 + (value->field.exp ? get_size_exp(value->field.exp - FLOAT_EXP_BIAS_DBL) : 1);
+	specs->width_suffix = 2 + get_length_exp(value->field.exp);
 	filter_specs(specs);
-//	if (str)
-//		print_specs(specs);
-//	printf("sign\texp\n%d\t%d\n", value->field.sign, value->field.exp - FLOAT_EXP_BIAS);
 	if (str)
 		fill_str(value, base, str, specs);
 	return (1);

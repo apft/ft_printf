@@ -30,6 +30,7 @@ int		fill_float_exp(union u_double *value, char *str, t_specs *specs)
 	int		exp;
 	int		i;
 	int		j;
+	int		k;
 
 	exp = value->field.exp;
 	i = 0;
@@ -39,7 +40,11 @@ int		fill_float_exp(union u_double *value, char *str, t_specs *specs)
 	if (!exp || !(exp -= FLOAT_EXP_BIAS_DBL))
 		*(str + i) = '0';
 	j = specs->width_suffix - 2;
-	while ((exp /= (!(--j) ? 1 : 10)))
-		*(str + i++) = '0' + (exp < 0 ? -(exp % 10) : exp % 10);
-	return (i);
+	k = j;
+	while (j--)
+	{
+		*(str + i + j) = '0' + (exp < 0 ? -(exp % 10) : exp % 10);
+		exp /= 10;
+	}
+	return (i + k);
 }
