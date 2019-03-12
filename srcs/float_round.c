@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 12:24:38 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 14:39:22 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 16:57:19 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		float_round(unsigned long n, char *base, char *str, t_specs *specs)
 		++b;
 	j = specs->precision;
 	propagate = 1;
-	if (propagate && !j && (((n >> 60) > b / 2) || ((n >> 60) == b / 2 && (*str - '0') % 2)))
+	if (propagate && !j && (((int)(n >> 60) > b / 2) || ((int)(n >> 60) == b / 2 && (*str - '0') % 2)))
 	{
 		(*(str - 1))++;
 		return ;

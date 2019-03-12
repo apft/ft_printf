@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:50:00 by apion             #+#    #+#             */
-/*   Updated: 2019/02/13 16:15:31 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 16:55:00 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		extract_float_conv(va_list ap, t_specs *specs, char *str)
 
 	value = (union u_double){0};
 	extract_arg_double(ap, &value);
-	if (value.field.exp == FLOAT_EXP_MAX)
+	if (value.field.exp == FLOAT_EXP_MAX_DBL)
 	{
 		if (!value.field.frac && !value.field.sign)
 			return (handle_str_conv("inf", specs, str));

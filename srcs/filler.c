@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 08:57:26 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 16:55:29 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,6 @@ static int		fill_char(char *str, char c, int size)
 	while (i < size)
 		*(str + i++) = c;
 	return (i);
-}
-
-static int		fill_start_float(char *str, t_specs *specs)
-{
-	int		i;
-	int		size;
-
-	size = specs->width;
-	size -= specs->is_neg + specs->width_prefix + 1 + specs->width_suffix;
-	i = 0;
-	if ((specs->type & (FLOAT_HEXA | FLOAT_HEXA_C)) && specs->flags & PRECISION)
-		size -= specs->precision ? 1 + specs->precision : 0;
-	else if ((specs->type & (FLOAT_HEXA | FLOAT_HEXA_C)))
-		size -= specs->width_arg ? 1 + specs->width_arg : 0;
-	else
-		size -= 1 + specs->precision;
-	return (fill_char(str, ' ', size));
 }
 
 static int		fill_start_left(char *str, t_specs *specs)

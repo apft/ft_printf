@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/02/13 15:38:12 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 16:59:23 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int		get_size_exp(int exp)
 	return (size);
 }
 
-static void		fill_str(union u_double *value, char *b, char *str,										 t_specs *specs)
+static void		fill_str(union u_double *value, char *b, char *str,
+							t_specs *specs)
 {
 	unsigned long	n;
 	int				i;
@@ -87,7 +88,7 @@ int				handle_float_conv_hex(union u_double *value, t_specs *specs,
 	specs->flags |= PREFIX;
 	if (!(specs->flags & PRECISION))
 		specs->precision = value->field.frac ? get_size(value->field.frac) : 0;
-	specs->width_suffix = 2 + (value->field.exp ? get_size_exp(value->field.exp - FLOAT_EXP_BIAS) : 1);
+	specs->width_suffix = 2 + (value->field.exp ? get_size_exp(value->field.exp - FLOAT_EXP_BIAS_DBL) : 1);
 	filter_specs(specs);
 //	if (str)
 //		print_specs(specs);

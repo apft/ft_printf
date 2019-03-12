@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 13:46:04 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 16:58:25 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "utils_float.h"
 #include "bigint.h"
 #include "filler.h"
+#include "filter.h"
 
 #include <stdio.h>
 void	extract_mantissa(t_bigint *numerator, unsigned long frac,
@@ -62,7 +63,6 @@ static void	generate_bigints_num_den(t_bigint *numerator, t_bigint *denominator,
 {
 	int			exp;
 	t_bigint	bigint_pow_ten;
-	int			i;
 
 	extract_mantissa(numerator, value->field.frac, value->field.exp);
 	bigint_init_int(denominator, 1);
