@@ -5,6 +5,7 @@
 "String medium",test_string_medium,"|%s|%-32s|%23.12s|%#10.2s|", "This is another string.", "and a second one", "one more", "final one ?"
 "Strind medium other",test_string_medium_other,"|%.12s|%-13.5s|%3.12s|%3.12s|%10.s|", "This is another string.", "and a second one", "one more", "sdfljhgidfghoisufghskjhg", "final one ?"
 "String hard",test_string_hard,"|%s|% 32s|%-23.12s|%+10.2s|%040s|%-025s|%-.4s|%-.20s|", "This is another string.", "and a second one", "one more", "final one ?", "not yet for padding", "part with pad & left", "left+precision", "left and precision"
+"String hard other",test_string_hard_other,"|%.s|%.0s|%12.0s|%-20.s|%04.0s|", "one", "two", "three", "four", "five"
 "String null & mix",test_string_null_mix,"%.1s|%5c|%s", 0, '\0', "hidden part..."
 "Char null & string",test_str_char_null,"%s|%5c|%s","This is a string.", '\0', "hidden part..."
 "Mix all null",test_mix_all_null,"%15s|%5c|%s", 0L, 0, 0L
