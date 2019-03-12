@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/03/07 11:59:54 by apion            ###   ########.fr        #
+#    Updated: 2019/03/12 17:07:10 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,11 +52,14 @@ DIRS			:= $(strip $(filter-out ./,$(sort $(dir $(C_FILES))))) .
 .PHONY: all
 all: $(NAME)
 
-.PHONY: $(FTPRINTF_LIB)
+.PHONY: lib
+lib:
+	make -C $(FTPRINTF_PATH)
+	make -C $(LIBUNIT_PATH)
+
 $(FTPRINTF_LIB):
 	make -C $(FTPRINTF_PATH)
 
-.PHONY: $(LIBUNIT)
 $(LIBUNIT):
 	make -C $(LIBUNIT_PATH)
 
