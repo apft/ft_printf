@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/02/07 17:14:46 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 08:57:26 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static int		fill_start_float(char *str, t_specs *specs)
 		size -= specs->width_arg ? 1 + specs->width_arg : 0;
 	else
 		size -= 1 + specs->precision;
-	printf("size= %d\n", size);
 	return (fill_char(str, ' ', size));
 }
 

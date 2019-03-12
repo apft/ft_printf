@@ -89,7 +89,8 @@ void		filter_specs(t_specs *specs)
 	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C | CHAR | STRING | PERCENT))
 			&& (specs->flags & SPACE))
 		specs->flags ^= SPACE;
-	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C | CHAR | STRING | PERCENT)) && (specs->flags & PLUS))
+	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C | CHAR | STRING | PERCENT))
+			&& (specs->flags & PLUS))
 		specs->flags ^= PLUS;
 	if ((specs->flags & SPACE) && (specs->flags & PLUS))
 		specs->flags ^= SPACE;
