@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/03/12 17:07:10 by apion            ###   ########.fr        #
+#    Updated: 2019/03/12 19:40:55 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ clean:
 	$(RM) $(addprefix $(D_DIR), $(D_FILES))
 	rmdir $(addprefix $(O_DIR), $(DIRS)) 2> /dev/null || true
 	rmdir $(O_DIR) 2> /dev/null || true
+	rmdir $(addprefix $(D_DIR), $(DIRS)) 2> /dev/null || true
 	rmdir $(addprefix $(D_DIR), $(DIRS)) 2> /dev/null || true
 	rmdir $(D_DIR) 2> /dev/null || true
 
