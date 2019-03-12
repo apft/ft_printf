@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 16:55:29 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 17:47:56 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,5 @@ int				filler(char *str, t_specs *specs, int start)
 	}
 	if (specs->flags & LEFT)
 		return (fill_char(str, ' ', specs->width - start));
-	return (0);
+	return (fill_char(str, specs->flags & PAD ? '0' : ' ', specs->width - start));
 }
