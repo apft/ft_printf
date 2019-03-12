@@ -17,7 +17,7 @@ int		test_float_conv(void)
 	double		n;
 
 	bzero(str_printf, BUFF_SIZE);
-	format = "|%.50f|%.75f|%.40f|%f|%.50f|\n";
+	format = "|%.50f|%.75f|%51.40f|%f|%.50f|\n";
 //	format = "|%f|";
 	n = 4.423547891112;
 	double p = 0.000000343549217;
