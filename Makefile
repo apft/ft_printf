@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/07 12:58:12 by apion            ###   ########.fr        #
+#    Updated: 2019/03/12 17:39:45 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,6 +111,11 @@ re: fclean all
 include $(wildcard $(D_DIR)/*.d)
 
 # --- Tests --- #
+
+.PHONY: lib
+lib:
+	$(MAKE)
+	$(MAKE) -C $(TEST_LIBUNIT)
 
 .PHONY: test
 test:
