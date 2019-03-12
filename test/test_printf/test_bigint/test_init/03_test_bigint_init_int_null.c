@@ -6,12 +6,13 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 11:48:23 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 12:34:42 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 16:40:05 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "bigint.h"
+#include <stdio.h>
 
 int		test_bigint_init_int_null(void)
 {
