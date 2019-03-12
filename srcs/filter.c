@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/02/07 17:25:03 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 11:21:57 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,20 @@ static void	reset_precision(t_specs *specs)
 	specs->precision = 0;
 }
 
-static int	compute_width_float(t_specs *specs)
+static int	compute_width_float_hexa(t_specs *specs)
 {
 	specs->width_prefix = 2 + !!(specs->flags & (PLUS | SPACE));
 	specs->width_arg = specs->is_neg + specs->width_prefix + 1
 		+ (specs->precision ? 1 : 0) + specs->precision + specs->width_suffix;
+	return (pf_max(specs->width_min, specs->width_arg));
+}
+
+static int	compute_width_float(t_specs *specs)
+{
+	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
+		return (compute_width_float_hexa(specs));
+	printf("here\n");
+	printf("min: %d\targ: %d\n", specs->width_min, specs->width_arg);
 	return (pf_max(specs->width_min, specs->width_arg));
 }
 

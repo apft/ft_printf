@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/11 18:42:57 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 11:27:42 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	generate_bigints(union u_double *value)
 
 	extract_mantissa(&numerator, value->field.frac, value->field.exp);
 	bigint_init_int(&denominator, 1);
-	exp = value->field.exp - 1023 - FLOAT_SIZE_FRAC;
+	exp = value->field.exp - FLOAT_EXP_BIAS_DBL - FLOAT_SIZE_FRAC;
 	pow_ten = compute_pow_ten(value->type_dbl);
 	printf("exp: %d\npow_ten: %d\n", exp, pow_ten);
 	if (exp >= 0)
@@ -122,9 +122,35 @@ void	generate_bigints(union u_double *value)
 	printf("\ni: %d\n", i);
 }
 
+int			compute_width_arg_float(union u_double *value, t_specs *specs)
+{
+	int		width_arg;
+	int		pow_ten;
+
+	width_arg = specs->is_neg + !!(specs->flags & (PLUS | SPACE));
+	width_arg += 1;
+	pow_ten = compute_pow_ten(value->type_dbl);
+	if (pow_ten > 0)
+		width_arg += pow_ten;
+	if ((specs->flags & PRECISION) &&
+			(specs->precision || (specs->flags & PREFIX)))
+		width_arg += 1;
+	width_arg += specs->precision;
+	return (width_arg);
+}
+
 int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 {
-	(void)specs;
+	specs->is_neg = value->field.sign;
+	if (!(specs->flags & PRECISION))
+	{
+		specs->flags |= PRECISION;
+		specs->precision = FLOAT_DEFAULT_PRECISION;
+	}
+	specs->width_arg = compute_width_arg_float(value, specs);
+	filter_specs(specs);
+	if (!str)
+		print_specs(specs);
 	if (str)
 	{
 		dbg_print(value);

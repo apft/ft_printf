@@ -6,21 +6,23 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/02/13 14:54:40 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 08:55:56 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_FLOAT_H
 # define UTILS_FLOAT_H
 
+# define FLOAT_DEFAULT_PRECISION 6
+
 # define FLOAT_SIZE_SIGN 1
 # define FLOAT_SIZE_EXP 11
 # define FLOAT_SIZE_FRAC 52
 
-# define FLOAT_EXP_BIAS 1023
-# define FLOAT_EXP_MAX 2047
-# define FLOAT_LONG_EXP_BIAS 1023
-# define FLOAT_LONG_EXP_MAX 2047
+# define FLOAT_EXP_BIAS_DBL 1023
+# define FLOAT_EXP_MAX_DBL 2047
+# define FLOAT_EXP_BIAS_LONG_DBL 1023
+# define FLOAT_EXP_MAX_LONG_DBL 2047
 
 # define FLOAT_MASK_RIGHT 0b1111UL
 # define FLOAT_MASK_LEFT (0b1111UL << 60)
