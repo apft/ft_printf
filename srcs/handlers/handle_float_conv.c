@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 16:58:25 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 20:07:41 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,6 @@ int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 		print_specs(specs);
 	if (str)
 	{
-		print_specs(specs);
 		dbg_print(value);
 		fill_str(value, str, specs);
 	}
