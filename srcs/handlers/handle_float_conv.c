@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 11:38:58 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 11:59:00 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,44 +51,52 @@ int		get_quotient_and_substract(t_bigint *numerator, t_bigint *denominator)
 	return (quotient);
 }
 
-void	generate_bigints(union u_double *value)
+static void	generate_bigint_pow_ten(t_bigint *bigint_pow_ten, int pow_ten)
 {
-	int		exp;
-	int		pow_ten;
-	t_bigint	numerator;
-	t_bigint	denominator;
+	while (pow_ten--)
+		bigint_mult_int(bigint_pow_ten, bigint_pow_ten, 10);
+}
+
+static void	generate_bigints_num_den(t_bigint *numerator, t_bigint *denominator,
+							union u_double *value)
+{
+	int			exp;
+	int			pow_ten;
 	t_bigint	bigint_pow_ten;
 	int			i;
-	int			digit;
 
-	extract_mantissa(&numerator, value->field.frac, value->field.exp);
-	bigint_init_int(&denominator, 1);
+	extract_mantissa(numerator, value->field.frac, value->field.exp);
+	bigint_init_int(denominator, 1);
 	exp = value->field.exp - FLOAT_EXP_BIAS_DBL - FLOAT_SIZE_FRAC;
 	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
 	printf("exp: %d\npow_ten: %d\n", exp, pow_ten);
 	if (exp >= 0)
-		bigint_shift_left_self(&numerator, exp);
+		bigint_shift_left_self(numerator, exp);
 	else
-		bigint_shift_left_self(&denominator, -exp);
+		bigint_shift_left_self(denominator, -exp);
 	bigint_init_int(&bigint_pow_ten, 1);
 	if (pow_ten > 0)
 	{
-		i = pow_ten;
-		while (i--)
-			bigint_mult_int(&bigint_pow_ten, &bigint_pow_ten, 10);
-		bigint_mult(&denominator, &denominator, &bigint_pow_ten);
+		generate_bigint_pow_ten(&bigint_pow_ten, pow_ten);
+		bigint_mult(denominator, denominator, &bigint_pow_ten);
 	}
 	else if (pow_ten < 0)
 	{
-		i = -pow_ten;
-		while (i--)
-			bigint_mult_int(&bigint_pow_ten, &bigint_pow_ten, 10);
-		bigint_mult(&numerator, &numerator, &bigint_pow_ten);
+		generate_bigint_pow_ten(&bigint_pow_ten, -pow_ten);
+		bigint_mult(numerator, numerator, &bigint_pow_ten);
 	}
+}
+
+static void	fill_str(union u_double *value, char *str, t_specs *specs)
+{
+	t_bigint	numerator;
+	t_bigint	denominator;
+	int			digit;
+	int			i;
+
+	generate_bigints_num_den(&numerator, &denominator, value);
 	i = 0;
-	if (bigint_is_overflow(&numerator))
-		return ;
-	while (!bigint_is_null(&numerator) && !bigint_is_underflow(&numerator))
+	while (!bigint_is_null(&numerator))
 	{
 		digit = get_quotient_and_substract(&numerator, &denominator);
 		printf("%d ", digit);
@@ -130,7 +138,7 @@ int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 	if (str)
 	{
 		dbg_print(value);
-		generate_bigints(value);
+		fill_str(value, str, specs);
 	}
 	return (1);
 }
