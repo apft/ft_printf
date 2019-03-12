@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 11:59:00 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 13:46:04 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,15 @@ static void	generate_bigint_pow_ten(t_bigint *bigint_pow_ten, int pow_ten)
 }
 
 static void	generate_bigints_num_den(t_bigint *numerator, t_bigint *denominator,
-							union u_double *value)
+							union u_double *value, int pow_ten)
 {
 	int			exp;
-	int			pow_ten;
 	t_bigint	bigint_pow_ten;
 	int			i;
 
 	extract_mantissa(numerator, value->field.frac, value->field.exp);
 	bigint_init_int(denominator, 1);
 	exp = value->field.exp - FLOAT_EXP_BIAS_DBL - FLOAT_SIZE_FRAC;
-	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
 	printf("exp: %d\npow_ten: %d\n", exp, pow_ten);
 	if (exp >= 0)
 		bigint_shift_left_self(numerator, exp);
@@ -87,22 +85,80 @@ static void	generate_bigints_num_den(t_bigint *numerator, t_bigint *denominator,
 	}
 }
 
+static int	fill_float_floor_part(char *str, int pow_ten, t_bigint *numerator,
+									t_bigint *denominator)
+{
+	int		i;
+	int			digit;
+
+	i = 0;
+	if (pow_ten < 0)
+	{
+		*(str + i++) = '0';
+		return (i);
+	}
+	while (i <= pow_ten)
+	{
+		digit = get_quotient_and_substract(numerator, denominator);
+		*(str + i++) = '0' + (char)digit;
+		bigint_mult_int(numerator, numerator, 10);
+	}
+	return (i);
+}
+
+static int	fill_float_decimal_part(char *str, int pow_ten, t_bigint *numerator,
+									t_bigint *denominator)
+{
+	int		i;
+	int			digit;
+
+	i = 0;
+	if (pow_ten < 0)
+		while (++pow_ten)
+			*(str + i++) = '0';
+	while (!bigint_is_null(numerator))
+	{
+		digit = get_quotient_and_substract(numerator, denominator);
+		*(str + i++) = '0' + (char)digit;
+		bigint_mult_int(numerator, numerator, 10);
+	}
+	return (i);
+}
+
 static void	fill_str(union u_double *value, char *str, t_specs *specs)
 {
 	t_bigint	numerator;
 	t_bigint	denominator;
-	int			digit;
+	int			pow_ten;
 	int			i;
+	int			pad;
 
-	generate_bigints_num_den(&numerator, &denominator, value);
-	i = 0;
-	while (!bigint_is_null(&numerator))
-	{
-		digit = get_quotient_and_substract(&numerator, &denominator);
-		printf("%d ", digit);
-		bigint_mult_int(&numerator, &numerator, 10);
-		++i;
-	}
+	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
+	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
+	i = filler(str, specs, FILL_START);
+//	if (!(specs->flags & LEFT))
+//	{
+//		if (specs->flags & PAD)
+//		{
+//			if (specs->is_neg)
+//				*(str + i++) = '-';
+//		}
+//		while (i + specs->width_arg < specs->width)
+//			*(str + i++) = (specs->flags & PAD) ? '0': ' ';
+//		if (!(specs->flags & PAD))
+//		{
+//			if (specs->is_neg)
+//				*(str + i++) = '-';
+//		}
+//	}
+	pad = i;
+	i += fill_float_floor_part(str + i, pow_ten, &numerator, &denominator);
+	*(str + i++) = '.';
+	i += fill_float_decimal_part(str + i, pow_ten, &numerator, &denominator);
+	while (i - pad < specs->width)
+		*(str + i++) = '0';
+	while (i < specs->width)
+		*(str + i++) = ' ';
 	printf("\ni: %d\n", i);
 }
 
@@ -111,8 +167,7 @@ static int	compute_width_arg_float(union u_double *value, t_specs *specs)
 	int		width_arg;
 	int		pow_ten;
 
-	width_arg = specs->is_neg + !!(specs->flags & (PLUS | SPACE));
-	width_arg += 1;
+	width_arg = 1;
 	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
 	if (pow_ten > 0)
 		width_arg += pow_ten;
@@ -131,12 +186,14 @@ int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 		specs->flags |= PRECISION;
 		specs->precision = FLOAT_DEFAULT_PRECISION;
 	}
+	specs->width_prefix = specs->is_neg + !!(specs->flags & (PLUS | SPACE));
 	specs->width_arg = compute_width_arg_float(value, specs);
 	filter_specs(specs);
 	if (!str)
 		print_specs(specs);
 	if (str)
 	{
+		print_specs(specs);
 		dbg_print(value);
 		fill_str(value, str, specs);
 	}
