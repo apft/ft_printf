@@ -24,7 +24,7 @@ then
 	cp ${template_header} $header
 fi
 
-includes="<stdio.h> <string.h> <stdlib.h> \"ft_printf.h\" \"utils.h\""
+includes="<stdio.h> <string.h> <stdlib.h> <float.h> \"ft_printf.h\" \"utils.h\""
 variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\tchar\t*out;\n\tint\t\tret;\n\tint\t\tret_exp;\n\tint\t\tdiff;\n"
 
 read_block()
