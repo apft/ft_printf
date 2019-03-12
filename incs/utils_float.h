@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 08:55:56 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 11:38:19 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ union					u_double
 	}					field;
 };
 
+int						pf_compute_float_pow_ten(double n);
 void					pf_round(unsigned long n, char *base, char *str,
 								t_specs *specs);
 void					print_bits(long n, unsigned int size);

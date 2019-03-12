@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:02:09 by apion             #+#    #+#             */
-/*   Updated: 2019/02/14 12:35:43 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/12 11:39:56 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,30 @@
 #include "utils_float.h"
 
 #include <stdio.h>
+int		pf_compute_float_pow_ten(double n)
+{
+	int		pow_ten;
+
+	pow_ten = 0;
+	if (n > 10.0)
+	{
+		while (n > 10.0)
+		{
+			n /= 10;
+			++pow_ten;
+		}
+	}
+	else if (n < 1.0)
+	{
+		while (n < 1.0)
+		{
+			n *= 10;
+			--pow_ten;
+		}
+	}
+	return (pow_ten);
+}
+
 void		print_bits(long n, unsigned int size)
 {
 	unsigned int		i;
