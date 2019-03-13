@@ -8,11 +8,23 @@ data="${TEST_TYPE}_format.txt"
 template_folder="template"
 template_launcher=${template_folder}/00_launcher_${TEST_TYPE}.c
 template_header=${template_folder}/test_${TEST_TYPE}.h
+template_makefile=${template_folder}/makefile_${TEST_TYPE}.mk
 
-folder="../test_${TEST_TYPE}"
-[ ! -d "$folder" ] && mkdir $folder
+folder_name="test_${TEST_TYPE}"
+folder="../${folder_name}"
 launcher="$folder/00_launcher.c"
 header="$folder/test_${TEST_TYPE}.h"
+
+makefile_folder="../makefiles"
+makefile="${makefile_folder}/makefile_${TEST_TYPE}.mk"
+
+if [ "$1" == "new" ]; then
+	[ "$debug" -eq 1 ] && echo "Redo all files" && echo "clear all old files"
+	[ -f $makefile ] && rm $makefile
+	[ -d $folder ] && rm -rf $folder
+fi
+
+[ ! -d "$folder" ] && mkdir $folder
 if [ ! -f $launcher ]
 then
 	[ "$debug" -eq 1 ] && echo "get template file: ${template_launcher}"
@@ -22,6 +34,11 @@ if [ ! -f "$header" ]
 then
 	[ "$debug" -eq 1 ] && echo "get template file: ${template_header}"
 	cp ${template_header} $header
+fi
+if [ ! -f "$makefile" ]
+then
+	[ "$debug" -eq 1 ] && echo "get template file: ${template_makefile}"
+	cp ${template_makefile} $makefile
 fi
 
 includes="<stdio.h> <string.h> <stdlib.h> <float.h> \"ft_printf.h\" \"utils.h\""
@@ -103,6 +120,10 @@ read_block()
 					tail -n 2 $header
 				} > $header.tmp
 				mv $header.tmp $header
+				[ "$debug" -eq 1 ] && echo "add to makefile"
+				{
+					echo "\t${folder_name}/$file"
+				} >> $makefile
 			else
 				echo "nothing to be done for file: $file"
 			fi
