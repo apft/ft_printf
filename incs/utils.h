@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/03/13 16:20:10 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/13 17:47:37 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ enum			e_flags
 	MOD_L = 1 << 9,
 	MOD_LL = 1 << 10,
 	MOD_LD = 1 << 11,
-	FLOAT_FORCE_POINT = 1 << 12
+	FLOAT_FORCE_POINT = 1 << 12,
+	FLOAT_ROUND_TEN = 1 << 13
 };
 
 enum			e_type

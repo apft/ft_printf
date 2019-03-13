@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/13 16:41:00 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/13 19:25:03 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,43 @@ static void	generate_bigints_num_den(t_bigint *numerator, t_bigint *denominator,
 	}
 }
 
-static int	fill_float_floor_part(char *str, int pow_ten, t_bigint *numerator,
+static int float_will_round_to_ten(union u_double *value, int pow_ten, int precision)
+{
+	t_bigint	numerator;
+	t_bigint	denominator;
+	int			i;
+	int			digit;
+	int			digit_after;
+
+	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
+	digit = get_quotient_and_substract(&numerator, &denominator);
+	if (pow_ten < 0)
+		pow_ten *= -1;
+	if (digit != 9)
+		return (0);
+	bigint_mult_int(&numerator, &numerator, 10);
+	digit_after = get_quotient_and_substract(&numerator, &denominator);
+	i = 0;
+	while (digit_after == 9 && i < (pow_ten + precision) && !bigint_is_null(&numerator))
+	{
+		bigint_mult_int(&numerator, &numerator, 10);
+		digit_after = get_quotient_and_substract(&numerator, &denominator);
+		++i;
+	}
+	if (digit_after >= 6
+			&& (i == (pow_ten + precision) || bigint_is_null(&numerator)))
+		return (1);
+	return (0);
+}
+
+static int	fill_float_floor_part(char *str, int pow_ten, int is_round_ten, t_bigint *numerator,
 									t_bigint *denominator)
 {
 	int		i;
-	int			digit;
+	int		digit;
 
 	i = 0;
-	if (pow_ten < 0)
+	if (pow_ten < 0 && !is_round_ten)
 	{
 		*(str + i++) = '0';
 		return (i);
@@ -125,7 +154,7 @@ static int	fill_float_decimal_part(char *str, int pow_ten, int precision,
 	return (i);
 }
 
-static int	propagate_rounding(char *str, int limit)
+static int	propagate_rounding(char *str, int limit, int is_integer_part, int *offset)
 {
 	int		propagate;
 	int		i;
@@ -143,22 +172,27 @@ static int	propagate_rounding(char *str, int limit)
 		}
 		++i;
 	}
+	if (is_integer_part && i == limit && propagate)
+		*(str - i) = '0';
+	*offset = i;
 	return (propagate);
 }
 
 static void	apply_rounding(int pow_ten, int precision, char *str)
 {
+	int		i;
 	int		propagate;
 
+	i = 0;
 	propagate = 1;
 	if (precision)
-		propagate = propagate_rounding(str, precision);
+		propagate = propagate_rounding(str - i, precision, 0, &i);
 	if (propagate)
 	{
-		if (*str == '.')
-			propagate_rounding(str - 1, pow_ten);
+		if (*(str - i) == '.')
+			propagate_rounding(str - i - 1, pow_ten, 1, &i);
 		else
-			propagate_rounding(str, pow_ten);
+			propagate_rounding(str - i, pow_ten, 1, &i);
 	}
 
 }
@@ -205,7 +239,9 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
 	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
 	i = filler(str, specs, FILL_START);
-	i += fill_float_floor_part(str + i, pow_ten, &numerator, &denominator);
+	if ((specs->flags & FLOAT_ROUND_TEN) && pow_ten >= -1)
+		*(str + i++) = '1';
+	i += fill_float_floor_part(str + i, pow_ten, specs->flags & FLOAT_ROUND_TEN, &numerator, &denominator);
 	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
 		*(str + i++) = '.';
 	decimal_length = i;
@@ -230,6 +266,11 @@ static int	compute_width_arg_float(union u_double *value, t_specs *specs)
 	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
 	if (pow_ten > 0)
 		width_arg += pow_ten;
+	if (pow_ten >= -1 && float_will_round_to_ten(value, pow_ten, specs->precision))
+	{
+		specs->flags |= FLOAT_ROUND_TEN;
+		width_arg += (pow_ten >= 0) ? 1 : 0;
+	}
 	if ((specs->flags & PRECISION) &&
 			(specs->precision || (specs->flags & FLOAT_FORCE_POINT)))
 		width_arg += 1;
