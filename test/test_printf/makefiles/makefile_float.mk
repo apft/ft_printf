@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 14:36:04 by apion             #+#    #+#              #
-#    Updated: 2019/03/13 11:16:30 by apion            ###   ########.fr        #
+#    Updated: 2019/03/13 12:25:50 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ C_FILES_FLOAT	:= test_float/00_launcher.c \
 	test_float/017_test_float_dbl_min_f_0_0.c \
 	test_float/018_test_float_null_f_1_1.c \
 	test_float/019_test_float_null_neg_f_1_1.c \
-	test_float/01_test_float_conv.c \
 	test_float/020_test_float_pos_one_f_1_1.c \
 	test_float/021_test_float_pos_two_f_1_1.c \
 	test_float/022_test_float_pos_big_f_1_1.c \
