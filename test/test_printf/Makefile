@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/03/12 19:40:55 by apion            ###   ########.fr        #
+#    Updated: 2019/03/13 12:30:46 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ FTPRINTF_LIB		:= $(FTPRINTF_PATH)libftprintf.a
 
 MAKEFILES_PATH		:= makefiles
 include $(wildcard $(MAKEFILES_PATH)/*.mk)
+
 
 SHELL				:= /bin/sh
 RM					:= /bin/rm -f
@@ -103,4 +104,4 @@ fclean: clean
 .PHONY: re
 re: fclean all
 
-include $(wildcard $(D_DIR)*.d)
+include $(filter %.d, $(wildcard $(addsuffix *d, $(addprefix $(D_DIR), $(DIRS)))))
