@@ -14,6 +14,8 @@ start_block
 "Float %#: 0.0000099997",test_float_to_ten_small,double,0.000009997
 "Float %#: 0.9999999999",test_float_to_one,double,0.9999999999
 "Float %#: 999999.9999999999",test_float_to_million,double,999999.9999999999
+"Float %#: 99.5",test_float_to_hundred_even,double,99.5
+"Float %#: 99.9995",test_float_to_hundred_uneven,double,99.9995
 "Float %#: round even top",test_float_round_even_top,double,32.5
 "Float %#: round even down",test_float_round_even_down,double,23.5
 "Float %#: round even top neg",test_float_round_even_top_neg,double,-67.5
@@ -39,3 +41,4 @@ f,"|%17.17f|%017.17f|%#17.17f|%-17.17f|%+17.17f|% 17.17f|"
 f,"|%17.21f|%017.21f|%#17.21f|%-17.21f|%+17.21f|% 17.21f|"
 f,"|%43.40f|%043.40f|%#43.40f|%-43.40f|%+43.40f|% 43.40f|"
 f,"|%400f|%#400.f|%-310.2f|"
+f,"|%.20f|%.f|%.1f|%.2f|%.3f|%.4f|"
