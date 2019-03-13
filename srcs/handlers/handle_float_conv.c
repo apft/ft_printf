@@ -233,7 +233,9 @@ int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 		specs->flags |= PRECISION;
 		specs->precision = FLOAT_DEFAULT_PRECISION;
 	}
-	specs->width_prefix = specs->is_neg + !!(specs->flags & (PLUS | SPACE));
+	specs->width_prefix = specs->is_neg;
+	if (!specs->is_neg)
+		specs->width_prefix += !!(specs->flags & (PLUS | SPACE));
 	specs->width_arg = compute_width_arg_float(value, specs);
 	filter_specs(specs);
 	if (str)
