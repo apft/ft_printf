@@ -105,17 +105,17 @@ static int	fill_float_floor_part(char *str, int pow_ten, t_bigint *numerator,
 	return (i);
 }
 
-static int	fill_float_decimal_part(char *str, int pow_ten, t_bigint *numerator,
-									t_bigint *denominator)
+static int	fill_float_decimal_part(char *str, int pow_ten, int precision,
+									t_bigint *numerator, t_bigint *denominator)
 {
 	int		i;
 	int			digit;
 
 	i = 0;
 	if (pow_ten < 0)
-		while (++pow_ten)
+		while (i < precision && ++pow_ten)
 			*(str + i++) = '0';
-	while (!bigint_is_null(numerator))
+	while (i < precision && !bigint_is_null(numerator))
 	{
 		digit = get_quotient_and_substract(numerator, denominator);
 		*(str + i++) = '0' + (char)digit;
@@ -135,25 +135,11 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
 	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
 	i = filler(str, specs, FILL_START);
-//	if (!(specs->flags & LEFT))
-//	{
-//		if (specs->flags & PAD)
-//		{
-//			if (specs->is_neg)
-//				*(str + i++) = '-';
-//		}
-//		while (i + specs->width_arg < specs->width)
-//			*(str + i++) = (specs->flags & PAD) ? '0': ' ';
-//		if (!(specs->flags & PAD))
-//		{
-//			if (specs->is_neg)
-//				*(str + i++) = '-';
-//		}
-//	}
 	pad = i;
 	i += fill_float_floor_part(str + i, pow_ten, &numerator, &denominator);
 	*(str + i++) = '.';
-	i += fill_float_decimal_part(str + i, pow_ten, &numerator, &denominator);
+	i += fill_float_decimal_part(str + i, pow_ten, specs->precision,
+								&numerator, &denominator);
 	while (i - pad < specs->width)
 		*(str + i++) = '0';
 	while (i < specs->width)
