@@ -207,7 +207,8 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	i = filler(str, specs, FILL_START);
 	pad = i;
 	i += fill_float_floor_part(str + i, pow_ten, &numerator, &denominator);
-	*(str + i++) = '.';
+	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
+		*(str + i++) = '.';
 	i += fill_float_decimal_part(str + i, pow_ten, specs->precision,
 								&numerator, &denominator);
 	if (!bigint_is_null(&numerator)
@@ -230,7 +231,7 @@ static int	compute_width_arg_float(union u_double *value, t_specs *specs)
 	if (pow_ten > 0)
 		width_arg += pow_ten;
 	if ((specs->flags & PRECISION) &&
-			(specs->precision || (specs->flags & PREFIX)))
+			(specs->precision || (specs->flags & FLOAT_FORCE_POINT)))
 		width_arg += 1;
 	width_arg += specs->precision;
 	return (width_arg);
@@ -243,6 +244,11 @@ int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 	{
 		specs->flags |= PRECISION;
 		specs->precision = FLOAT_DEFAULT_PRECISION;
+	}
+	if (specs->flags & PREFIX)
+	{
+		specs->flags ^= PREFIX;
+		specs->flags |= FLOAT_FORCE_POINT;
 	}
 	specs->width_prefix = specs->is_neg;
 	if (!specs->is_neg)
