@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/13 14:47:33 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/13 16:41:00 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,22 +200,22 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	t_bigint	denominator;
 	int			pow_ten;
 	int			i;
-	int			pad;
+	int			decimal_length;
 
 	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
 	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
 	i = filler(str, specs, FILL_START);
-	pad = i;
 	i += fill_float_floor_part(str + i, pow_ten, &numerator, &denominator);
 	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
 		*(str + i++) = '.';
+	decimal_length = i;
 	i += fill_float_decimal_part(str + i, pow_ten, specs->precision,
 								&numerator, &denominator);
 	if (!bigint_is_null(&numerator)
 			&& !(pow_ten < 0 && (specs->precision + 1 + pow_ten) < 0))
 		apply_rounding_if_needed(str + i - 1, pow_ten, specs->precision,
 								&numerator, &denominator);
-	while (i - pad < specs->width)
+	while (i - decimal_length < specs->precision)
 		*(str + i++) = '0';
 	while (i < specs->width)
 		*(str + i++) = ' ';
