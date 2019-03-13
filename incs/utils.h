@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 18:39:22 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/13 16:20:10 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ enum			e_type
 int				pf_strlen(const char *str);
 int				pf_min(int a, int b);
 int				pf_max(int a, int b);
+int				pf_isdigit(char c);
 char			*get_base(int type);
 
 #endif

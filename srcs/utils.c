@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 10:24:24 by apion             #+#    #+#             */
-/*   Updated: 2019/02/12 22:00:22 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/13 16:18:27 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ int		pf_min(int a, int b)
 int		pf_max(int a, int b)
 {
 	return (a < b ? b : a);
+}
+
+int		pf_isdigit(char c)
+{
+	return (c >= '0' && c <= '9');
 }
 
 char	*get_base(int type)

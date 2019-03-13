@@ -184,6 +184,13 @@ static void	apply_rounding_if_needed(char *str, int pow_ten, int precision,
 		}
 		if (digit_after)
 			apply_rounding(pow_ten, precision, str);
+		else
+		{
+			if (pf_isdigit(*str) && (*str % 2) == 1)
+				apply_rounding(pow_ten, precision, str);
+			else if (*str == '.' && (*(str - 1) % 2) == 1)
+				apply_rounding(pow_ten, precision, str - 1);
+		}
 	}
 }
 
