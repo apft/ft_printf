@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 15:28:01 by apion             #+#    #+#             */
-/*   Updated: 2019/02/16 12:48:23 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/13 12:11:51 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <limits.h>
 # include "bigint.h"
 
-# define BUFF_SIZE 2048
+# define BUFF_SIZE 4096
 # define BIGINT_BLOCK_MAX_VALUE 0xffffffff
 
 void	print_diff(char *format, int length_return, int length_expected,
