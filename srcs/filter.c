@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 18:46:36 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/13 17:51:57 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <stdio.h>
 void		print_specs(t_specs *specs)
 {
-	printf("-\t+\t^\t#\t0\t.\thh\th\tl\tll\tw_min\tprec\tw_arg\tw_pref\tw_suff\twidth\tneg\ttype\n");
-	printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
+	printf("-\t+\t^\t#\t0\t.\thh\th\tl\tll\tw_min\tprec\tw_arg\tw_pref\tw_suff\twidth\tneg\tdbl.\tdbl->10\ttype\n");
+	printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
 			!!(specs->flags & LEFT),
 			!!(specs->flags & PLUS),
 			!!(specs->flags & SPACE),
@@ -34,6 +34,8 @@ void		print_specs(t_specs *specs)
 			specs->width_suffix,
 			specs->width,
 			specs->is_neg,
+			!!(specs->flags & FLOAT_FORCE_POINT),
+			!!(specs->flags & FLOAT_ROUND_TEN),
 			specs->type);
 }
 
