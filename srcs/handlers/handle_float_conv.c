@@ -66,7 +66,8 @@ static void	generate_bigints_num_den(t_bigint *numerator, t_bigint *denominator,
 
 	extract_mantissa(numerator, value->field.frac, value->field.exp);
 	bigint_init_int(denominator, 1);
-	exp = value->field.exp - FLOAT_EXP_BIAS_DBL - FLOAT_SIZE_FRAC;
+	exp = value->field.exp ? value->field.exp : 1;
+	exp -= (FLOAT_EXP_BIAS_DBL + FLOAT_SIZE_FRAC);
 	if (exp >= 0)
 		bigint_shift_left_self(numerator, exp);
 	else
