@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/13 19:25:03 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/13 20:41:38 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,9 @@ static int float_will_round_to_ten(union u_double *value, int pow_ten, int preci
 		digit_after = get_quotient_and_substract(&numerator, &denominator);
 		++i;
 	}
-	if (digit_after >= 6
-			&& (i == (pow_ten + precision) || bigint_is_null(&numerator)))
+	if (digit_after >= 5 && i == (pow_ten + precision))
+		return (1);
+	if (digit_after > 5 && bigint_is_null(&numerator))
 		return (1);
 	return (0);
 }
