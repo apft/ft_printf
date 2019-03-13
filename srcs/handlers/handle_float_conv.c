@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 20:11:25 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/13 13:33:14 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,66 @@ static int	fill_float_decimal_part(char *str, int pow_ten, int precision,
 	return (i);
 }
 
+static int	propagate_rounding(char *str, int limit)
+{
+	int		propagate;
+	int		i;
+
+	propagate = 1;
+	i = 0;
+	while (i < limit && propagate)
+	{
+		if (*(str - i) == '9')
+			*(str - i) = '0';
+		else
+		{
+			*(str - i) += 1;
+			propagate = 0;
+		}
+		++i;
+	}
+	return (propagate);
+}
+
+static int	is_rounding_needed(char digit_current_ascii, int digit_after)
+{
+	int		round_to_even;
+// TODO: rounding floor part '.'
+	round_to_even = (digit_after == 5 && ((digit_current_ascii % 2) == 1));
+	return (digit_after > 5 || round_to_even);
+}
+
+static void	apply_rounding(int pow_ten, int precision, char *str)
+{
+	int		propagate;
+
+	printf("rounded\n");
+	propagate = 1;
+	if (precision)
+		propagate = propagate_rounding(str, precision);
+	if (propagate)
+	{
+		if (*str == '.')
+			propagate_rounding(str - 1, pow_ten);
+		else
+			propagate_rounding(str, pow_ten);
+	}
+
+}
+
+static void	apply_rounding_if_needed(char *str, int pow_ten, int precision,
+									t_bigint *numerator, t_bigint *denominator)
+{
+	int		digit_after;
+
+	if (bigint_is_null(numerator))
+		return ;
+	digit_after = get_quotient_and_substract(numerator, denominator);
+	printf("digit after: %d\n", digit_after);
+	if (is_rounding_needed(*str, digit_after))
+		apply_rounding(pow_ten, precision, str);
+}
+
 static void	fill_str(union u_double *value, char *str, t_specs *specs)
 {
 	t_bigint	numerator;
@@ -140,6 +200,8 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	i += fill_float_floor_part(str + i, pow_ten, &numerator, &denominator);
 	*(str + i++) = '.';
 	i += fill_float_decimal_part(str + i, pow_ten, specs->precision,
+								&numerator, &denominator);
+	apply_rounding_if_needed(str + i, pow_ten, specs->precision,
 								&numerator, &denominator);
 	while (i - pad < specs->width)
 		*(str + i++) = '0';
