@@ -10,6 +10,10 @@ start_block
 "Float %#: 0<x<1",test_float_inf_one,double,0.42
 "Float %#: 0.01<x<0.1",test_float_inf_zero_one,double,0.0625
 "Float %#: 1.42",test_float_den,double,1.42
+"Float %#: 9.99934",test_float_to_ten,double,9.99934
+"Float %#: 0.0000099997",test_float_to_ten_small,double,0.000009997
+"Float %#: 0.9999999999",test_float_to_one,double,0.9999999999
+"Float %#: 999999.9999999999",test_float_to_million,double,999999.9999999999
 "Float %#: round even top",test_float_round_even_top,double,32.5
 "Float %#: round even down",test_float_round_even_down,double,23.5
 "Float %#: round even top neg",test_float_round_even_top_neg,double,-67.5
