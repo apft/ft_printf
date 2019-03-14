@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 12:00:32 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 12:49:49 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include "bigint.h"
 #include "filler.h"
 #include "filter.h"
-
-#include <stdio.h>
 
 static void	fill_str(union u_double *value, char *str, t_specs *specs)
 {
