@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:50:00 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 09:03:51 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 17:54:49 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,23 @@ int		extract_float_conv(va_list ap, t_specs *specs, char *str)
 	extract_arg_double(ap, &value);
 	if (value.field.exp == FLOAT_EXP_MAX_DBL)
 	{
-		if (!value.field.frac && !value.field.sign)
+		specs->type |= STRING;
+		if (specs->flags & PRECISION)
+		{
+			specs->flags ^= PRECISION;
+			specs->precision = 0;
+		}
+		if (specs->flags & PAD)
+			specs->flags ^= PAD;
+		if (!value.field.frac)
+		{
+			specs->is_neg = value.field.sign;
+			specs->width_prefix += specs->is_neg;
+			if (!specs->is_neg && (specs->flags & (PLUS | SPACE)))
+				specs->width_prefix += 1;
 			return (handle_str_conv("inf", specs, str));
-		if (!value.field.frac && value.field.sign)
-			return (handle_str_conv("-inf", specs, str));
-		if (value.field.frac)
+		}
+		else
 			return (handle_str_conv("nan", specs, str));
 	}
 	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
