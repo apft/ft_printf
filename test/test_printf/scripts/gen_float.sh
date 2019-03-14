@@ -41,7 +41,7 @@ then
 	cp ${template_makefile} $makefile
 fi
 
-includes="<stdio.h> <string.h> <stdlib.h> <float.h> \"ft_printf.h\" \"utils.h\""
+includes="<stdio.h> <string.h> <stdlib.h> <math.h> <float.h> \"ft_printf.h\" \"utils.h\""
 variables="\tint\t\terror;\n\tchar\t*format;\n\tchar\tstr_printf[BUFF_SIZE];\n\tchar\t*out;\n\tint\t\tret;\n\tint\t\tret_exp;\n\tint\t\tdiff;\n"
 
 read_block()
@@ -53,9 +53,10 @@ read_block()
 		if [ ${in_block} -eq 1 ]
 		then
 			loop=$((loop + 1))
-			[ "$loop" -le 9 ] && prefix="00$loop"
-			[ "$loop" -ge 10 -a $loop -le 99 ] && prefix="0$loop"
-			[ "$loop" -ge 100 ] && prefix=$loop
+			[ "$loop" -le 9 ] && prefix="000$loop"
+			[ "$loop" -ge 10 -a $loop -le 99 ] && prefix="00$loop"
+			[ "$loop" -ge 100 -a $loop -le 999 ] && prefix="0$loop"
+			[ "$loop" -ge 1000 ] && prefix="$loop"
 			title=`echo ${data_line} | cut -d ',' -f 1 | cut -d \" -f 2 | sed "s/#/$1 ${count[$(get_index_count $type)]}/"`
 			title=`echo \"$prefix $title\"`
 			proto=`echo ${data_line} | cut -d ',' -f 2`
