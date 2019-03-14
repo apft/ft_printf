@@ -6,12 +6,42 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 12:24:38 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 10:02:54 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 11:55:30 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "float_pf.h"
+
+int		float_will_round_to_ten(union u_double *value, int pow_ten, int precision)
+{
+	t_bigint	numerator;
+	t_bigint	denominator;
+	int			i;
+	int			digit;
+	int			digit_after;
+
+	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
+	digit = get_quotient_and_substract(&numerator, &denominator);
+	if (pow_ten < 0)
+		pow_ten *= -1;
+	if (digit != 9)
+		return (0);
+	bigint_mult_int(&numerator, &numerator, 10);
+	digit_after = get_quotient_and_substract(&numerator, &denominator);
+	i = 0;
+	while (digit_after == 9 && i < (pow_ten + precision) && !bigint_is_null(&numerator))
+	{
+		bigint_mult_int(&numerator, &numerator, 10);
+		digit_after = get_quotient_and_substract(&numerator, &denominator);
+		++i;
+	}
+	if (digit_after >= 5 && i == (pow_ten + precision))
+		return (1);
+	if (digit_after > 5 && bigint_is_null(&numerator))
+		return (1);
+	return (0);
+}
 
 static int	propagate_rounding(char *str, int limit, int is_integer_part, int *offset)
 {
