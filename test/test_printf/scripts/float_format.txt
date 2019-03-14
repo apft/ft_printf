@@ -22,6 +22,14 @@ start_block
 "Float %#: round even down neg",test_float_round_even_down_neg,double,-68.5
 "Float %#: DBL_MAX",test_float_dbl_max,double,DBL_MAX
 "Float %#: DBL_MIN",test_float_dbl_min,double,DBL_MIN
+"Float %#: -DBL_MAX",test_float_dbl_max_neg,double,-DBL_MAX
+"Float %#: -DBL_MIN",test_float_dbl_min_neg,double,-DBL_MIN
+"Float %#: 1.0e+23",test_float_dbl_precision,double,1.0e+23
+"Float %#: 9.999999999e+22",test_float_dbl_ult_precision,double,9.999999999e+22
+"Float %#: subnormalized min",test_float_dbl_sub_min,double,0x1p-1074
+"Float %#: subnormalized_max",test_float_dbl_sub_max,double,0x1.ffffffffffffep-1023
+"Float %#: 0x0.345ca03p-1023",test_float_dbl_sub_rnd,double,0x0.345ca03p-1023
+"Float %#: 0x1.345ca0000ff03p-1023",test_float_dbl_sub_rnd_other,double,0x1.345ca0000ff03p-1023
 end_block
 f,"|%f|%10f|%10.f|%10.0f|%.1f|%10.2f|%10.5f|"
 f,"|%5f|%-5f|%+5f|%+-5f|% 5f|%05f|%5.0f|%5.2f|%f|"
@@ -42,3 +50,13 @@ f,"|%17.21f|%017.21f|%#17.21f|%-17.21f|%+17.21f|% 17.21f|"
 f,"|%43.40f|%043.40f|%#43.40f|%-43.40f|%+43.40f|% 43.40f|"
 f,"|%400f|%#400.f|%-310.2f|"
 f,"|%.20f|%.f|%.1f|%.2f|%.3f|%.4f|"
+f,"|%.2000f|"
+f,"|%-.2000f|"
+f,"|%+.2000f|"
+f,"|%2000.1080f|"
+f,"|%02000.1080f|"
+f,"|%#2000.1080f|"
+f,"|%-2000.1080f|"
+f,"|%-02000.1080f|"
+f,"|%+-02000.1080f|"
+f,"|%+02000.1080f|"

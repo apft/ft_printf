@@ -121,9 +121,10 @@ read_block()
 				} > $header.tmp
 				mv $header.tmp $header
 				[ "$debug" -eq 1 ] && echo "add to makefile"
+				delim="\x5c"
 				{
-					echo "\t${folder_name}/$file"
-				} >> $makefile
+					echo "\t${folder_name}/$file ${delim}"
+				} >> $makefile.tmp
 			else
 				echo "nothing to be done for file: $file"
 			fi
@@ -167,3 +168,6 @@ do
 	fi
 	[ "$line" = "end_block" ] && block=0;
 done < $data
+[ "$debug" ] && echo "assemble makefile"
+sed '$ s/..$//' ${makefile}.tmp >> ${makefile}
+rm ${makefile}.tmp
