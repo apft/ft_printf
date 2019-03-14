@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 22:00:15 by apion             #+#    #+#             */
-/*   Updated: 2019/02/14 12:31:49 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 10:25:27 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,3 @@ char			*extract_str(const char *f, unsigned int n, va_list ap)
 	*(str + n) = 0;
 	return (str);
 }
-
