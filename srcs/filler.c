@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 20:06:07 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 18:04:50 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				filler(char *str, t_specs *specs, int start)
 {
 	if (start == FILL_START)
 	{
-		if ((specs->flags & LEFT) && (specs->type & STRING))
+		if ((specs->flags & LEFT) && (specs->type & STRING) && !(specs->type & FLOAT))
 			return (0);
 		if (specs->flags & LEFT)
 			return (fill_start_left(str, specs));
