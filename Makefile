@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/14 09:58:05 by apion            ###   ########.fr        #
+#    Updated: 2019/03/14 10:22:20 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,7 +111,7 @@ fclean: clean
 .PHONY: re
 re: fclean all
 
-include $(wildcard $(D_DIR)/*.d)
+include $(filter %.d, $(wildcard $(addsuffix *d, $(addprefix $(D_DIR)/, $(DIRS)))))
 
 # --- Tests --- #
 
