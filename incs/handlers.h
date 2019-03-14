@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 00:05:04 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 14:20:43 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 09:13:12 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define HANDLERS_H
 
 # include "utils.h"
-# include "utils_float.h"
+# include "float_pf.h"
 
 int		handle_int_conv(union u_value *value, t_specs *specs, char *str);
 int		handle_int_conv_char(char value, t_specs *specs, char *str);

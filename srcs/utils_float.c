@@ -6,12 +6,12 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:02:09 by apion             #+#    #+#             */
-/*   Updated: 2019/03/13 11:30:59 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 09:10:51 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include "utils_float.h"
+#include "float_pf.h"
 
 #include <stdio.h>
 int		pf_compute_float_pow_ten(double n)
