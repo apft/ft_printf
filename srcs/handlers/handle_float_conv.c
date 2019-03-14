@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 09:24:51 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 09:27:10 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,6 @@
 #include "filter.h"
 
 #include <stdio.h>
-
-static int float_will_round_to_ten(union u_double *value, int pow_ten, int precision)
-{
-	t_bigint	numerator;
-	t_bigint	denominator;
-	int			i;
-	int			digit;
-	int			digit_after;
-
-	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
-	digit = get_quotient_and_substract(&numerator, &denominator);
-	if (pow_ten < 0)
-		pow_ten *= -1;
-	if (digit != 9)
-		return (0);
-	bigint_mult_int(&numerator, &numerator, 10);
-	digit_after = get_quotient_and_substract(&numerator, &denominator);
-	i = 0;
-	while (digit_after == 9 && i < (pow_ten + precision) && !bigint_is_null(&numerator))
-	{
-		bigint_mult_int(&numerator, &numerator, 10);
-		digit_after = get_quotient_and_substract(&numerator, &denominator);
-		++i;
-	}
-	if (digit_after >= 5 && i == (pow_ten + precision))
-		return (1);
-	if (digit_after > 5 && bigint_is_null(&numerator))
-		return (1);
-	return (0);
-}
 
 static int	fill_float_floor_part(char *str, int pow_ten, int is_round_ten, t_bigint *numerator,
 									t_bigint *denominator)
@@ -96,7 +66,7 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	int			i;
 	int			decimal_length;
 
-	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
+	pow_ten = float_compute_pow_ten(value->type_dbl);
 	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
 	i = filler(str, specs, FILL_START);
 	if ((specs->flags & FLOAT_ROUND_TEN) && pow_ten >= -1)

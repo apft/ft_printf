@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 09:24:39 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 09:30:53 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ union					u_double
 	}					field;
 };
 
-int						pf_compute_float_pow_ten(double n);
+int						float_compute_pow_ten(double n);
 void					pf_round(unsigned long n, char *base, char *str,
 								t_specs *specs);
 void					print_bits(long n, unsigned int size);
@@ -52,8 +52,10 @@ int						get_quotient_and_substract(
 void					generate_bigints_num_den(
 								t_bigint *numerator, t_bigint *denominator,
 								union u_double *value, int pow_ten);
+int						float_will_round_to_ten(union u_double *value,
+								int pow_ten, int precision);
 void					float_apply_rounding_if_needed(char *str,
-									int pow_ten, int precision,
-									t_bigint *numerator, t_bigint *denominator);
+								int pow_ten, int precision,
+								t_bigint *numerator, t_bigint *denominator);
 
 #endif
