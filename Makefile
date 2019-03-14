@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/14 09:10:40 by apion            ###   ########.fr        #
+#    Updated: 2019/03/14 09:58:05 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,15 +27,15 @@ D_DIR		:= $(O_DIR)
 C_FILES		:= srcs/extract_arg.c \
 				srcs/extractor.c \
 				srcs/filler.c \
-				srcs/filler_float.c \
 				srcs/filter.c \
-				srcs/float_round.c \
 				srcs/ft_printf.c \
 				srcs/ft_vprintf.c \
 				srcs/wrapper.c \
 				srcs/parser.c \
 				srcs/utils.c \
 				srcs/float_bigint.c \
+				srcs/float_filler.c \
+				srcs/float_round.c \
 				srcs/float_utils.c \
 				srcs/handlers/handle_char_conv.c \
 				srcs/handlers/handle_float_conv.c \

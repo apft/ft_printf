@@ -6,16 +6,15 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 18:39:47 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 10:17:16 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include "utils_float.h"
+#include "float_pf.h"
 #include "float_round.h"
 #include "filter.h"
 #include "filler.h"
-#include "filler_float.h"
 #include "extractor.h"
 
 static int		get_size(unsigned long n)
@@ -50,7 +49,7 @@ static void		fill_str(union u_double *value, char *b, char *str,
 	int				i;
 	int				j;
 
-	i = fill_float_pref_radix(value, str, specs);
+	i = float_fill_pref_radix(value, str, specs);
 	n = value->field.frac << 12;
 	j = 0;
 	if (specs->flags & PRECISION)
@@ -73,7 +72,7 @@ static void		fill_str(union u_double *value, char *b, char *str,
 			*(str + i++) = *(b + (((n << (4 * j++)) & FLOAT_MASK_LEFT) >> 60));
 	while (j++ < specs->precision)
 		*(str + i++) = '0';
-	i += fill_float_exp(value, str + i, specs);
+	i += float_fill_exp(value, str + i, specs);
 	filler(str + pf_max(i, specs->width_arg), specs, pf_max(i, specs->width_arg));
 }
 

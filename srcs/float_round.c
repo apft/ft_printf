@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 12:24:38 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 09:24:03 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 10:02:54 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	apply_rounding(int pow_ten, int precision, char *str)
 	}
 }
 
-void	apply_rounding_if_needed(char *str, int pow_ten, int precision,
+void	float_apply_rounding_if_needed(char *str, int pow_ten, int precision,
 									t_bigint *numerator, t_bigint *denominator)
 {
 	int		digit_after;

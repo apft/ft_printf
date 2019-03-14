@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 09:27:10 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 10:05:30 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,46 +17,6 @@
 #include "filter.h"
 
 #include <stdio.h>
-
-static int	fill_float_floor_part(char *str, int pow_ten, int is_round_ten, t_bigint *numerator,
-									t_bigint *denominator)
-{
-	int		i;
-	int		digit;
-
-	i = 0;
-	if (pow_ten < 0 && !is_round_ten)
-	{
-		*(str + i++) = '0';
-		return (i);
-	}
-	while (i <= pow_ten)
-	{
-		digit = get_quotient_and_substract(numerator, denominator);
-		*(str + i++) = '0' + (char)digit;
-		bigint_mult_int(numerator, numerator, 10);
-	}
-	return (i);
-}
-
-static int	fill_float_decimal_part(char *str, int pow_ten, int precision,
-									t_bigint *numerator, t_bigint *denominator)
-{
-	int		i;
-	int			digit;
-
-	i = 0;
-	if (pow_ten < 0)
-		while (i < precision && ++pow_ten)
-			*(str + i++) = '0';
-	while (i < precision && !bigint_is_null(numerator))
-	{
-		digit = get_quotient_and_substract(numerator, denominator);
-		*(str + i++) = '0' + (char)digit;
-		bigint_mult_int(numerator, numerator, 10);
-	}
-	return (i);
-}
 
 static void	fill_str(union u_double *value, char *str, t_specs *specs)
 {
@@ -71,11 +31,11 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	i = filler(str, specs, FILL_START);
 	if ((specs->flags & FLOAT_ROUND_TEN) && pow_ten >= -1)
 		*(str + i++) = '1';
-	i += fill_float_floor_part(str + i, pow_ten, specs->flags & FLOAT_ROUND_TEN, &numerator, &denominator);
+	i += float_fill_floor_part(str + i, pow_ten, specs->flags & FLOAT_ROUND_TEN, &numerator, &denominator);
 	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
 		*(str + i++) = '.';
 	decimal_length = i;
-	i += fill_float_decimal_part(str + i, pow_ten, specs->precision,
+	i += float_fill_decimal_part(str + i, pow_ten, specs->precision,
 								&numerator, &denominator);
 	if (!bigint_is_null(&numerator)
 			&& !(pow_ten < 0 && (specs->precision + 1 + pow_ten) < 0))
@@ -93,7 +53,7 @@ static int	compute_width_arg_float(union u_double *value, t_specs *specs)
 	int		pow_ten;
 
 	width_arg = 1;
-	pow_ten = pf_compute_float_pow_ten(value->type_dbl);
+	pow_ten = float_compute_pow_ten(value->type_dbl);
 	if (pow_ten > 0)
 		width_arg += pow_ten;
 	if (pow_ten >= -1 && float_will_round_to_ten(value, pow_ten, specs->precision))
