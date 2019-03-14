@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 09:13:45 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 09:24:39 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,8 @@ int						get_quotient_and_substract(
 void					generate_bigints_num_den(
 								t_bigint *numerator, t_bigint *denominator,
 								union u_double *value, int pow_ten);
+void					float_apply_rounding_if_needed(char *str,
+									int pow_ten, int precision,
+									t_bigint *numerator, t_bigint *denominator);
 
 #endif
