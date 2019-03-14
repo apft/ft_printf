@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 08:54:19 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 12:00:08 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 14:20:28 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	extract_mantissa(t_bigint *numerator, unsigned long frac,
 	bigint_init_null(numerator);
 	numerator->blocks[0] = (unsigned int)(frac & BIGINT_MASK_BLOCK);
 	numerator->blocks[1] = (unsigned int)(frac >> BIGINT_SIZE_BLOCK);
+	if (numerator->blocks[1])
+		numerator->length += 1;
 	if (exp)
 	{
 		bigint_init_int(&implicit_bit, 1);
