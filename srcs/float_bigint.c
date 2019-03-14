@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 08:54:19 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 09:13:24 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 12:00:08 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int			get_quotient_and_substract(t_bigint *numerator,
 	return (quotient);
 }
 
-void		generate_bigints_num_den(t_bigint *numerator, t_bigint *denominator,
-							union u_double *value, int pow_ten)
+void		generate_bigints_num_den(union u_double *value, int pow_ten,
+							t_bigint *numerator, t_bigint *denominator)
 {
 	int			exp;
 	t_bigint	bigint_pow_ten;

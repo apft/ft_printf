@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 12:24:38 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 11:55:30 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 12:01:21 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		float_will_round_to_ten(union u_double *value, int pow_ten, int precision)
 	int			digit;
 	int			digit_after;
 
-	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
+	generate_bigints_num_den(value, pow_ten, &numerator, &denominator);
 	digit = get_quotient_and_substract(&numerator, &denominator);
 	if (pow_ten < 0)
 		pow_ten *= -1;

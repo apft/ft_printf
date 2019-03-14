@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 10:05:30 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/14 12:00:32 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	int			decimal_length;
 
 	pow_ten = float_compute_pow_ten(value->type_dbl);
-	generate_bigints_num_den(&numerator, &denominator, value, pow_ten);
+	generate_bigints_num_den(value, pow_ten, &numerator, &denominator);
 	i = filler(str, specs, FILL_START);
 	if ((specs->flags & FLOAT_ROUND_TEN) && pow_ten >= -1)
 		*(str + i++) = '1';
