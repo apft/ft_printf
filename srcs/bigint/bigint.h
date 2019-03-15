@@ -6,14 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:48:57 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 19:56:47 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/15 22:24:57 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BIGINT_H
 # define BIGINT_H
 
-# define BIGINT_N_BLOCKS 34
+# define BIGINT_N_BLOCKS 4
 # define BIGINT_SIZE_BLOCK 32
 
 # define BIGINT_MASK_BLOCK 0xffffffff
