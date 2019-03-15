@@ -15,6 +15,7 @@
 #include "float_pf.h"
 #include "extract_arg.h"
 #include "handlers.h"
+#include "filter.h"
 
 int		extract_int_conv(va_list ap, t_specs *specs, char *str)
 {
@@ -54,7 +55,7 @@ int		extract_str_conv(va_list ap, t_specs *specs, char *str)
 
 int		extract_pointer_conv(va_list ap, t_specs *specs, char *str)
 {
-	specs->flags &= ~(MOD_HH | MOD_H | MOD_LL);
+	clear_flags(specs, MOD_HH | MOD_H | MOD_LL);
 	specs->flags |= PREFIX | MOD_L;
 	specs->type |= HEXA;
 	return (extract_int_conv(ap, specs, str));
