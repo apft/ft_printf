@@ -3,7 +3,7 @@
 debug=1;
 TEST_TYPE="ptr_percent"
 
-data="${TEST_TYPE}_format.txt"
+data="format_${TEST_TYPE}.txt"
 
 template_folder="template"
 template_launcher=${template_folder}/00_launcher_${TEST_TYPE}.c

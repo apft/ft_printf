@@ -6,12 +6,12 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 14:53:28 by apion             #+#    #+#             */
-/*   Updated: 2019/03/15 18:38:06 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/15 20:00:19 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libunit.h"
-#include "test_int.h"
+#include "test_float_subnormal.h"
 
 int		test_extract_float_conv_subnormal_launcher(void)
 {

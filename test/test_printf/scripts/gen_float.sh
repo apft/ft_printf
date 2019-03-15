@@ -1,16 +1,60 @@
 #!/bin/sh
 
-debug=1;
-TEST_TYPE="float"
+ALLOWED_TYPES="float float_hexa float_limits float_subnormal"
 
-data="${TEST_TYPE}_format.txt"
+usage()
+{
+	echo "usage: $0 test_type [new] [debug]"
+	echo ""
+	echo "where 'test_type' in {${ALLOWED_TYPES}}"
+	exit 1
+}
+
+if [ $# -lt 1 ]; then
+	usage
+fi
+
+for type in ${ALLOWED_TYPES}
+do
+	if [ "$1" = "$type" ]; then
+		TEST_TYPE="$1"
+		break
+	fi
+done
+
+if [ ! "${TEST_TYPE}" ]; then
+	echo "unknown type"
+	usage
+fi
+
+debug=0
+if [ "$2" = "debug" -o "$3" = "debug" ]; then
+	echo "debug"
+	debug=1
+fi
+
+FOLDER="test_float"
+delim="\x5c"
+data="format_${TEST_TYPE}.txt"
+if [ ! -f ${data} ]; then
+	echo "no data file"
+	exit 1
+fi
 
 template_folder="template"
-template_launcher=${template_folder}/00_launcher_${TEST_TYPE}.c
-template_header=${template_folder}/test_${TEST_TYPE}.h
-template_makefile=${template_folder}/makefile_${TEST_TYPE}.mk
+if [ ! -d ${template_folder} ]; then
+	echo "template directory does not exist"
+	exit 1
+fi
 
-folder_name="test_${TEST_TYPE}"
+template_launcher=${template_folder}/${TEST_TYPE}/00_launcher_${TEST_TYPE}.c
+template_header=${template_folder}/${TEST_TYPE}/test_${TEST_TYPE}.h
+if [ ! \( -f ${template_launcher} \) -o ! \( -f ${template_header} \) ]; then
+	echo "one or more template files are missing"
+	exit 2
+fi
+
+folder_name="${FOLDER}/test_${TEST_TYPE}"
 folder="../${folder_name}"
 launcher="$folder/00_launcher.c"
 header="$folder/test_${TEST_TYPE}.h"
@@ -18,13 +62,13 @@ header="$folder/test_${TEST_TYPE}.h"
 makefile_folder="../makefiles"
 makefile="${makefile_folder}/makefile_${TEST_TYPE}.mk"
 
-if [ "$1" == "new" ]; then
+if [ "$2" == "new" ]; then
 	[ "$debug" -eq 1 ] && echo "Redo all files" && echo "clear all old files"
 	[ -f $makefile ] && rm $makefile
 	[ -d $folder ] && rm -rf $folder
 fi
 
-[ ! -d "$folder" ] && mkdir $folder
+[ ! -d "$folder" ] && mkdir -p $folder
 if [ ! -f $launcher ]
 then
 	[ "$debug" -eq 1 ] && echo "get template file: ${template_launcher}"
@@ -34,11 +78,6 @@ if [ ! -f "$header" ]
 then
 	[ "$debug" -eq 1 ] && echo "get template file: ${template_header}"
 	cp ${template_header} $header
-fi
-if [ ! -f "$makefile" ]
-then
-	[ "$debug" -eq 1 ] && echo "get template file: ${template_makefile}"
-	cp ${template_makefile} $makefile
 fi
 
 includes="<stdio.h> <string.h> <stdlib.h> <math.h> <float.h> \"ft_printf.h\" \"utils.h\""
@@ -53,10 +92,9 @@ read_block()
 		if [ ${in_block} -eq 1 ]
 		then
 			loop=$((loop + 1))
-			[ "$loop" -le 9 ] && prefix="000$loop"
-			[ "$loop" -ge 10 -a $loop -le 99 ] && prefix="00$loop"
-			[ "$loop" -ge 100 -a $loop -le 999 ] && prefix="0$loop"
-			[ "$loop" -ge 1000 ] && prefix="$loop"
+			[ "$loop" -le 9 ] && prefix="00$loop"
+			[ "$loop" -ge 10 -a $loop -le 99 ] && prefix="0$loop"
+			[ "$loop" -ge 100 ] && prefix="$loop"
 			title=`echo ${data_line} | cut -d ',' -f 1 | cut -d \" -f 2 | sed "s/#/$1 ${count[$(get_index_count $type)]}/"`
 			title=`echo \"$prefix $title\"`
 			proto=`echo ${data_line} | cut -d ',' -f 2`
@@ -122,10 +160,7 @@ read_block()
 				} > $header.tmp
 				mv $header.tmp $header
 				[ "$debug" -eq 1 ] && echo "add to makefile"
-				delim="\x5c"
-				{
-					echo "\t${folder_name}/$file ${delim}"
-				} >> $makefile.tmp
+				echo "\t${folder_name}/$file ${delim}" >> $makefile.tmp
 			else
 				echo "nothing to be done for file: $file"
 			fi
@@ -137,15 +172,17 @@ read_block()
 get_index_count()
 {
 	id=0;
-	[ $1 = "a" ] && id=0
-	[ $1 = "A" ] && id=1
+	[ $1 = "f" ] && id=0
+	[ $1 = "a" ] && id=1
+	[ $1 = "A" ] && id=2
 	echo $id
 }
 
 inc_count()
 {
-	[ $1 = "a" ] && let count[0]+=1
-	[ $1 = "A" ] && let count[1]+=1
+	[ $1 = "f" ] && let count[0]+=1
+	[ $1 = "a" ] && let count[1]+=1
+	[ $1 = "A" ] && let count[2]+=1
 }
 
 data_block="data_block.txt"
@@ -155,8 +192,8 @@ head -n $(grep -n $end $data | cut -d ':' -f 1 | head -n 1) $data > ${data_block
 
 loop=0;
 block=-1;
-# count: a A
-count=(0 0)
+# count: f a A
+count=(0 0 0)
 while read line
 do
 	[ "$line" = "start_block" ] && block=1;
@@ -169,6 +206,12 @@ do
 	fi
 	[ "$line" = "end_block" ] && block=0;
 done < $data
-[ "$debug" ] && echo "assemble makefile"
-sed '$ s/..$//' ${makefile}.tmp >> ${makefile}
-rm ${makefile}.tmp
+
+# MAKEFILE
+if [ -f "${makefile}.tmp" ]; then
+	[ "$debug" -eq 1 ] && echo "assemble makefile"
+	echo "C_FILES_$(echo ${TEST_TYPE} | tr '[:lower:]' '[:upper:]')	:= ${FOLDER}/test_${TEST_TYPE}/00_launcher.c ${delim}" > ${makefile}
+	sed '$ s/..$//' ${makefile}.tmp >> ${makefile}
+	rm ${makefile}.tmp
+fi
+rm ${data_block}

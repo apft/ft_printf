@@ -26,15 +26,6 @@ start_block
 "Float %#: -DBL_MIN",test_float_dbl_min_neg,double,-DBL_MIN
 "Float %#: 1.0e+23",test_float_dbl_precision,double,1.0e+23
 "Float %#: 9.999999999e+22",test_float_dbl_ult_precision,double,9.999999999e+22
-"Float %#: subnormalized min",test_float_dbl_sub_min,double,0x1p-1074
-"Float %#: subnormalized_max",test_float_dbl_sub_max,double,0x1.ffffffffffffep-1023
-"Float %#: 0x0.345ca03p-1023",test_float_dbl_sub_rnd,double,0x0.345ca03p-1023
-"Float %#: 0x1.345ca0000ff03p-1023",test_float_dbl_sub_rnd_other,double,0x1.345ca0000ff03p-1023
-"Float %#: +inf",test_float_dbl_inf_pos,double,INFINITY
-"Float %#: -inf",test_float_dbl_inf_neg,double,-INFINITY
-"Float %#: nan",test_float_dbl_nan,double,0.0/0.0
-"Float %#: nan",test_float_dbl_nan_neg,double,-0.0/0.0
-"Float %#: ?",test_float_dbl_random,double,1.0/0.0
 end_block
 f,"|%f|%10f|%10.f|%10.0f|%.1f|%10.2f|%10.5f|"
 f,"|%5f|%-5f|%+5f|%+-5f|% 5f|%05f|%5.0f|%5.2f|%f|"
