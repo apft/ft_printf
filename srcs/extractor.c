@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:50:00 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 18:13:42 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/15 21:38:05 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,20 @@ int		extract_float_conv(va_list ap, t_specs *specs, char *str)
 	if (value.field.exp == FLOAT_EXP_MAX_DBL)
 	{
 		specs->type |= STRING;
-		filter_specs(specs);
-		if (specs->flags & PRECISION)
-		{
-			specs->flags ^= PRECISION;
-			specs->precision = 0;
-		}
-		if (specs->flags & PAD)
-			specs->flags ^= PAD;
+		specs->precision = 0;
+		clear_flags(specs, PRECISION | PAD);
 		if (!value.field.frac)
 		{
 			specs->is_neg = value.field.sign;
 			specs->width_prefix += specs->is_neg;
-			if (!specs->is_neg && (specs->flags & PLUS))
-			{
-				specs->flags |= PREFIX;
-				specs->width_prefix += 1;
-			}
 			return (handle_str_conv("inf", specs, str));
 		}
 		else
 		{
-			if (specs->flags & PLUS)
-				specs->flags ^= PLUS;
+			if (specs->width_min <= pf_strlen("nan")
+					&& specs->precision <= pf_strlen("nan"))
+				clear_flags(specs, SPACE);
+			clear_flags(specs, PLUS);
 			return (handle_str_conv("nan", specs, str));
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/03/15 21:02:39 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/15 21:46:58 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ static int	compute_width(t_specs *specs)
 {
 	int		width_print;
 
-	if (specs->type & (FLOAT | FLOAT_HEXA | FLOAT_HEXA_C))
+	if ((specs->type & FLOAT) && (specs->type & STRING))
+		;
+	else if ((specs->type & (FLOAT | FLOAT_HEXA | FLOAT_HEXA_C)))
 		return (compute_width_float(specs));
 	if (specs->is_neg || specs->flags & (PLUS | SPACE | PREFIX))
 		specs->width_prefix = 1;
