@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_int.h                                         :+:      :+:    :+:   */
+/*   test_float_limits.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 15:34:28 by apion             #+#    #+#             */
-/*   Updated: 2019/02/04 18:19:29 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/15 18:33:23 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_INT_CONV
-# define TEST_INT_CONV
+#ifndef TEST_FLOAT_LIMITS_H
+# define TEST_FLOAT_LIMITS_H
 
 
 #endif

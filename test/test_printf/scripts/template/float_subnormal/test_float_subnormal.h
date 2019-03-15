@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_ptr_percent.h                                 :+:      :+:    :+:   */
+/*   test_float_subnormal.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 18:39:19 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 18:39:37 by apion            ###   ########.fr       */
+/*   Created: 2019/02/04 15:34:28 by apion             #+#    #+#             */
+/*   Updated: 2019/03/15 18:34:10 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_PTR_PERCENT
-# define TEST_PTR_PERCENT
+#ifndef TEST_FLOAT_SUBNORMAL_H
+# define TEST_FLOAT_SUBNORMAL_H
 
 
 #endif

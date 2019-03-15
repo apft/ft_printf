@@ -6,8 +6,8 @@ TEST_TYPE="int"
 data="${TEST_TYPE}_format.txt"
 
 template_folder="template"
-template_launcher=${template_folder}/00_launcher.c
-template_header=${template_folder}/test_${TEST_TYPE}.h
+template_launcher=${template_folder}/${TEST_TYPE}/00_launcher_${TEST_TYPE}.c
+template_header=${template_folder}/${TEST_TYPE}/test_${TEST_TYPE}.h
 
 folder="../test_${TEST_TYPE}"
 [ ! -d $folder ] && mkdir $folder
