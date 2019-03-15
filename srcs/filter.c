@@ -43,7 +43,7 @@ static int	compute_width_float_hexa(t_specs *specs)
 {
 	specs->width_prefix = 2 + !!(specs->flags & (PLUS | SPACE));
 	specs->width_arg = specs->is_neg + specs->width_prefix + 1
-		+ (specs->precision || (specs->flags & FLOAT_FORCE_POINT)? 1 : 0)
+		+ (specs->precision || (specs->flags & FLOAT_FORCE_POINT) ? 1 : 0)
 		+ specs->precision + specs->width_suffix;
 	return (pf_max(specs->width_min, specs->width_arg));
 }
