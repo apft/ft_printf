@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 17:32:48 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/15 21:02:39 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,6 @@ void		print_specs(t_specs *specs)
 			!!(specs->flags & FLOAT_FORCE_POINT),
 			!!(specs->flags & FLOAT_ROUND_TEN),
 			specs->type);
-}
-
-static void	reset_precision(t_specs *specs)
-{
-	if (specs->flags & PRECISION)
-		specs->flags ^= PRECISION;
-	specs->precision = 0;
 }
 
 static int	compute_width_float_hexa(t_specs *specs)
@@ -84,34 +77,35 @@ static int	compute_width(t_specs *specs)
 	return (pf_max(specs->width_min, width_print));
 }
 
+void		clear_flags(t_specs *specs, int flags)
+{
+	if (specs->flags & flags)
+		specs->flags &= ~flags;
+}
+
 void		filter_specs(t_specs *specs)
 {
-	if ((specs->type & (INT | UINT | CHAR | STRING | PERCENT))
-			&& (specs->flags & PREFIX))
-		specs->flags ^= PREFIX;
+	if (specs->type & (INT | UINT | CHAR | STRING | PERCENT))
+		clear_flags(specs, PREFIX);
+	if ((specs->type & (INT | OCTAL | UINT | HEXA | HEXA_C))
+			&& (specs->flags & PRECISION))
+		clear_flags(specs, PAD);
+	if ((specs->flags & PAD) && (specs->flags & LEFT))
+		clear_flags(specs, PAD);
+	if (specs->type & (OCTAL | UINT | HEXA | HEXA_C | CHAR | PERCENT))
+		clear_flags(specs, PLUS | SPACE);
+	if ((specs->type & STRING) && !(specs->type & FLOAT))
+		clear_flags(specs, PLUS | SPACE);
+	if (specs->flags & PLUS)
+		clear_flags(specs, SPACE);
+	if (specs->is_neg)
+		clear_flags(specs, SPACE | PLUS);
 	if ((specs->type & OCTAL) && (specs->flags & PREFIX) && !specs->precision)
 		specs->precision = 1;
-	if ((specs->type & (INT | OCTAL | UINT | HEXA | HEXA_C))
-			&& (specs->flags & PAD) && (specs->flags & PRECISION))
-		specs->flags ^= PAD;
-	if ((specs->flags & PAD) && (specs->flags & LEFT))
-		specs->flags ^= PAD;
-	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C | CHAR | STRING | PERCENT))
-			&& (specs->flags & SPACE))
-		specs->flags ^= SPACE;
-	if ((specs->type & (OCTAL | UINT | HEXA | HEXA_C | CHAR | PERCENT))
-			&& (specs->flags & PLUS))
-		specs->flags ^= PLUS;
-	if ((specs->type & STRING) && !(specs->type & FLOAT)
-			&& (specs->flags & PLUS))
-		specs->flags ^= PLUS;
-	if ((specs->flags & SPACE) && (specs->flags & PLUS))
-		specs->flags ^= SPACE;
-	if (specs->is_neg && (specs->flags & PLUS))
-		specs->flags ^= PLUS;
-	if (specs->is_neg && (specs->flags & SPACE))
-		specs->flags ^= SPACE;
 	if (specs->type & (CHAR | PERCENT))
-		reset_precision(specs);
+	{
+		clear_flags(specs, PRECISION);
+		specs->precision = 0;
+	}
 	specs->width = compute_width(specs);
 }
