@@ -1,8 +1,8 @@
 start_block
-"Float %#: subnormalized min",test_float_subnormal_min,double,0x1p-1074
-"Float %#: subnormalized_max",test_float_subnormal_max,double,0x1.ffffffffffffep-1023
-"Float %#: 0x0.345ca03p-1023",test_float_subnormal_rnd,double,0x0.345ca03p-1023
-"Float %#: 0x1.345ca0000ff03p-1023",test_float_subnormal_rnd_other,double,0x1.345ca0000ff03p-1023
+"Float subnormalized %#: min",test_float_subnormal_min,double,0x1p-1074
+"Float subnormalized %#: max",test_float_subnormal_max,double,0x1.ffffffffffffep-1023
+"Float subnormalized %#: 0x0.345ca03p-1023",test_float_subnormal_rnd,double,0x0.345ca03p-1023
+"Float subnormalized %#: 0x1.345ca0000ff03p-1023",test_float_subnormal_rnd_other,double,0x1.345ca0000ff03p-1023
 end_block
 f,"|%f|%10f|%10.f|%10.0f|%.1f|%10.2f|%10.5f|"
 f,"|%5f|%-5f|%+5f|%+-5f|% 5f|%05f|%5.0f|%5.2f|%f|"
