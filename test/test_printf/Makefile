@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/03/13 12:30:46 by apion            ###   ########.fr        #
+#    Updated: 2019/03/15 20:07:55 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,11 @@ O_DIR				= .obj/
 C_FILES				:= main.c \
 						utils.c \
 						print_bigint.c
-C_FILES				+=	$(C_FILES_INT) $(C_FILES_FLOAT_HEXA) $(C_FILES_FLOAT) \
+C_FILES				+=	$(C_FILES_INT) \
 						$(C_FILES_STR_CHAR) $(C_FILES_PTR_PERCENT) \
+						$(C_FILES_FLOAT) $(C_FILES_FLOAT_HEXA) \
+						$(C_FILES_FLOAT_SUBNORMAL) $(C_FILES_FLOAT_LIMITS) \
+						test_float/00_launcher.c \
 						$(C_FILES_BIGINT)
 O_FILES			:= $(C_FILES:%.c=%.o)
 D_FILES			:= $(C_FILES:%.c=%.d)
