@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 12:25:44 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 14:42:48 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <stdio.h>
 void		print_specs(t_specs *specs)
 {
-	printf("-\t+\t^\t#\t0\t.\thh\th\tl\tll\tw_min\tprec\tw_arg\tw_pref\tw_suff\twidth\tneg\tdbl.\tdbl->10\ttype\n");
-	printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
+	printf("-\t+\t^\t#\t0\t.\thh\th\tl\tll\tL\tw_min\tprec\tw_arg\tw_pref\tw_suff\twidth\tneg\tdbl.\tdbl->10\ttype\n");
+	printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
 			!!(specs->flags & LEFT),
 			!!(specs->flags & PLUS),
 			!!(specs->flags & SPACE),
@@ -27,6 +27,7 @@ void		print_specs(t_specs *specs)
 			!!(specs->flags & MOD_H),
 			!!(specs->flags & MOD_L),
 			!!(specs->flags & MOD_LL),
+			!!(specs->flags & MOD_LD),
 			specs->width_min,
 			specs->precision,
 			specs->width_arg,
