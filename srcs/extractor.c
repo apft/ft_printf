@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:50:00 by apion             #+#    #+#             */
-/*   Updated: 2019/03/15 21:38:05 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 12:08:50 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,11 @@ int		extract_float_conv(va_list ap, t_specs *specs, char *str)
 		if (!value.field.frac)
 		{
 			specs->is_neg = value.field.sign;
-			specs->width_prefix += specs->is_neg;
 			return (handle_str_conv("inf", specs, str));
 		}
 		else
 		{
-			if (specs->width_min <= pf_strlen("nan")
-					&& specs->precision <= pf_strlen("nan"))
+			if ((specs->width_min + specs->precision) <= 2 * pf_strlen("nan"))
 				clear_flags(specs, SPACE);
 			clear_flags(specs, PLUS);
 			return (handle_str_conv("nan", specs, str));
