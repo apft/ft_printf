@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 12:13:30 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:33:51 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	int			decimal_length;
 
 	pow_ten = float_compute_pow_ten(value->type_dbl);
-	generate_bigints_num_den(value, pow_ten, &numerator, &denominator);
+	generate_bigints_num_den(value, pow_ten, &numerator, &denominator, specs->flags & MOD_LD);
 	i = filler(str, specs, FILL_START);
 	if ((specs->flags & FLOAT_ROUND_TEN) && pow_ten >= -1)
 		*(str + i++) = '1';
@@ -54,7 +54,7 @@ static int	compute_width_arg_float(union u_double *value, t_specs *specs)
 	pow_ten = float_compute_pow_ten(value->type_dbl);
 	if (pow_ten > 0)
 		width_arg += pow_ten;
-	if (pow_ten >= -1 && float_will_round_to_ten(value, pow_ten, specs->precision))
+	if (pow_ten >= -1 && float_will_round_to_ten(value, pow_ten, specs->precision, specs->flags & MOD_LD))
 	{
 		specs->flags |= FLOAT_ROUND_TEN;
 		width_arg += (pow_ten >= 0) ? 1 : 0;

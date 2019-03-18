@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 08:54:19 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:06:24 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:34:17 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 #include "bigint.h"
 
 static void	extract_mantissa(t_bigint *numerator, unsigned long frac,
-							unsigned long exp)
+							int implicit_bit, int flag)
 {
-	t_bigint	implicit_bit;
+	t_bigint	bigint_implicit_bit;
 
 	bigint_init_null(numerator);
 	numerator->blocks[0] = (unsigned int)(frac & BIGINT_MASK_BLOCK);
 	numerator->blocks[1] = (unsigned int)(frac >> BIGINT_SIZE_BLOCK);
 	if (numerator->blocks[1])
 		numerator->length += 1;
-	if (exp)
+	if (implicit_bit)
 	{
-		bigint_init_int(&implicit_bit, 1);
-		bigint_shift_left_self(&implicit_bit, FLOAT_SIZE_FRAC);
-		bigint_add(numerator, numerator, &implicit_bit);
+		bigint_init_int(&bigint_implicit_bit, 1);
+		if (flag & MOD_LD)
+			bigint_shift_left_self(&bigint_implicit_bit, FLOAT_LD_SIZE_FRAC);
+		else
+			bigint_shift_left_self(&bigint_implicit_bit, FLOAT_SIZE_FRAC);
+		bigint_add(numerator, numerator, &bigint_implicit_bit);
 	}
 }
 
@@ -60,24 +63,22 @@ int			get_quotient_and_substract(t_bigint *numerator,
 }
 
 void		generate_bigints_num_den(union u_double *value, int pow_ten,
-							t_bigint *numerator, t_bigint *denominator)
+							t_bigint *numerator, t_bigint *denominator, int flag)
 {
 	unsigned long	frac;
-	unsigned int	exp_biased;
+	unsigned int	exp_unbiased;
 	int				exp;
 	t_bigint		bigint_pow_ten;
-	int				flag = 0;
+	int				implicit_bit;
 
 	frac = (flag & MOD_LD) ? value->field_ld.frac : value->field.frac;
-	exp_biased = (flag & MOD_LD) ? value->field_ld.exp : value->field.exp;
-	extract_mantissa(numerator, frac, exp_biased);
+	exp_unbiased = (flag & MOD_LD) ? value->field_ld.exp : value->field.exp;
+	implicit_bit = (flag & MOD_LD) ? value->field_ld.int_part : !!exp_unbiased;
+	extract_mantissa(numerator, frac, implicit_bit, flag);
 	bigint_init_int(denominator, 1);
-	if (flag & MOD_LD)
-		exp = (value->field_ld.exp ? value->field_ld.exp : 1)
-			- (FLOAT_LD_EXP_BIAS + FLOAT_SIZE_FRAC);
-	else
-		exp = (value->field.exp ? value->field.exp : 1)
-			- (FLOAT_EXP_BIAS + FLOAT_SIZE_FRAC);
+	exp = (exp_unbiased ? exp_unbiased : 1)
+		- ((flag & MOD_LD) ? FLOAT_LD_EXP_BIAS + FLOAT_LD_SIZE_FRAC
+				: FLOAT_EXP_BIAS + FLOAT_SIZE_FRAC);
 	if (exp >= 0)
 		bigint_shift_left_self(numerator, exp);
 	else
