@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 22:00:15 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 10:25:27 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 13:00:12 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int				print_str(int fd, const char *str, unsigned int size)
 	return (ret);
 }
 
-unsigned int	parse_size(const char *f, va_list ap)
+int				parse_size(const char *f, va_list ap)
 {
-	t_specs			specs;
-	unsigned int	n;
+	t_specs		specs;
+	int			n;
 
 	n = 0;
 	while (*f)
@@ -43,7 +43,7 @@ unsigned int	parse_size(const char *f, va_list ap)
 	return (n);
 }
 
-char			*extract_str(const char *f, unsigned int n, va_list ap)
+char			*extract_str(const char *f, int n, va_list ap)
 {
 	char		*str;
 	int			i;
