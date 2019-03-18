@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 17:05:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 18:07:08 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ static int	compute_width_arg_float(union u_double *value, t_specs *specs)
 
 int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 {
-	specs->is_neg = value->field.sign;
+	if (specs->flags & MOD_LD)
+		specs->is_neg = value->field_ld.sign;
+	else
+		specs->is_neg = value->field.sign;
 	if (!(specs->flags & PRECISION))
 	{
 		specs->flags |= PRECISION;
@@ -82,6 +85,8 @@ int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 	}
 	specs->width_arg = compute_width_arg_float(value, specs);
 	filter_specs(specs);
+	if (!str)
+		print_specs(specs);
 	if (str)
 		fill_str(value, str, specs);
 	return (1);
