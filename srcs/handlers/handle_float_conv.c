@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:54:21 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 17:05:50 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	if (!bigint_is_null(&numerator)
 			&& !(pow_ten < 0 && (specs->precision + 1 + pow_ten) < 0))
 		float_apply_rounding_if_needed(str + i - 1, pow_ten, specs->precision,
-								&numerator, &denominator);
+								(t_frac){&numerator, &denominator});
 	while (i - decimal_length < specs->precision)
 		*(str + i++) = '0';
 	while (i < specs->width)

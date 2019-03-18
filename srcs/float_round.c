@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 12:24:38 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:50:37 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 17:05:23 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,23 @@ static void	apply_rounding(int pow_ten, int precision, char *str)
 }
 
 void	float_apply_rounding_if_needed(char *str, int pow_ten, int precision,
-									t_bigint *numerator, t_bigint *denominator)
+									t_frac frac)
 {
 	int		digit_after;
 
-	if (bigint_is_null(numerator))
+	if (bigint_is_null(frac.numerator))
 		return ;
-	digit_after = get_quotient_and_substract(numerator, denominator);
+	digit_after = get_quotient_and_substract(frac.numerator, frac.denominator);
 	if (digit_after > 5)
 		apply_rounding(pow_ten, precision, str);
 	else if (digit_after == 5)
 	{
-		bigint_mult_int(numerator, numerator, 10);
-		digit_after = get_quotient_and_substract(numerator, denominator);
-		while (digit_after == 0 && !bigint_is_null(numerator))
+		bigint_mult_int(frac.numerator, frac.numerator, 10);
+		digit_after = get_quotient_and_substract(frac.numerator, frac.denominator);
+		while (digit_after == 0 && !bigint_is_null(frac.numerator))
 		{
-			bigint_mult_int(numerator, numerator, 10);
-			digit_after = get_quotient_and_substract(numerator, denominator);
+			bigint_mult_int(frac.numerator, frac.numerator, 10);
+			digit_after = get_quotient_and_substract(frac.numerator, frac.denominator);
 		}
 		if (digit_after)
 			apply_rounding(pow_ten, precision, str);
