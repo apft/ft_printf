@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/03/15 20:07:55 by apion            ###   ########.fr        #
+#    Updated: 2019/03/18 17:41:57 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ C_FILES				+=	$(C_FILES_INT) \
 						$(C_FILES_STR_CHAR) $(C_FILES_PTR_PERCENT) \
 						$(C_FILES_FLOAT) $(C_FILES_FLOAT_HEXA) \
 						$(C_FILES_FLOAT_SUBNORMAL) $(C_FILES_FLOAT_LIMITS) \
+						$(C_FILES_FLOAT_LONG_DBL) \
 						test_float/00_launcher.c \
 						$(C_FILES_BIGINT)
 O_FILES			:= $(C_FILES:%.c=%.o)

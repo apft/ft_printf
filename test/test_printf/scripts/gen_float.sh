@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ALLOWED_TYPES="float float_hexa float_limits float_subnormal"
+ALLOWED_TYPES="float float_hexa float_limits float_subnormal float_long_dbl"
 
 usage()
 {
@@ -134,7 +134,11 @@ read_block()
 					echo "\terror = ret != ret_exp || diff;"
 					echo "\tif (error)"
 					echo "\t{"
-					echo "\t\tprintf(\"%.50f\\\n\", n);"
+					if [ "${TEST_TYPE}" != "float_long_dbl" ]; then
+						echo "\t\tprintf(\"%.50f\\\n\", n);"
+					else
+						echo "\t\tprintf(\"%.50Lf\\\n\", n);"
+					fi
 					echo "\t\tprint_diff(format, ret, ret_exp, str_printf, out, diff);"
 					echo "\t}"
 					echo "\tfree(out);"

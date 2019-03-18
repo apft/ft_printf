@@ -1,0 +1,58 @@
+start_block
+"Float %#: 0.0",test_float_ld_null,long double,(long double)0.0
+"Float %#: -0.0",test_float_ld_null_neg,long double,(long double)-0.0
+"Float %#: >0",test_float_ld_pos_one,long double,(long double)1.0
+"Float %#: >0",test_float_ld_pos_two,long double,(long double)42.0
+"Float %#: >0 big",test_float_ld_pos_big,long double,(long double)657623.56876541323
+"Float %#: >0 small",test_float_ld_pos_small,long double,(long double)0.00056876541323
+"Float %#: >0 very small",test_float_ld_pos_very_small,long double,(long double)0.0000000000087133549217
+"Float %#: <0",test_float_ld_neg,long double,(long double)-123.0
+"Float %#: 0<x<1",test_float_ld_inf_one,long double,(long double)0.42
+"Float %#: 0.01<x<0.1",test_float_ld_inf_zero_one,long double,(long double)0.0625
+"Float %#: 1.42",test_float_ld_den,long double,(long double)1.42
+"Float %#: 9.99934",test_float_ld_to_ten,long double,(long double)9.99934
+"Float %#: 0.0000099997",test_float_ld_to_ten_small,long double,(long double)0.000009997
+"Float %#: 0.9999999999",test_float_ld_to_one,long double,(long double)0.9999999999
+"Float %#: 999999.9999999999",test_float_ld_to_million,long double,(long double)999999.9999999999
+"Float %#: 99.5",test_float_ld_to_hundred_even,long double,(long double)99.5
+"Float %#: 99.9995",test_float_ld_to_hundred_uneven,long double,(long double)99.9995
+"Float %#: round even top",test_float_ld_round_even_top,long double,(long double)32.5
+"Float %#: round even down",test_float_ld_round_even_down,long double,(long double)23.5
+"Float %#: round even top neg",test_float_ld_round_even_top_neg,long double,(long double)-67.5
+"Float %#: round even down neg",test_float_ld_round_even_down_neg,long double,(long double)-68.5
+"Float %#: DBL_MAX",test_float_ld_dbl_max,long double,(long double)DBL_MAX
+"Float %#: DBL_MIN",test_float_ld_dbl_min,long double,(long double)DBL_MIN
+"Float %#: -DBL_MAX",test_float_ld_dbl_max_neg,long double,(long double)-DBL_MAX
+"Float %#: -DBL_MIN",test_float_ld_dbl_min_neg,long double,(long double)-DBL_MIN
+"Float %#: 1.0e+23",test_float_ld_dbl_precision,long double,(long double)1.0e+23
+"Float %#: 9.999999999e+22",test_float_ld_dbl_ult_precision,long double,(long double)9.999999999e+22
+end_block
+Lf,"|%Lf|%10Lf|%10.Lf|%10.0Lf|%.1Lf|%10.2Lf|%10.5Lf|"
+Lf,"|%5Lf|%-5Lf|%+5Lf|%+-5Lf|% 5Lf|%05Lf|%5.0Lf|%5.2Lf|%Lf|"
+Lf,"|%10.5Lf|%10Lf|%010Lf|%-10.5Lf|%-010.5Lf|"
+Lf,"|%Lf|%.Lf|%.2Lf|%2.Lf|%2.1Lf|%+Lf|%-4Lf|"
+Lf,"|%15Lf|%-15Lf|%+15Lf|%+-15Lf|% 15Lf|%015Lf|%15.0Lf|%15.2Lf|%Lf|"
+Lf,"|%035Lf|%05.Lf|%-25.17Lf|"
+Lf,"|%Lf|%0Lf|%#Lf|%-Lf|%+Lf|% Lf|"
+Lf,"|%1Lf|%01Lf|%#1Lf|%-1Lf|%+1Lf|% 1Lf|"
+Lf,"|%7Lf|%07Lf|%#7Lf|%-7Lf|%+7Lf|% 7Lf|"
+Lf,"|%17Lf|%017Lf|%#17Lf|%-17Lf|%+17Lf|% 17Lf|"
+Lf,"|%17.Lf|%017.Lf|%#17.Lf|%-17.Lf|%+17.Lf|% 17.Lf|"
+Lf,"|%17.0Lf|%017.0Lf|%#17.0Lf|%-17.0Lf|%+17.0Lf|% 17.0Lf|"
+Lf,"|%17.1Lf|%017.1Lf|%#17.1Lf|%-17.1Lf|%+17.1Lf|% 17.1Lf|"
+Lf,"|%17.4Lf|%017.4Lf|%#17.4Lf|%-17.4Lf|%+17.4Lf|% 17.4Lf|"
+Lf,"|%17.17Lf|%017.17Lf|%#17.17Lf|%-17.17Lf|%+17.17Lf|% 17.17Lf|"
+Lf,"|%17.21Lf|%017.21Lf|%#17.21Lf|%-17.21Lf|%+17.21Lf|% 17.21Lf|"
+Lf,"|%43.40Lf|%043.40Lf|%#43.40Lf|%-43.40Lf|%+43.40Lf|% 43.40Lf|"
+Lf,"|%400Lf|%#400.Lf|%-310.2Lf|"
+Lf,"|%.20Lf|%.Lf|%.1Lf|%.2Lf|%.3Lf|%.4Lf|"
+Lf,"|%.2000Lf|"
+Lf,"|%-.2000Lf|"
+Lf,"|%+.2000Lf|"
+Lf,"|%2000.1080Lf|"
+Lf,"|%02000.1080Lf|"
+Lf,"|%#2000.1080Lf|"
+Lf,"|%-2000.1080Lf|"
+Lf,"|%-02000.1080Lf|"
+Lf,"|%+-02000.1080Lf|"
+Lf,"|%+02000.1080Lf|"

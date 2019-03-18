@@ -12,6 +12,7 @@ tests
 test/test_printf/test_float/test_float/
 test/test_printf/test_float/test_float_hexa/
 test/test_printf/test_float/test_float_limits/
+test/test_printf/test_float/test_float_long_dbl/
 test/test_printf/test_float/test_float_subnormal/
 test/test_printf/test_float_hexa/
 test/test_printf/test_int/
@@ -22,6 +23,7 @@ test/test_printf/test_str_char/
 test/test_printf/makefiles/makefile_float.mk
 test/test_printf/makefiles/makefile_float_hexa.mk
 test/test_printf/makefiles/makefile_float_limits.mk
+test/test_printf/makefiles/makefile_float_long_dbl.mk
 test/test_printf/makefiles/makefile_float_subnormal.mk
 test/test_printf/makefiles/makefile_ptr_percent.mk
 test/test_printf/makefiles/makefile_str_char.mk

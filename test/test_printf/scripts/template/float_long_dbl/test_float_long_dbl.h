@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_launcher_float.c                                :+:      :+:    :+:   */
+/*   test_float_long_dbl.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/05 20:06:08 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 17:29:31 by apion            ###   ########.fr       */
+/*   Created: 2019/02/06 18:02:36 by apion             #+#    #+#             */
+/*   Updated: 2019/03/18 17:30:15 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libunit.h"
-#include "test_float.h"
+#ifndef TEST_FLOAT_FLOAT_LONG_DBL_H
+# define TEST_FLOAT_FLOAT_LONG_DBL_H
 
-int		test_extract_float_conv_launcher(void)
-{
-	t_unit_test	*test_list;
 
-	test_list = 0;
-	return (launch_tests("TEST FLOAT %f", &test_list));
-}
+#endif
