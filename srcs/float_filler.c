@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:07:17 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:54:00 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int		float_fill_exp(union u_double *value, char *str, t_specs *specs)
 	return (i + k);
 }
 
-int		float_fill_floor_part(char *str, int pow_ten, int is_round_ten, t_bigint *numerator,
-									t_bigint *denominator)
+int		float_fill_floor_part(char *str, int pow_ten, int is_round_ten,
+									t_frac frac)
 {
 	int		i;
 	int		digit;
@@ -63,15 +63,15 @@ int		float_fill_floor_part(char *str, int pow_ten, int is_round_ten, t_bigint *n
 	}
 	while (i <= pow_ten)
 	{
-		digit = get_quotient_and_substract(numerator, denominator);
+		digit = get_quotient_and_substract(frac.numerator, frac.denominator);
 		*(str + i++) = '0' + (char)digit;
-		bigint_mult_int(numerator, numerator, 10);
+		bigint_mult_int(frac.numerator, frac.numerator, 10);
 	}
 	return (i);
 }
 
 int		float_fill_decimal_part(char *str, int pow_ten, int precision,
-									t_bigint *numerator, t_bigint *denominator)
+									t_frac frac)
 {
 	int		i;
 	int			digit;
@@ -80,11 +80,11 @@ int		float_fill_decimal_part(char *str, int pow_ten, int precision,
 	if (pow_ten < 0)
 		while (i < precision && ++pow_ten)
 			*(str + i++) = '0';
-	while (i < precision && !bigint_is_null(numerator))
+	while (i < precision && !bigint_is_null(frac.numerator))
 	{
-		digit = get_quotient_and_substract(numerator, denominator);
+		digit = get_quotient_and_substract(frac.numerator, frac.denominator);
 		*(str + i++) = '0' + (char)digit;
-		bigint_mult_int(numerator, numerator, 10);
+		bigint_mult_int(frac.numerator, frac.numerator, 10);
 	}
 	return (i);
 }

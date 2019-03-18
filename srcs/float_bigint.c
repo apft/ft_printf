@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 08:54:19 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:34:17 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:50:43 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,29 @@ int			get_quotient_and_substract(t_bigint *numerator,
 }
 
 void		generate_bigints_num_den(union u_double *value, int pow_ten,
-							t_bigint *numerator, t_bigint *denominator, int flag)
+							t_frac frac, int flag)
 {
-	unsigned long	frac;
+	unsigned long	mantissa;
 	unsigned int	exp_unbiased;
 	int				exp;
 	t_bigint		bigint_pow_ten;
 	int				implicit_bit;
 
-	frac = (flag & MOD_LD) ? value->field_ld.frac : value->field.frac;
+	mantissa = (flag & MOD_LD) ? value->field_ld.frac : value->field.frac;
 	exp_unbiased = (flag & MOD_LD) ? value->field_ld.exp : value->field.exp;
 	implicit_bit = (flag & MOD_LD) ? value->field_ld.int_part : !!exp_unbiased;
-	extract_mantissa(numerator, frac, implicit_bit, flag);
-	bigint_init_int(denominator, 1);
+	extract_mantissa(frac.numerator, mantissa, implicit_bit, flag);
+	bigint_init_int(frac.denominator, 1);
 	exp = (exp_unbiased ? exp_unbiased : 1)
 		- ((flag & MOD_LD) ? FLOAT_LD_EXP_BIAS + FLOAT_LD_SIZE_FRAC
 				: FLOAT_EXP_BIAS + FLOAT_SIZE_FRAC);
 	if (exp >= 0)
-		bigint_shift_left_self(numerator, exp);
+		bigint_shift_left_self(frac.numerator, exp);
 	else
-		bigint_shift_left_self(denominator, -exp);
+		bigint_shift_left_self(frac.denominator, -exp);
 	generate_bigint_pow_ten(&bigint_pow_ten, pow_ten);
 	if (pow_ten > 0)
-		bigint_mult(denominator, denominator, &bigint_pow_ten);
+		bigint_mult(frac.denominator, frac.denominator, &bigint_pow_ten);
 	else if (pow_ten < 0)
-		bigint_mult(numerator, numerator, &bigint_pow_ten);
+		bigint_mult(frac.numerator, frac.numerator, &bigint_pow_ten);
 }
