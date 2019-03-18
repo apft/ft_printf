@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:46:28 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:57:33 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,16 @@ union					u_double
 		unsigned int	exp:FLOAT_SIZE_EXP;
 		unsigned int	sign:FLOAT_SIZE_SIGN;
 	}					field;
-	long double				type_long_dbl;
-	unsigned long long		type_ll;
+
+	long double			type_long_dbl;
+	unsigned long long	type_ll;
 	struct
 	{
 		unsigned long	frac:FLOAT_LD_SIZE_FRAC;
 		unsigned int	int_part:FLOAT_LD_INTEGER_PART;
 		unsigned int	exp:FLOAT_LD_SIZE_EXP;
 		unsigned int	sign:FLOAT_LD_SIZE_SIGN;
-	}						field_ld;
+	}					field_ld;
 };
 
 typedef struct			s_frac
