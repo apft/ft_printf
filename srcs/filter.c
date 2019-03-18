@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/03/15 21:46:58 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 12:06:27 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,15 @@ static int	compute_width(t_specs *specs)
 		;
 	else if ((specs->type & (FLOAT | FLOAT_HEXA | FLOAT_HEXA_C)))
 		return (compute_width_float(specs));
-	if (specs->is_neg || specs->flags & (PLUS | SPACE | PREFIX))
-		specs->width_prefix = 1;
+	if (specs->flags & PREFIX)
+		specs->width_prefix += 1;
+	if (specs->is_neg || specs->flags & (PLUS | SPACE))
+		specs->width_prefix += 1;
 	if ((specs->type & OCTAL) && (specs->flags & PREFIX)
 			&& (!specs->width_arg || ((specs->flags & PRECISION)
 					&& specs->width_arg < specs->precision)))
 		specs->width_prefix = 0;
-	if ((specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C)))
+	if ((specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C | FLOAT_HEXA | FLOAT_HEXA_C)))
 		specs->width_prefix += 1;
 	width_print = specs->width_prefix;
 	if ((specs->type & STRING) && (specs->flags & PRECISION))
