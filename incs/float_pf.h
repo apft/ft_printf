@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:32:28 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:46:28 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ union					u_double
 	}						field_ld;
 };
 
+typedef struct			s_frac
+{
+	t_bigint	*numerator;
+	t_bigint	*denominator;
+}						t_frac;
+
 void					print_bits(long n, unsigned int size);
 void					dbg_print(union u_double *value);
 
@@ -66,13 +72,12 @@ int						get_quotient_and_substract(
 								t_bigint *numerator, t_bigint *denominator);
 void					generate_bigints_num_den(
 								union u_double *value, int pow_ten,
-								t_bigint *numerator, t_bigint *denominator,
-								int flag);
+								t_frac frac, int flag);
 
-int						float_fill_floor_part(char *str, int pow_ten, int is_round_ten, t_bigint *numerator,
-									t_bigint *denominator);
-int						float_fill_decimal_part(char *str, int pow_ten, int precision,
-									t_bigint *numerator, t_bigint *denominator);
+int						float_fill_floor_part(char *str, int pow_ten,
+								int is_round_ten, t_frac frac);
+int						float_fill_decimal_part(char *str, int pow_ten,
+								int precision, t_frac frac);
 int						float_fill_pref_radix(union u_double *value,
 								char *str, t_specs *specs);
 int						float_fill_exp(union u_double *value,

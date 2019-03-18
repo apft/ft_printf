@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:33:51 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:54:21 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	int			decimal_length;
 
 	pow_ten = float_compute_pow_ten(value->type_dbl);
-	generate_bigints_num_den(value, pow_ten, &numerator, &denominator, specs->flags & MOD_LD);
+	generate_bigints_num_den(value, pow_ten, (t_frac){&numerator, &denominator}, specs->flags & MOD_LD);
 	i = filler(str, specs, FILL_START);
 	if ((specs->flags & FLOAT_ROUND_TEN) && pow_ten >= -1)
 		*(str + i++) = '1';
-	i += float_fill_floor_part(str + i, pow_ten, specs->flags & FLOAT_ROUND_TEN, &numerator, &denominator);
+	i += float_fill_floor_part(str + i, pow_ten, specs->flags & FLOAT_ROUND_TEN,
+			(t_frac){&numerator, &denominator});
 	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
 		*(str + i++) = '.';
 	decimal_length = i;
 	i += float_fill_decimal_part(str + i, pow_ten, specs->precision,
-								&numerator, &denominator);
+								(t_frac){&numerator, &denominator});
 	if (!bigint_is_null(&numerator)
 			&& !(pow_ten < 0 && (specs->precision + 1 + pow_ten) < 0))
 		float_apply_rounding_if_needed(str + i - 1, pow_ten, specs->precision,
