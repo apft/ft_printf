@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 12:49:49 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 12:13:30 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,6 @@ int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 		specs->flags ^= PREFIX;
 		specs->flags |= FLOAT_FORCE_POINT;
 	}
-	specs->width_prefix = specs->is_neg;
-	if (!specs->is_neg)
-		specs->width_prefix += !!(specs->flags & (PLUS | SPACE));
 	specs->width_arg = compute_width_arg_float(value, specs);
 	filter_specs(specs);
 	if (str)
