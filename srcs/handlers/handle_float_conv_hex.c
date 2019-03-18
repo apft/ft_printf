@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 10:17:16 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:07:50 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int		get_length_exp(unsigned int exp_biased)
 
 	if (!exp_biased)
 		return (1);
-	exp = exp_biased - FLOAT_EXP_BIAS_DBL;
+	exp = exp_biased - FLOAT_EXP_BIAS;
 	length = 1;
 	while (exp /= 10)
 		++length;

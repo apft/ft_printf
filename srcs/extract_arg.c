@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:57:53 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 09:05:36 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 15:08:34 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ char	*extract_arg_str(va_list ap)
 	return (str);
 }
 
-void	extract_arg_double(va_list ap, union u_double *value)
+void	extract_arg_double(va_list ap, union u_double *value, int flag)
 {
-	value->type_dbl = va_arg(ap, double);
+	if (flag & MOD_LD)
+		value->type_long_dbl = va_arg(ap, long double);
+	else
+		value->type_dbl = va_arg(ap, double);
 }

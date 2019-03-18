@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 12:01:03 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:06:21 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,16 @@
 # define FLOAT_SIZE_EXP 11
 # define FLOAT_SIZE_FRAC 52
 
-# define FLOAT_EXP_BIAS_DBL 1023
-# define FLOAT_EXP_MAX_DBL 2047
-# define FLOAT_EXP_BIAS_LONG_DBL 1023
-# define FLOAT_EXP_MAX_LONG_DBL 2047
+# define FLOAT_EXP_BIAS 1023
+# define FLOAT_EXP_MAX 2047
+
+# define FLOAT_LD_SIZE_SIGN 1
+# define FLOAT_LD_SIZE_EXP 15
+# define FLOAT_LD_INTEGER_PART 1
+# define FLOAT_LD_SIZE_FRAC 63
+
+# define FLOAT_LD_EXP_BIAS 16383
+# define FLOAT_LD_EXP_MAX 32767
 
 # define FLOAT_MASK_RIGHT 0b1111UL
 # define FLOAT_MASK_LEFT (0b1111UL << 60)
@@ -40,6 +46,15 @@ union					u_double
 		unsigned int	exp:FLOAT_SIZE_EXP;
 		unsigned int	sign:FLOAT_SIZE_SIGN;
 	}					field;
+	long double				type_long_dbl;
+	unsigned long long		type_ll;
+	struct
+	{
+		unsigned long	frac:FLOAT_LD_SIZE_FRAC;
+		unsigned int	int_part:FLOAT_LD_INTEGER_PART;
+		unsigned int	exp:FLOAT_LD_SIZE_EXP;
+		unsigned int	sign:FLOAT_LD_SIZE_SIGN;
+	}						field_ld;
 };
 
 void					print_bits(long n, unsigned int size);

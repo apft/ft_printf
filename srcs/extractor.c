@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:50:00 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 12:08:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:06:52 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,16 @@ int		extract_pointer_conv(va_list ap, t_specs *specs, char *str)
 	return (extract_int_conv(ap, specs, str));
 }
 
-int		extract_float_conv(va_list ap, t_specs *specs, char *str)
+int		float_handle_limit(union u_double *value, t_specs *specs, char *str, int flag)
 {
-	union u_double	value;
-
-	value = (union u_double){0};
-	extract_arg_double(ap, &value);
-	if (value.field.exp == FLOAT_EXP_MAX_DBL)
+	specs->type |= STRING;
+	specs->precision = 0;
+	clear_flags(specs, PRECISION | PAD);
+	if (flag != MOD_LD)
 	{
-		specs->type |= STRING;
-		specs->precision = 0;
-		clear_flags(specs, PRECISION | PAD);
-		if (!value.field.frac)
+		if (!value->field.frac)
 		{
-			specs->is_neg = value.field.sign;
+			specs->is_neg = value->field.sign;
 			return (handle_str_conv("inf", specs, str));
 		}
 		else
@@ -85,6 +81,17 @@ int		extract_float_conv(va_list ap, t_specs *specs, char *str)
 			return (handle_str_conv("nan", specs, str));
 		}
 	}
+	return (0);
+}
+
+int		extract_float_conv(va_list ap, t_specs *specs, char *str)
+{
+	union u_double	value;
+
+	value = (union u_double){0};
+	extract_arg_double(ap, &value, specs->flags & MOD_LD);
+	if (!(specs->flags & MOD_LD) && value.field.exp == FLOAT_EXP_MAX)
+		return (float_handle_limit(&value, specs, str, specs->flags & MOD_LD));
 	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
 		return (handle_float_conv_hex(&value, specs, str));
 	return (handle_float_conv(&value, specs, str));
