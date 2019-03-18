@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 10:02:39 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:07:17 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int		float_fill_exp(union u_double *value, char *str, t_specs *specs)
 	i = 0;
 	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
 		*(str + i++) = (specs->type & FLOAT_HEXA ) ? 'p' : 'P';
-	*(str + i++) = (exp && (exp - FLOAT_EXP_BIAS_DBL) < 0) ? '-' : '+';
-	if (!exp || !(exp -= FLOAT_EXP_BIAS_DBL))
+	*(str + i++) = (exp && (exp - FLOAT_EXP_BIAS) < 0) ? '-' : '+';
+	if (!exp || !(exp -= FLOAT_EXP_BIAS))
 		*(str + i) = '0';
 	j = specs->width_suffix - 2;
 	k = j;

@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 08:54:19 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 14:20:28 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:06:24 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,22 @@ int			get_quotient_and_substract(t_bigint *numerator,
 void		generate_bigints_num_den(union u_double *value, int pow_ten,
 							t_bigint *numerator, t_bigint *denominator)
 {
-	int			exp;
-	t_bigint	bigint_pow_ten;
+	unsigned long	frac;
+	unsigned int	exp_biased;
+	int				exp;
+	t_bigint		bigint_pow_ten;
+	int				flag = 0;
 
-	extract_mantissa(numerator, value->field.frac, value->field.exp);
+	frac = (flag & MOD_LD) ? value->field_ld.frac : value->field.frac;
+	exp_biased = (flag & MOD_LD) ? value->field_ld.exp : value->field.exp;
+	extract_mantissa(numerator, frac, exp_biased);
 	bigint_init_int(denominator, 1);
-	exp = value->field.exp ? value->field.exp : 1;
-	exp -= (FLOAT_EXP_BIAS_DBL + FLOAT_SIZE_FRAC);
+	if (flag & MOD_LD)
+		exp = (value->field_ld.exp ? value->field_ld.exp : 1)
+			- (FLOAT_LD_EXP_BIAS + FLOAT_SIZE_FRAC);
+	else
+		exp = (value->field.exp ? value->field.exp : 1)
+			- (FLOAT_EXP_BIAS + FLOAT_SIZE_FRAC);
 	if (exp >= 0)
 		bigint_shift_left_self(numerator, exp);
 	else

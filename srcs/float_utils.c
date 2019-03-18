@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:02:09 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 11:55:58 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 14:09:45 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		print_bits(long n, unsigned int size)
 	printf("%ld: ", n);
 	i = size;
 	while (i--)
-		printf("%ld", (n >> i) & 1);
+		printf("%d", (int)((n >> i) & 1));
 	printf("\t");
 }
 void		dbg_print(union u_double *value)
@@ -59,5 +59,16 @@ void		dbg_print(union u_double *value)
 	print_bits(value->field.sign, FLOAT_SIZE_SIGN);
 	print_bits(value->field.exp, FLOAT_SIZE_EXP);
 	print_bits(value->field.frac, FLOAT_SIZE_FRAC);
+	printf("\n");
+}
+void		dbg_print_ld(union u_double *value)
+{
+	printf("\e[4mvalue\e[0m\n");
+//	print_bits(value->type_ll, 8 * sizeof(value->type_ll));
+	printf("\n\e[4m%-6s\t%-17s\t%-65s\e[0m\n", "sign", "exp", "significand");
+	print_bits(value->field_ld.sign, FLOAT_LD_SIZE_SIGN);
+	print_bits(value->field_ld.exp, FLOAT_LD_SIZE_EXP);
+	print_bits(value->field_ld.int_part, FLOAT_LD_INTEGER_PART);
+	print_bits(value->field_ld.frac, FLOAT_LD_SIZE_FRAC);
 	printf("\n");
 }
