@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:57:33 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 17:02:46 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ int						float_fill_exp(union u_double *value,
 
 int						float_will_round_to_ten(union u_double *value,
 								int pow_ten, int precisior, int flag);
-void					float_apply_rounding_if_needed(char *str,
-								int pow_ten, int precision,
-								t_bigint *numerator, t_bigint *denominator);
+void					float_apply_rounding_if_needed(char *str, int pow_ten,
+								int precision, t_frac frac);
 
 #endif
