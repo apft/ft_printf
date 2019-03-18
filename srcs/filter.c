@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 12:25:44 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 12:06:27 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void		print_specs(t_specs *specs)
 
 static int	compute_width_float_hexa(t_specs *specs)
 {
-	specs->width_arg = specs->width_prefix + 1
+	specs->width_prefix = 2 + !!(specs->flags & (PLUS | SPACE));
+	specs->width_arg = specs->is_neg + specs->width_prefix + 1
 		+ (specs->precision || (specs->flags & FLOAT_FORCE_POINT) ? 1 : 0)
 		+ specs->precision + specs->width_suffix;
 	return (pf_max(specs->width_min, specs->width_arg));
@@ -58,20 +59,20 @@ static int	compute_width(t_specs *specs)
 {
 	int		width_print;
 
-	if (specs->is_neg || specs->flags & (PLUS | SPACE))
-		specs->width_prefix += 1;
+	if ((specs->type & FLOAT) && (specs->type & STRING))
+		;
+	else if ((specs->type & (FLOAT | FLOAT_HEXA | FLOAT_HEXA_C)))
+		return (compute_width_float(specs));
 	if (specs->flags & PREFIX)
 		specs->width_prefix += 1;
-	if ((specs->flags & PREFIX)
-			&& (specs->type & (HEXA | HEXA_C | FLOAT_HEXA | FLOAT_HEXA_C)))
+	if (specs->is_neg || specs->flags & (PLUS | SPACE))
 		specs->width_prefix += 1;
 	if ((specs->type & OCTAL) && (specs->flags & PREFIX)
 			&& (!specs->width_arg || ((specs->flags & PRECISION)
 					&& specs->width_arg < specs->precision)))
 		specs->width_prefix = 0;
-	if ((specs->type & (FLOAT | FLOAT_HEXA | FLOAT_HEXA_C))
-			&& !(specs->type & STRING))
-		return (compute_width_float(specs));
+	if ((specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C | FLOAT_HEXA | FLOAT_HEXA_C)))
+		specs->width_prefix += 1;
 	width_print = specs->width_prefix;
 	if ((specs->type & STRING) && (specs->flags & PRECISION))
 		width_print += pf_min(specs->precision, specs->width_arg);
