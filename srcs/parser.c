@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/03/12 16:57:17 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/18 13:13:37 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,27 @@ static int	parse_nbr(const char **str)
 
 static void	parse_width(const char **f, t_specs *specs)
 {
-	specs->flags |= WIDTH;
-	specs->width_min = parse_nbr(f);
+	int		width;
+
+	width = parse_nbr(f);
+	if (width >= 0)
+	{
+		specs->flags |= WIDTH;
+		specs->width_min = width;
+	}
 }
 
 static void	parse_precision(const char **f, t_specs *specs)
 {
+	int		precision;
+
 	++(*f);
-	specs->flags |= PRECISION;
-	specs->precision = parse_nbr(f);
+	precision = parse_nbr(f);
+	if (precision >= 0)
+	{
+		specs->flags |= PRECISION;
+		specs->precision = precision;
+	}
 }
 
 static int	parse_type(const char *f, t_specs *specs, va_list ap, char *str)
