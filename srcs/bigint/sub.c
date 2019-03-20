@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:19:35 by apion             #+#    #+#             */
-/*   Updated: 2019/03/11 18:55:38 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 15:23:59 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void			sub_and_shrink_length(t_bigint *result,
 	result->length -= n_null_block;
 }
 
-void		bigint_sub_int(t_bigint *result, t_bigint *a, unsigned int n)
+void				bigint_sub_int(t_bigint *result, t_bigint *a,
+						unsigned int n)
 {
 	t_bigint	b;
 
@@ -65,7 +66,7 @@ void		bigint_sub_int(t_bigint *result, t_bigint *a, unsigned int n)
 	bigint_sub(result, a, &b);
 }
 
-void		bigint_sub(t_bigint *result, t_bigint *a, t_bigint *b)
+void				bigint_sub(t_bigint *result, t_bigint *a, t_bigint *b)
 {
 	t_bigint		temp;
 

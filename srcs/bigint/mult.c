@@ -6,41 +6,44 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 11:52:34 by apion             #+#    #+#             */
-/*   Updated: 2019/03/08 14:12:20 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 15:21:31 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigint.h"
 
-void		bigint_mult_int(t_bigint *result, t_bigint *a, unsigned int n)
+static void	apply_mult(t_bigint *result, t_bigint *a, unsigned int n)
 {
 	unsigned int	block;
 	unsigned long	mult;
 	unsigned long	carry;
 
+	carry = 0UL;
+	block = 0;
+	while (block < a->length)
+	{
+		mult = carry;
+		mult += ((unsigned long)a->blocks[block]) * ((unsigned long)n);
+		carry = mult >> BIGINT_SIZE_BLOCK;
+		result->blocks[block++] = mult & BIGINT_MASK_BLOCK;
+	}
+	if (block == BIGINT_N_BLOCKS && carry)
+		result->blocks[block] = BIGINT_OVERFLOW;
+	else
+	{
+		result->blocks[block] = carry;
+		result->length = a->length + (carry ? 1 : 0);
+	}
+}
+
+void		bigint_mult_int(t_bigint *result, t_bigint *a, unsigned int n)
+{
 	if (bigint_is_overflow(a))
 		result->blocks[BIGINT_N_BLOCKS] = BIGINT_OVERFLOW;
 	else if (bigint_is_underflow(a))
 		result->blocks[BIGINT_N_BLOCKS] = BIGINT_UNDERFLOW;
 	else
-	{
-		carry = 0UL;
-		block = 0;
-		while (block < a->length)
-		{
-			mult = carry;
-			mult += ((unsigned long)a->blocks[block]) * ((unsigned long)n);
-			carry = mult >> BIGINT_SIZE_BLOCK;
-			result->blocks[block++] = mult & BIGINT_MASK_BLOCK;
-		}
-		if (block == BIGINT_N_BLOCKS && carry)
-			result->blocks[block] = BIGINT_OVERFLOW;
-		else
-		{
-			result->blocks[block] = carry;
-			result->length = a->length + (carry ? 1 : 0);
-		}
-	}
+		apply_mult(result, a, n);
 }
 
 void		bigint_mult_by_basis(t_bigint *result, t_bigint *a, t_bigint *basis)
