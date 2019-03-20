@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 00:05:04 by apion             #+#    #+#             */
-/*   Updated: 2019/03/14 09:13:12 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 16:05:00 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int		handle_str_conv(char *value, t_specs *specs, char *str);
 
 int		handle_float_conv(union u_double *value, t_specs *specs, char *str);
 int		handle_float_conv_hex(union u_double *value, t_specs *specs, char *str);
+int		handle_float_limit(union u_double *v, t_specs *specs, char *s, int f);
 
 #endif
