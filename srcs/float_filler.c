@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 17:00:34 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 20:49:28 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	float_fill_after(char *str, int start, int decimal_length,
 	int		i;
 
 	i = start;
-	while (i - decimal_length < specs->precision)
-		*(str + i++) = '0';
-	while (i < specs->width)
-		*(str + i++) = ' ';
+	i += fill_char(str + i, '0', specs->precision + decimal_length - i);
+	fill_char(str + i, ' ', specs->width - i);
 }
