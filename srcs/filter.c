@@ -6,39 +6,11 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 14:42:48 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 16:57:07 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
-#include <stdio.h>
-void		print_specs(t_specs *specs)
-{
-	printf("-\t+\t^\t#\t0\t.\thh\th\tl\tll\tL\tw_min\tprec\tw_arg\tw_pref\tw_suff\twidth\tneg\tdbl.\tdbl->10\ttype\n");
-	printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
-			!!(specs->flags & LEFT),
-			!!(specs->flags & PLUS),
-			!!(specs->flags & SPACE),
-			!!(specs->flags & PREFIX),
-			!!(specs->flags & PAD),
-			!!(specs->flags & PRECISION),
-			!!(specs->flags & MOD_HH),
-			!!(specs->flags & MOD_H),
-			!!(specs->flags & MOD_L),
-			!!(specs->flags & MOD_LL),
-			!!(specs->flags & MOD_LD),
-			specs->width_min,
-			specs->precision,
-			specs->width_arg,
-			specs->width_prefix,
-			specs->width_suffix,
-			specs->width,
-			specs->is_neg,
-			!!(specs->flags & FLOAT_FORCE_POINT),
-			!!(specs->flags & FLOAT_ROUND_TEN),
-			specs->type);
-}
 
 static int	compute_width_float_hexa(t_specs *specs)
 {

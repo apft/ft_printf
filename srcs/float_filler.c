@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 16:11:00 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 17:00:34 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int		float_fill_pref_radix(union u_double *value, char *str, t_specs *specs)
 {
 	int		i;
-	
+
 	i = filler(str, specs, FILL_START);
 	*(str + i++) = value->field.exp ? '1' : '0';
 	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
@@ -35,7 +35,7 @@ int		float_fill_exp(union u_double *value, char *str, t_specs *specs)
 	exp = value->field.exp;
 	i = 0;
 	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
-		*(str + i++) = (specs->type & FLOAT_HEXA ) ? 'p' : 'P';
+		*(str + i++) = (specs->type & FLOAT_HEXA) ? 'p' : 'P';
 	*(str + i++) = (exp && (exp - FLOAT_EXP_BIAS) < 0) ? '-' : '+';
 	if (!exp || !(exp -= FLOAT_EXP_BIAS))
 		*(str + i) = '0';
@@ -74,7 +74,7 @@ int		float_fill_decimal_part(char *str, int pow_ten, int precision,
 									t_frac frac)
 {
 	int		i;
-	int			digit;
+	int		digit;
 
 	i = 0;
 	if (pow_ten < 0)
