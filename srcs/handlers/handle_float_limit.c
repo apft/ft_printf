@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 15:40:55 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 15:55:51 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 21:54:31 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,64 @@
 #define FLOAT_LIMIT_INF "inf"
 #define FLOAT_LIMIT_NAN "nan"
 
+#define FLOAT_LIMIT_INF_C "INF"
+#define FLOAT_LIMIT_NAN_C "NAN"
+
+static void	set_value(char *dst, char *src)
+{
+	int		i;
+
+	i = 0;
+	while (*(src + i))
+	{
+		*(dst + i) = *(src + i);
+		++i;
+	}
+	*(dst + i) = 0;
+}
+
 static int	handle_nan(t_specs *specs, char *str)
 {
-	if ((specs->width_min + specs->precision) <= 2 * pf_strlen(FLOAT_LIMIT_NAN))
+	char	nan[4];
+
+	if (specs->type & FLOAT_C)
+		set_value(nan, FLOAT_LIMIT_NAN_C);
+	else
+		set_value(nan, FLOAT_LIMIT_NAN);
+	if ((specs->width_min + specs->precision) <= 2 * pf_strlen(nan))
 		clear_flags(specs, SPACE);
 	clear_flags(specs, PLUS);
-	return (handle_str_conv(FLOAT_LIMIT_NAN, specs, str));
+	return (handle_str_conv(nan, specs, str));
 }
 
 static int	handle_dbl(union u_double *value, t_specs *specs, char *str)
 {
+	char	inf[4];
+
+	if (specs->type & FLOAT_C)
+		set_value(inf, FLOAT_LIMIT_INF_C);
+	else
+		set_value(inf, FLOAT_LIMIT_INF);
 	if (!value->field.frac)
 	{
 		specs->is_neg = value->field.sign;
-		return (handle_str_conv(FLOAT_LIMIT_INF, specs, str));
+		return (handle_str_conv(inf, specs, str));
 	}
 	return (handle_nan(specs, str));
 }
 
 static int	handle_long_dbl(union u_double *value, t_specs *specs, char *str)
 {
+	char	inf[4];
+
+	if (specs->type & FLOAT_C)
+		set_value(inf, FLOAT_LIMIT_INF_C);
+	else
+		set_value(inf, FLOAT_LIMIT_INF);
 	if (value->field_ld.int_part && !value->field_ld.frac)
 	{
 		specs->is_neg = value->field_ld.sign;
-		return (handle_str_conv(FLOAT_LIMIT_INF, specs, str));
+		return (handle_str_conv(inf, specs, str));
 	}
 	return (handle_nan(specs, str));
 }
