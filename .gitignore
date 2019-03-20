@@ -6,6 +6,8 @@
 *.bin
 *.out
 
+# dev branch
+test/
 # specific test files / folders
 main.c
 tests
