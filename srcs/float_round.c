@@ -22,26 +22,24 @@ int		float_will_round_to_ten(union u_double *value, int pow_ten,
 	int			digit;
 	int			digit_after;
 
-	generate_bigints_num_den(value, pow_ten, (t_frac){&numerator, &denominator}, flag);
+	generate_bigints_num_den(value, pow_ten,
+			(t_frac){&numerator, &denominator}, flag);
 	digit = get_quotient_and_substract(&numerator, &denominator);
-	if (pow_ten < 0)
-		pow_ten *= -1;
+	pow_ten *= (pow_ten < 0) ? -1 : 1;
 	if (digit != 9)
 		return (0);
 	bigint_mult_int(&numerator, &numerator, 10);
 	digit_after = get_quotient_and_substract(&numerator, &denominator);
 	i = 0;
-	while (digit_after == 9 && i < (pow_ten + precision) && !bigint_is_null(&numerator))
+	while (digit_after == 9 && i < (pow_ten + precision)
+			&& !bigint_is_null(&numerator))
 	{
 		bigint_mult_int(&numerator, &numerator, 10);
 		digit_after = get_quotient_and_substract(&numerator, &denominator);
 		++i;
 	}
-	if (digit_after >= 5 && i == (pow_ten + precision))
-		return (1);
-	if (digit_after > 5 && bigint_is_null(&numerator))
-		return (1);
-	return (0);
+	return ((digit_after >= 5 && i == (pow_ten + precision))
+			|| (digit_after > 5 && bigint_is_null(&numerator)));
 }
 
 static int	propagate_rounding(char *str, int limit, int is_integer_part, int *offset)
