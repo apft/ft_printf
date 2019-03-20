@@ -6,13 +6,13 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:07:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 20:13:16 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "float_pf.h"
-#include "float_round.h"
+#include "float_hexa.h"
 #include "filter.h"
 #include "filler.h"
 #include "extractor.h"
@@ -56,20 +56,20 @@ static void		fill_str(union u_double *value, char *b, char *str,
 	{
 		if (!specs->precision)
 		{
-			float_round(n, b, str + i, specs);
+			float_hexa_round(n, b, str + i, specs->precision);
 			++j;
 		}
 		while ((j + 1) < specs->precision && n << (4 * j))
-			*(str + i++) = *(b + (((n << (4 * j++)) & FLOAT_MASK_LEFT) >> 60));
+			*(str + i++) = *(b + float_hexa_extract_byte(n, j++));
 		if (j < specs->precision && n << (4 * j))
 		{
-			float_round(n, b, str + i++, specs);
+			float_hexa_round(n, b, str + i++, specs->precision);
 			++j;
 		}
 	}
 	else
 		while (n << (4 * j))
-			*(str + i++) = *(b + (((n << (4 * j++)) & FLOAT_MASK_LEFT) >> 60));
+			*(str + i++) = *(b + float_hexa_extract_byte(n, j++));
 	while (j++ < specs->precision)
 		*(str + i++) = '0';
 	i += float_fill_exp(value, str + i, specs);

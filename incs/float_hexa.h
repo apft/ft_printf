@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   float_round.h                                      :+:      :+:    :+:   */
+/*   float_hexa.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 12:25:26 by apion             #+#    #+#             */
-/*   Updated: 2019/02/06 19:07:12 by apion            ###   ########.fr       */
+/*   Created: 2019/03/20 19:47:49 by apion             #+#    #+#             */
+/*   Updated: 2019/03/20 20:14:10 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FLOAT_ROUND_H
-# define FLOAT_ROUND_H
+#ifndef FLOAT_HEXA_H
+# define FLOAT_HEXA_H
 
-void	float_round(unsigned long n, char *base, char *str, t_specs *specs);
+unsigned int	float_hexa_extract_byte(unsigned long n, int byte_index);
+void			float_hexa_round(unsigned long n, char *base, char *str,
+								int precision);
 
 #endif
