@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 16:13:33 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 17:43:29 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ static int		fill_start_normal(char *str, t_specs *specs)
 	if (specs->flags & PAD)
 	{
 		i += fill_prefix(str + i, specs);
-		if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
-			i += fill_char(str + i, '0', specs->width - specs->width_arg);
-		else
-			i += fill_char(str + i, '0', specs->width - i - specs->width_arg);
+		i += fill_char(str + i, '0', specs->width - specs->width_arg
+				- ((specs->type & (FLOAT_HEXA | FLOAT_HEXA_C)) ? 0 : i));
 	}
 	else
 	{
@@ -81,7 +79,8 @@ static int		fill_start_normal(char *str, t_specs *specs)
 		if ((specs->type & (STRING | PERCENT)) && (specs->flags & PRECISION))
 			i += fill_char(str + i, ' ', pf_min(specs->width, specs->precision)
 					- specs->width_arg);
-		if (!(specs->type & (STRING | PERCENT | FLOAT | FLOAT_HEXA | FLOAT_HEXA_C)) && (specs->flags & PRECISION))
+		if (!(specs->type & (STRING | PERCENT | FLOAT_HEXA | FLOAT_HEXA_C))
+				&& (specs->flags & PRECISION))
 			i += fill_char(str + i, '0', specs->precision - specs->width_arg);
 	}
 	return (i);
@@ -91,7 +90,8 @@ int				filler(char *str, t_specs *specs, int start)
 {
 	if (start == FILL_START)
 	{
-		if ((specs->flags & LEFT) && (specs->type & STRING) && !(specs->type & FLOAT))
+		if ((specs->flags & LEFT)
+				&& (specs->type & STRING) && !(specs->type & FLOAT))
 			return (0);
 		if (specs->flags & LEFT)
 			return (fill_start_left(str, specs));
@@ -99,5 +99,6 @@ int				filler(char *str, t_specs *specs, int start)
 	}
 	if (specs->flags & LEFT)
 		return (fill_char(str, ' ', specs->width - start));
-	return (fill_char(str, specs->flags & PAD ? '0' : ' ', specs->width - start));
+	return (fill_char(
+				str, specs->flags & PAD ? '0' : ' ', specs->width - start));
 }

@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 12:24:38 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 16:20:12 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 17:14:27 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int		float_will_round_to_ten(union u_double *value, int pow_ten,
 			|| (digit_after > 5 && bigint_is_null(&numerator)));
 }
 
-static int	propagate_rounding(char *str, int limit, int is_integer_part, int *offset)
+static int	propagate_rounding(char *str, int limit, int is_integer_part,
+							int *offset)
 {
 	int		propagate;
 	int		i;
@@ -84,8 +85,8 @@ static void	apply_rounding(int pow_ten, int precision, char *str)
 	}
 }
 
-void	float_apply_rounding_if_needed(char *str, int pow_ten, int precision,
-									t_frac frac)
+void		float_apply_rounding_if_needed(char *str, int pow_ten,
+											int precision, t_frac frac)
 {
 	int		digit_after;
 
