@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 16:54:00 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 16:11:00 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,16 @@ int		float_fill_decimal_part(char *str, int pow_ten, int precision,
 		bigint_mult_int(frac.numerator, frac.numerator, 10);
 	}
 	return (i);
+}
+
+void	float_fill_after(char *str, int start, int decimal_length,
+									t_specs *specs)
+{
+	int		i;
+
+	i = start;
+	while (i - decimal_length < specs->precision)
+		*(str + i++) = '0';
+	while (i < specs->width)
+		*(str + i++) = ' ';
 }

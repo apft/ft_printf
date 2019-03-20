@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 12:52:35 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 16:03:33 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int						float_fill_floor_part(char *str, int pow_ten,
 								int is_round_ten, t_frac frac);
 int						float_fill_decimal_part(char *str, int pow_ten,
 								int precision, t_frac frac);
+void					float_fill_after(char *str, int start,
+								int decimal_length, t_specs *specs);
 int						float_fill_pref_radix(union u_double *value,
 								char *str, t_specs *specs);
 int						float_fill_exp(union u_double *value,
