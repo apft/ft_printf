@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 16:03:33 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 16:58:33 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,6 @@ typedef struct			s_frac
 	t_bigint	*numerator;
 	t_bigint	*denominator;
 }						t_frac;
-
-void					print_bits(long n, unsigned int size);
-void					dbg_print(union u_double *value);
 
 int						float_compute_pow_ten(union u_double *value, int flag);
 
