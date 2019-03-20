@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:50:00 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 17:14:59 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 15:38:25 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,44 +61,6 @@ int		extract_pointer_conv(va_list ap, t_specs *specs, char *str)
 	return (extract_int_conv(ap, specs, str));
 }
 
-int		float_handle_limit(union u_double *value, t_specs *specs, char *str, int flag)
-{
-	specs->type |= STRING;
-	specs->precision = 0;
-	clear_flags(specs, PRECISION | PAD);
-	if (!(flag & MOD_LD))
-	{
-		if (!value->field.frac)
-		{
-			specs->is_neg = value->field.sign;
-			return (handle_str_conv("inf", specs, str));
-		}
-		else
-		{
-			if ((specs->width_min + specs->precision) <= 2 * pf_strlen("nan"))
-				clear_flags(specs, SPACE);
-			clear_flags(specs, PLUS);
-			return (handle_str_conv("nan", specs, str));
-		}
-	}
-	else
-	{
-		if (value->field_ld.int_part && !value->field_ld.frac)
-		{
-			specs->is_neg = value->field_ld.sign;
-			return (handle_str_conv("inf", specs, str));
-		}
-		else
-		{
-			if ((specs->width_min + specs->precision) <= 2 * pf_strlen("nan"))
-				clear_flags(specs, SPACE);
-			clear_flags(specs, PLUS);
-			return (handle_str_conv("nan", specs, str));
-		}
-	}
-	return (0);
-}
-
 int		extract_float_conv(va_list ap, t_specs *specs, char *str)
 {
 	union u_double	value;
@@ -106,9 +68,9 @@ int		extract_float_conv(va_list ap, t_specs *specs, char *str)
 	value = (union u_double){0};
 	extract_arg_double(ap, &value, specs->flags & MOD_LD);
 	if (!(specs->flags & MOD_LD) && value.field.exp == FLOAT_EXP_MAX)
-		return (float_handle_limit(&value, specs, str, 0));
+		return (handle_float_limit(&value, specs, str, 0));
 	else if ((specs->flags & MOD_LD) && value.field_ld.exp == FLOAT_LD_EXP_MAX)
-		return (float_handle_limit(&value, specs, str, specs->flags & MOD_LD));
+		return (handle_float_limit(&value, specs, str, specs->flags & MOD_LD));
 	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
 		return (handle_float_conv_hex(&value, specs, str));
 	return (handle_float_conv(&value, specs, str));

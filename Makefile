@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/14 10:22:20 by apion            ###   ########.fr        #
+#    Updated: 2019/03/20 15:44:59 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/handlers/handle_char_conv.c \
 				srcs/handlers/handle_float_conv.c \
 				srcs/handlers/handle_float_conv_hex.c \
+				srcs/handlers/handle_float_limit.c \
 				srcs/handlers/handle_int_conv.c \
 				srcs/handlers/handle_int_conv_char.c \
 				srcs/handlers/handle_int_conv_int.c \
