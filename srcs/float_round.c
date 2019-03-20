@@ -6,14 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 12:24:38 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 20:08:34 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 20:25:17 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "float_pf.h"
 
-int		float_will_round_to_ten(union u_double *value, int pow_ten,
+int			float_will_round_to_ten(union u_double *value, int pow_ten,
 								int precision, int flag)
 {
 	t_bigint	numerator;
@@ -85,26 +85,34 @@ static void	apply_rounding(int pow_ten, int precision, char *str)
 	}
 }
 
+static int	extract_next_non_null_digit(t_frac frac)
+{
+	int		digit;
+
+	bigint_mult_int(frac.numerator, frac.numerator, 10);
+	digit = get_quotient_and_substract(frac.numerator, frac.denominator);
+	while (digit == 0 && !bigint_is_null(frac.numerator))
+	{
+		bigint_mult_int(frac.numerator, frac.numerator, 10);
+		digit = get_quotient_and_substract(frac.numerator, frac.denominator);
+	}
+	return (digit);
+}
+
 void		float_apply_rounding_if_needed(char *str, int pow_ten,
 											int precision, t_frac frac)
 {
 	int		digit_after;
 
 	if (bigint_is_null(frac.numerator)
-		   || (pow_ten < 0 && (precision + 1 + pow_ten) < 0))
+			|| (pow_ten < 0 && (precision + 1 + pow_ten) < 0))
 		return ;
 	digit_after = get_quotient_and_substract(frac.numerator, frac.denominator);
 	if (digit_after > 5)
 		apply_rounding(pow_ten, precision, str);
 	else if (digit_after == 5)
 	{
-		bigint_mult_int(frac.numerator, frac.numerator, 10);
-		digit_after = get_quotient_and_substract(frac.numerator, frac.denominator);
-		while (digit_after == 0 && !bigint_is_null(frac.numerator))
-		{
-			bigint_mult_int(frac.numerator, frac.numerator, 10);
-			digit_after = get_quotient_and_substract(frac.numerator, frac.denominator);
-		}
+		digit_after = extract_next_non_null_digit(frac);
 		if (digit_after)
 			apply_rounding(pow_ten, precision, str);
 		else
