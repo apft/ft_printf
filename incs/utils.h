@@ -6,14 +6,14 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/03/13 17:47:37 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 21:18:42 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# define VALID_CHAR "%-+ #0hlL.123456789diouxXfaAcsp"
+# define VALID_CHAR "%-+ #0*.123456789hlLdiouxXfaAcsp"
 
 # define BASE_DEC "0123456789"
 # define BASE_OCT "01234567"

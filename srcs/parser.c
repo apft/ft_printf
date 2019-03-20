@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 13:13:37 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 21:28:01 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@ t_parser	g_parser[] =
 	{'%', PERCENT, &extract_char_conv}
 };
 
-static int	parse_nbr(const char **str)
+static int	parse_nbr(const char **str, va_list ap)
 {
 	int		n;
 
 	n = 0;
+	if (**str == '*')
+		return (va_arg(ap, int));
 	while (**str >= '0' && **str <= '9')
 		n = 10 * n + (*((*str)++) - '0');
 	--(*str);
 	return (n);
 }
 
-static void	parse_width(const char **f, t_specs *specs)
+static void	parse_width(const char **f, t_specs *specs, va_list ap)
 {
 	int		width;
 
-	width = parse_nbr(f);
+	width = parse_nbr(f, ap);
 	if (width >= 0)
 	{
 		specs->flags |= WIDTH;
@@ -54,12 +56,12 @@ static void	parse_width(const char **f, t_specs *specs)
 	}
 }
 
-static void	parse_precision(const char **f, t_specs *specs)
+static void	parse_precision(const char **f, t_specs *specs, va_list ap)
 {
 	int		precision;
 
 	++(*f);
-	precision = parse_nbr(f);
+	precision = parse_nbr(f, ap);
 	if (precision >= 0)
 	{
 		specs->flags |= PRECISION;
@@ -108,10 +110,10 @@ int			parse_specs(const char **f, t_specs *specs, va_list ap, char *str)
 		specs->flags |= (!(specs->flags & MOD_LL)
 				&& **f == 'l' && *((*f) + 1) != 'l') ? MOD_L : 0;
 		specs->flags |= (**f == 'L') ? MOD_LD : 0;
-		if (**f >= '1' && **f <= '9')
-			parse_width(f, specs);
+		if (**f == '*' || (**f >= '1' && **f <= '9'))
+			parse_width(f, specs, ap);
 		if (**f == '.')
-			parse_precision(f, specs);
+			parse_precision(f, specs, ap);
 		if (**f)
 			++(*f);
 	}
