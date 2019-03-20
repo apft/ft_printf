@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 17:43:29 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 20:49:35 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,6 @@ static int		fill_prefix(char *str, t_specs *specs)
 	return (i);
 }
 
-static int		fill_char(char *str, char c, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-		*(str + i++) = c;
-	return (i);
-}
-
 static int		fill_start_left(char *str, t_specs *specs)
 {
 	int		i;
@@ -55,17 +45,25 @@ static int		fill_start_left(char *str, t_specs *specs)
 	return (i);
 }
 
+static int		fill_start_pad(char *str, t_specs *specs)
+{
+	int		i;
+
+	i = fill_prefix(str, specs);
+	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
+		i += fill_char(str + i, '0', specs->width - specs->width_arg);
+	else
+		i += fill_char(str + i, '0', specs->width - specs->width_arg - i);
+	return (i);
+}
+
 static int		fill_start_normal(char *str, t_specs *specs)
 {
 	int		i;
 
 	i = 0;
 	if (specs->flags & PAD)
-	{
-		i += fill_prefix(str + i, specs);
-		i += fill_char(str + i, '0', specs->width - specs->width_arg
-				- ((specs->type & (FLOAT_HEXA | FLOAT_HEXA_C)) ? 0 : i));
-	}
+		i += fill_start_pad(str + i, specs);
 	else
 	{
 		if ((specs->type & STRING) && (specs->flags & PRECISION))
