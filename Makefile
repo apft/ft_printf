@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/20 15:44:59 by apion            ###   ########.fr        #
+#    Updated: 2019/03/20 18:50:37 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,6 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/bigint/utils.c
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
-DIRS		:= $(strip $(filter-out ./,$(sort $(dir $(C_FILES))))) .
 
 TEST_LIBUNIT	:= test/test_printf
 
@@ -81,6 +80,8 @@ TEST_BEHAVIOUR		:= test_behaviour
 TEST_BEHAVIOUR_BIN	:= $(TEST_BEHAVIOUR).bin
 MAIN_BEHAVIOUR		:= $(TEST_DIR)/float_behaviour.c
 
+.SECONDEXPANSION:
+
 .PHONY: all
 all: $(NAME)
 
@@ -88,22 +89,24 @@ $(NAME): $(addprefix $(O_DIR)/, $(O_FILES))
 	$(AR) rs $@ $?
 
 $(O_DIR)/%.o: %.c
-$(O_DIR)/%.o: %.c $(D_DIR)/%.d | $(addprefix $(O_DIR)/, $(DIRS))
+$(O_DIR)/%.o: %.c $(D_DIR)/%.d | $$(@D)/.
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(CINCLUDES) -o $@ -c $<
 
-$(addprefix $(O_DIR)/, $(DIRS)):
+.PRECIOUS: $(O_DIR)/. $(O_DIR)%/.
+$(O_DIR)/. $(O_DIR)%/.:
 	mkdir -p $@
 
-%.d: ;
 .PRECIOUS: %.d
+%.d: ;
 
 .PHONY: clean
 clean:
 	$(RM) $(addprefix $(O_DIR)/, $(O_FILES))
-	$(RM) $(addprefix $(O_DIR)/, $(D_FILES))
-	rmdir $(addprefix $(O_DIR)/, $(DIRS)) 2> /dev/null || true
-	rmdir $(addprefix $(O_DIR)/, $(DIRS)) 2> /dev/null || true
+	$(RM) $(addprefix $(D_DIR)/, $(D_FILES))
+	rmdir $$(ls -R -1 $(O_DIR) | grep -A1 "^$$" | grep -v -E "(^$$|^--$$)" | tr -d ':' | sort -r) 2> /dev/null || true
+	rmdir $$(ls -R -1 $(D_DIR) | grep -A1 "^$$" | grep -v -E "(^$$|^--$$)" | tr -d ':' | sort -r) 2> /dev/null || true
 	rmdir $(O_DIR) 2> /dev/null || true
+	rmdir $(D_DIR) 2> /dev/null || true
 
 .PHONY: fclean
 fclean: clean
@@ -112,7 +115,7 @@ fclean: clean
 .PHONY: re
 re: fclean all
 
-include $(filter %.d, $(wildcard $(addsuffix *d, $(addprefix $(D_DIR)/, $(DIRS)))))
+-include $(D_FILES)
 
 # --- Tests --- #
 
