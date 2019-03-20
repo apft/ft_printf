@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 18:07:08 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 12:55:45 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	int			i;
 	int			decimal_length;
 
-	pow_ten = float_compute_pow_ten(value->type_dbl);
+	pow_ten = float_compute_pow_ten(value, specs->flags & MOD_LD);
 	generate_bigints_num_den(value, pow_ten, (t_frac){&numerator, &denominator}, specs->flags & MOD_LD);
 	i = filler(str, specs, FILL_START);
 	if ((specs->flags & FLOAT_ROUND_TEN) && pow_ten >= -1)
@@ -52,7 +52,7 @@ static int	compute_width_arg_float(union u_double *value, t_specs *specs)
 	int		pow_ten;
 
 	width_arg = 1;
-	pow_ten = float_compute_pow_ten(value->type_dbl);
+	pow_ten = float_compute_pow_ten(value, specs->flags & MOD_LD);
 	if (pow_ten > 0)
 		width_arg += pow_ten;
 	if (pow_ten >= -1 && float_will_round_to_ten(value, pow_ten, specs->precision, specs->flags & MOD_LD))
@@ -85,8 +85,6 @@ int			handle_float_conv(union u_double *value, t_specs *specs, char *str)
 	}
 	specs->width_arg = compute_width_arg_float(value, specs);
 	filter_specs(specs);
-	if (!str)
-		print_specs(specs);
 	if (str)
 		fill_str(value, str, specs);
 	return (1);
