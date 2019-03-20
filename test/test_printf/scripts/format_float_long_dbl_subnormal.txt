@@ -1,0 +1,35 @@
+start_block
+"Float subnormalized %#: min",test_float_long_dbl_subnormal_min,long double,0x1p-16445L
+"Float subnormalized %#: max",test_float_long_dbl_subnormal_max,long double,0x1.fffffffffffffffbp-16383L
+"Float subnormalized %#: 0x0.345ca03p-1023",test_float_long_dbl_subnormal_rnd,long double,0x0.345ca03p-1023L
+"Float subnormalized %#: 0x1.345ca0000ff03p-1023",test_float_long_dbl_subnormal_rnd_other,long double,0x1.345ca0000ff03p-1023L
+end_block
+Lf,"|%Lf|%10Lf|%10.Lf|%10.0Lf|%.1Lf|%10.2Lf|%10.5Lf|"
+Lf,"|%5Lf|%-5Lf|%+5Lf|%+-5Lf|% 5Lf|%05Lf|%5.0Lf|%5.2Lf|%Lf|"
+Lf,"|%10.5Lf|%10Lf|%010Lf|%-10.5Lf|%-010.5Lf|"
+Lf,"|%Lf|%.Lf|%.2Lf|%2.Lf|%2.1Lf|%+Lf|%-4Lf|"
+Lf,"|%15Lf|%-15Lf|%+15Lf|%+-15Lf|% 15Lf|%015Lf|%15.0Lf|%15.2Lf|%Lf|"
+Lf,"|%035Lf|%05.Lf|%-25.17Lf|"
+Lf,"|%Lf|%0Lf|%#Lf|%-Lf|%+Lf|% Lf|"
+Lf,"|%1Lf|%01Lf|%#1Lf|%-1Lf|%+1Lf|% 1Lf|"
+Lf,"|%7Lf|%07Lf|%#7Lf|%-7Lf|%+7Lf|% 7Lf|"
+Lf,"|%17Lf|%017Lf|%#17Lf|%-17Lf|%+17Lf|% 17Lf|"
+Lf,"|%17.Lf|%017.Lf|%#17.Lf|%-17.Lf|%+17.Lf|% 17.Lf|"
+Lf,"|%17.0Lf|%017.0Lf|%#17.0Lf|%-17.0Lf|%+17.0Lf|% 17.0Lf|"
+Lf,"|%17.1Lf|%017.1Lf|%#17.1Lf|%-17.1Lf|%+17.1Lf|% 17.1Lf|"
+Lf,"|%17.4Lf|%017.4Lf|%#17.4Lf|%-17.4Lf|%+17.4Lf|% 17.4Lf|"
+Lf,"|%17.17Lf|%017.17Lf|%#17.17Lf|%-17.17Lf|%+17.17Lf|% 17.17Lf|"
+Lf,"|%17.21Lf|%017.21Lf|%#17.21Lf|%-17.21Lf|%+17.21Lf|% 17.21Lf|"
+Lf,"|%43.40Lf|%043.40Lf|%#43.40Lf|%-43.40Lf|%+43.40Lf|% 43.40Lf|"
+Lf,"|%400Lf|%#400.Lf|%-310.2Lf|"
+Lf,"|%.20Lf|%.Lf|%.1Lf|%.2Lf|%.3Lf|%.4Lf|"
+Lf,"|%.2000Lf|"
+Lf,"|%-.2000Lf|"
+Lf,"|%+.2000Lf|"
+Lf,"|%2000.1080Lf|"
+Lf,"|%02000.1080Lf|"
+Lf,"|%#2000.1080Lf|"
+Lf,"|%-2000.1080Lf|"
+Lf,"|%-02000.1080Lf|"
+Lf,"|%+-02000.1080Lf|"
+Lf,"|%+02000.1080Lf|"

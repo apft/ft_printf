@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 19:49:21 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 12:57:13 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 13:56:55 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@ int		test_float_launcher()
 	n += test_extract_float_conv_subnormal_launcher();
 	n += test_extract_float_conv_limits_launcher();
 	n += test_extract_float_conv_long_dbl_launcher();
+	n += test_extract_float_conv_long_dbl_subnormal_launcher();
+	n += test_extract_float_conv_long_dbl_limits_launcher();
 	return (n);
 }
