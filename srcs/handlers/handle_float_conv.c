@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 15:40:44 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 16:26:26 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	int			decimal_length;
 
 	pow_ten = float_compute_pow_ten(value, specs->flags & MOD_LD);
-	generate_bigints_num_den(value, pow_ten, (t_frac){&numerator, &denominator}, specs->flags & MOD_LD);
+	generate_bigints_num_den(value, pow_ten,
+			(t_frac){&numerator, &denominator}, specs->flags & MOD_LD);
 	i = filler(str, specs, FILL_START);
 	if ((specs->flags & FLOAT_ROUND_TEN) && pow_ten >= -1)
 		*(str + i++) = '1';
@@ -37,14 +38,9 @@ static void	fill_str(union u_double *value, char *str, t_specs *specs)
 	decimal_length = i;
 	i += float_fill_decimal_part(str + i, pow_ten, specs->precision,
 								(t_frac){&numerator, &denominator});
-	if (!bigint_is_null(&numerator)
-			&& !(pow_ten < 0 && (specs->precision + 1 + pow_ten) < 0))
-		float_apply_rounding_if_needed(str + i - 1, pow_ten, specs->precision,
+	float_apply_rounding_if_needed(str + i - 1, pow_ten, specs->precision,
 								(t_frac){&numerator, &denominator});
-	while (i - decimal_length < specs->precision)
-		*(str + i++) = '0';
-	while (i < specs->width)
-		*(str + i++) = ' ';
+	float_fill_after(str, i, decimal_length, specs);
 }
 
 static int	compute_width_arg_float(union u_double *value, t_specs *specs)
@@ -56,7 +52,8 @@ static int	compute_width_arg_float(union u_double *value, t_specs *specs)
 	pow_ten = float_compute_pow_ten(value, specs->flags & MOD_LD);
 	if (pow_ten > 0)
 		width_arg += pow_ten;
-	if (pow_ten >= -1 && float_will_round_to_ten(value, pow_ten, specs->precision, specs->flags & MOD_LD))
+	if (pow_ten >= -1 && float_will_round_to_ten(value, pow_ten,
+									specs->precision, specs->flags & MOD_LD))
 	{
 		specs->flags |= FLOAT_ROUND_TEN;
 		width_arg += (pow_ten >= 0) ? 1 : 0;

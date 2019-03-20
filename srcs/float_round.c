@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 12:24:38 by apion             #+#    #+#             */
-/*   Updated: 2019/03/18 17:05:23 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 16:20:12 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	float_apply_rounding_if_needed(char *str, int pow_ten, int precision,
 {
 	int		digit_after;
 
-	if (bigint_is_null(frac.numerator))
+	if (bigint_is_null(frac.numerator)
+		   || (pow_ten < 0 && (precision + 1 + pow_ten) < 0))
 		return ;
 	digit_after = get_quotient_and_substract(frac.numerator, frac.denominator);
 	if (digit_after > 5)
