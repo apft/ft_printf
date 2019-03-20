@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:43:34 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 20:17:26 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 20:32:35 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int		round_floor_part_if_needed(unsigned long n, int base_length,
 	return (0);
 }
 
-void			float_hexa_round(unsigned long n, char *base, char *str,
+int				float_hexa_round(unsigned long n, char *base, char *str,
 								int precision)
 {
 	int		b;
@@ -46,7 +46,7 @@ void			float_hexa_round(unsigned long n, char *base, char *str,
 
 	b = pf_strlen(base);
 	if (!precision && round_floor_part_if_needed(n, b, str))
-		return ;
+		return (1);
 	propagate = 1;
 	while (propagate && precision--)
 	{
@@ -62,4 +62,5 @@ void			float_hexa_round(unsigned long n, char *base, char *str,
 		if (propagate && *str == '.')
 			(*(str - 1))++;
 	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 20:13:16 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/20 20:35:12 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,33 +47,28 @@ static void		fill_str(union u_double *value, char *b, char *str,
 {
 	unsigned long	n;
 	int				i;
-	int				j;
+	int				byte_index;
 
 	i = float_fill_pref_radix(value, str, specs);
 	n = value->field.frac << 12;
-	j = 0;
+	byte_index = 0;
 	if (specs->flags & PRECISION)
 	{
 		if (!specs->precision)
-		{
-			float_hexa_round(n, b, str + i, specs->precision);
-			++j;
-		}
-		while ((j + 1) < specs->precision && n << (4 * j))
-			*(str + i++) = *(b + float_hexa_extract_byte(n, j++));
-		if (j < specs->precision && n << (4 * j))
-		{
-			float_hexa_round(n, b, str + i++, specs->precision);
-			++j;
-		}
+			byte_index += float_hexa_round(n, b, str + i, specs->precision);
+		while ((byte_index + 1) < specs->precision && n << (4 * byte_index))
+			*(str + i++) = *(b + float_hexa_extract_byte(n, byte_index++));
+		if (byte_index < specs->precision && n << (4 * byte_index))
+			byte_index += float_hexa_round(n, b, str + i++, specs->precision);
 	}
 	else
-		while (n << (4 * j))
-			*(str + i++) = *(b + float_hexa_extract_byte(n, j++));
-	while (j++ < specs->precision)
+		while (n << (4 * byte_index))
+			*(str + i++) = *(b + float_hexa_extract_byte(n, byte_index++));
+	while (byte_index++ < specs->precision)
 		*(str + i++) = '0';
 	i += float_fill_exp(value, str + i, specs);
-	filler(str + pf_max(i, specs->width_arg), specs, pf_max(i, specs->width_arg));
+	i = pf_max(i, specs->width_arg);
+	filler(str + i, specs, i);
 }
 
 int				handle_float_conv_hex(union u_double *value, t_specs *specs,
