@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 12:24:38 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 20:25:17 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/21 12:58:46 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	propagate_rounding(char *str, int limit, int is_integer_part,
 		++i;
 	}
 	if (is_integer_part && i == limit && propagate)
-		*(str - i) = '0';
+		*(str - i) = *(str - i) == '9' ? '0' : *(str - i) + 1;
 	*offset = i;
 	return (propagate);
 }
