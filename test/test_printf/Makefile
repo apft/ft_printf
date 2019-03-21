@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/03/20 13:12:57 by apion            ###   ########.fr        #
+#    Updated: 2019/03/21 16:40:48 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,14 +41,14 @@ C_FILES				:= main.c \
 						utils.c \
 						print_bigint.c
 C_FILES				+=	$(C_FILES_INT) \
-						$(C_FILES_STR_CHAR) $(C_FILES_PTR_PERCENT) \
-						$(C_FILES_FLOAT) $(C_FILES_FLOAT_HEXA) \
-						$(C_FILES_FLOAT_SUBNORMAL) $(C_FILES_FLOAT_LIMITS) \
-						$(C_FILES_FLOAT_LONG_DBL) \
-						$(C_FILES_FLOAT_LONG_DBL_SUBNORMAL) \
-						$(C_FILES_FLOAT_LONG_DBL_LIMITS) \
-						test_float/00_launcher.c \
-						$(C_FILES_BIGINT)
+						$(C_FILES_STR_CHAR) $(C_FILES_PTR_PERCENT)
+C_FILES				+=	test_float/00_launcher.c
+C_FILES				+= 	$(C_FILES_FLOAT) $(C_FILES_FLOAT_HEXA) \
+						$(C_FILES_FLOAT_SUBNORMAL) $(C_FILES_FLOAT_LIMITS)
+#C_FILES				+= 	$(C_FILES_FLOAT_LONG_DBL) \
+#						$(C_FILES_FLOAT_LONG_DBL_SUBNORMAL) \
+#						$(C_FILES_FLOAT_LONG_DBL_LIMITS)
+#C_FILES				+=	$(C_FILES_BIGINT)
 O_FILES			:= $(C_FILES:%.c=%.o)
 D_FILES			:= $(C_FILES:%.c=%.d)
 DIRS			:= $(strip $(filter-out ./,$(sort $(dir $(C_FILES))))) .
