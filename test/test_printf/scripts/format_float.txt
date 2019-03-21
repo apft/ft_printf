@@ -16,6 +16,8 @@ start_block
 "Float %#: 999999.9999999999",test_float_to_million,double,999999.9999999999
 "Float %#: 99.5",test_float_to_hundred_even,double,99.5
 "Float %#: 99.9995",test_float_to_hundred_uneven,double,99.9995
+"Float %#: 5.5",test_float_round,double,5.5
+"Float %#: 9.5",test_float_round_to_ten,double,9.5
 "Float %#: round even top",test_float_round_even_top,double,32.5
 "Float %#: round even down",test_float_round_even_down,double,23.5
 "Float %#: round even top neg",test_float_round_even_top_neg,double,-67.5
