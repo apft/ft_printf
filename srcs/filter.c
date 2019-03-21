@@ -6,11 +6,17 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 11:37:13 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 21:42:35 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/21 17:23:06 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+void		clear_flags(t_specs *specs, int flags)
+{
+	if (specs->flags & flags)
+		specs->flags &= ~flags;
+}
 
 static int	compute_width_float_hexa(t_specs *specs)
 {
@@ -41,7 +47,10 @@ static int	compute_width(t_specs *specs)
 	if ((specs->type & OCTAL) && (specs->flags & PREFIX)
 			&& (!specs->width_arg || ((specs->flags & PRECISION)
 					&& specs->width_arg < specs->precision)))
+	{
+		clear_flags(specs, PREFIX);
 		specs->width_prefix = 0;
+	}
 	if ((specs->type & (FLOAT | FLOAT_C | FLOAT_HEXA | FLOAT_HEXA_C))
 			&& !(specs->type & STRING))
 		return (compute_width_float(specs));
@@ -51,12 +60,6 @@ static int	compute_width(t_specs *specs)
 	else
 		width_print += pf_max(specs->precision, specs->width_arg);
 	return (pf_max(specs->width_min, width_print));
-}
-
-void		clear_flags(t_specs *specs, int flags)
-{
-	if (specs->flags & flags)
-		specs->flags &= ~flags;
 }
 
 void		filter_specs(t_specs *specs)
@@ -77,7 +80,10 @@ void		filter_specs(t_specs *specs)
 	if (specs->is_neg)
 		clear_flags(specs, SPACE | PLUS);
 	if ((specs->type & OCTAL) && (specs->flags & PREFIX) && !specs->precision)
+	{
+		specs->flags |= PRECISION;
 		specs->precision = 1;
+	}
 	if (specs->type & (CHAR | PERCENT))
 	{
 		clear_flags(specs, PRECISION);
