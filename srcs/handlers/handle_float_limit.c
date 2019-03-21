@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 15:40:55 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 21:54:31 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/21 17:38:06 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ static int	handle_nan(t_specs *specs, char *str)
 		set_value(nan, FLOAT_LIMIT_NAN_C);
 	else
 		set_value(nan, FLOAT_LIMIT_NAN);
-	if ((specs->width_min + specs->precision) <= 2 * pf_strlen(nan))
-		clear_flags(specs, SPACE);
-	clear_flags(specs, PLUS);
+	clear_flags(specs, PLUS | SPACE);
 	return (handle_str_conv(nan, specs, str));
 }
 
