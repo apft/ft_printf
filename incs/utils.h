@@ -6,19 +6,20 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 13:25:47 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 21:40:07 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/22 19:03:28 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# define VALID_CHAR "%-+ #0*.123456789hlLdiouxXfFaAcsp"
+# define VALID_CHAR "%-+ #0*.123456789hlLdiouxXfFaAcspbB"
 
-# define BASE_DEC "0123456789"
-# define BASE_OCT "01234567"
-# define BASE_HEXA "0123456789abcdef"
-# define BASE_HEXA_C "0123456789ABCDEF"
+# define BASE_DEC		"0123456789"
+# define BASE_OCT		"01234567"
+# define BASE_HEXA		"0123456789abcdef"
+# define BASE_HEXA_C	"0123456789ABCDEF"
+# define BASE_BIN		"01"
 
 # define NULL_STR "(null)"
 
@@ -82,7 +83,9 @@ enum			e_type
 	CHAR = 1 << 9,
 	STRING = 1 << 10,
 	POINTER = 1 << 11,
-	PERCENT = 1 << 12
+	PERCENT = 1 << 12,
+	BIN = 1 << 13,
+	BIN_C = 1 << 14
 };
 
 int				pf_strlen(const char *str);
