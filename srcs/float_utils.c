@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:02:09 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 16:57:55 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/22 18:05:55 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	float_compute_pow_ten_long_dbl(long double n)
 		return (pow_ten);
 	if (n < 0)
 		n *= -1;
-	if (n > 10.0)
+	if (n >= 10.0)
 	{
-		while (n > 10.0)
+		while (n >= 10.0)
 		{
 			n /= 10;
 			++pow_ten;
