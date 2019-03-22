@@ -6,12 +6,12 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/22 18:14:02 by apion            ###   ########.fr        #
+#    Updated: 2019/03/22 18:28:10 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL		:= /bin/sh
-RM			:= /bin/rm -f
+RM			:= /bin/rm
 CC			:= gcc
 ifndef NOERR
 CFLAGS		:= -Wall -Wextra -Werror
@@ -89,28 +89,42 @@ MAIN_BEHAVIOUR		:= $(TEST_DIR)/float_behaviour.c
 all: $(NAME)
 
 $(NAME): $(addprefix $(O_DIR)/, $(O_FILES))
-	$(AR) rs $@ $?
+	@echo "Compiling library $@..."
+	@$(AR) rsc $@ $?
+	@echo "Done."
 
 $(O_DIR)/%.o: %.c
 $(O_DIR)/%.o: %.c $(D_DIR)/%.d | $$(@D)/.
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(CINCLUDES) -o $@ -c $<
+	@echo "Compiling $<..."
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(CINCLUDES) -o $@ -c $<
 
 .PRECIOUS: $(O_DIR)/. $(O_DIR)%/.
 $(O_DIR)/. $(O_DIR)%/.:
-	mkdir -p $@
+	@echo "Creating directory $@..."
+	@mkdir -p $@
 
 .PRECIOUS: %.d
 %.d: ;
 
 .PHONY: clean
 clean:
-	$(RM) $(addprefix $(O_DIR)/, $(O_FILES))
-	$(RM) $(addprefix $(D_DIR)/, $(D_FILES))
-	echo $(O_TREE) | xargs rmdir 2> /dev/null || true
+	@echo "Cleaning object files..."
+	@-$(RM) $(addprefix $(O_DIR)/, $(O_FILES)) 2> /dev/null
+	@echo "Cleaning dependencies files..."
+	@-$(RM) $(addprefix $(D_DIR)/, $(D_FILES)) 2> /dev/null
+	@echo "Removing $(O_DIR) tree..."
+	@-echo $(O_TREE) | xargs rmdir 2> /dev/null
+	@[ -d $(O_DIR) ] \
+		&& echo "Could not remove $(O_DIR) tree." \
+		|| echo "Successfully clean."
 
 .PHONY: fclean
 fclean: clean
-	$(RM) $(NAME)
+	@echo "Removing file $(NAME)..."
+	@-$(RM) $(NAME) 2> /dev/null
+	@[ -f $(NAME) ] \
+		&& echo "Could not remove $(NAME) file." \
+		|| echo "Successfully clean."
 
 .PHONY: re
 re: fclean all
