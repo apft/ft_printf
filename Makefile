@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/22 18:28:10 by apion            ###   ########.fr        #
+#    Updated: 2019/03/22 19:14:16 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CPPFLAGS	= -MMD -MP -MF $(D_DIR)/$*.d
 
 NAME		:= libftprintf.a
 C_DIR		:= srcs
-H_DIR		:= incs srcs/bigint
+H_DIR		:= incs
 O_DIR		:= .obj
 D_DIR		:= $(O_DIR)
 C_FILES		:= srcs/extract_arg.c \
