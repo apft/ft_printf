@@ -6,12 +6,12 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/03/22 13:26:29 by apion            ###   ########.fr        #
+#    Updated: 2019/03/22 19:16:40 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FTPRINTF_PATH	:= ../../
-FTPRINTF_LIB	:= $(FTPRINTF_PATH)libftprintf.a
+FTPRINTF_PATH	:= ../..
+FTPRINTF_LIB	:= $(FTPRINTF_PATH)/libftprintf.a
 
 MAKEFILES_PATH	:= makefiles
 include $(wildcard $(MAKEFILES_PATH)/*.mk)
@@ -34,7 +34,7 @@ LIBUNIT			= $(LIBUNIT_PATH)/$(LIBUNIT_NAME)
 NAME			= $(EXEC).out
 EXEC			= test
 C_DIR			=
-H_DIR			= . $(LIBUNIT_PATH) $(FTPRINTF_PATH)srcs/bigint
+H_DIR			= . $(LIBUNIT_PATH) $(FTPRINTF_PATH)/incs
 O_DIR			= .obj
 C_FILES			:= main.c \
 					utils.c \
@@ -79,7 +79,8 @@ $(EXEC): all
 
 $(O_DIR)/%.o: %.c
 $(O_DIR)/%.o: %.c $(O_DIR)/%.d | $$(@D)/.
-	$(CC) $(CFLAGS) $(CINCLUDES) $(CPPFLAGS) -o $@ -c $<
+	@echo "Compiling $<..."
+	@$(CC) $(CFLAGS) $(CINCLUDES) $(CPPFLAGS) -o $@ -c $<
 
 .PRECIOUS: $(O_DIR)/. $(O_DIR)%/.
 $(O_DIR)/. $(O_DIR)%/.:
