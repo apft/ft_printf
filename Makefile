@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/22 17:31:48 by apion            ###   ########.fr        #
+#    Updated: 2019/03/22 18:14:02 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/bigint/is_limit.c
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
+O_TREE		= $(shell find $(O_DIR) -type d -print 2> /dev/null | tail -r)
 
 TEST_LIBUNIT	:= test/test_printf
 
@@ -105,10 +106,7 @@ $(O_DIR)/. $(O_DIR)%/.:
 clean:
 	$(RM) $(addprefix $(O_DIR)/, $(O_FILES))
 	$(RM) $(addprefix $(D_DIR)/, $(D_FILES))
-	rmdir $$(ls -R -1 $(O_DIR) | grep -A1 "^$$" | grep -v -E "(^$$|^--$$)" | tr -d ':' | sort -r) 2> /dev/null || true
-	rmdir $$(ls -R -1 $(D_DIR) | grep -A1 "^$$" | grep -v -E "(^$$|^--$$)" | tr -d ':' | sort -r) 2> /dev/null || true
-	rmdir $(O_DIR) 2> /dev/null || true
-	rmdir $(D_DIR) 2> /dev/null || true
+	echo $(O_TREE) | xargs rmdir 2> /dev/null || true
 
 .PHONY: fclean
 fclean: clean
