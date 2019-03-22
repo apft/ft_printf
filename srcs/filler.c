@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 21:42:35 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/22 19:06:18 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ static int		fill_prefix(char *str, t_specs *specs)
 		*(str + i++) = 'x';
 	if ((specs->flags & PREFIX) && (specs->type & (HEXA_C | FLOAT_HEXA_C)))
 		*(str + i++) = 'X';
+	if ((specs->flags & PREFIX) && (specs->type & BIN))
+		*(str + i++) = 'b';
+	if ((specs->flags & PREFIX) && (specs->type & BIN_C))
+		*(str + i++) = 'B';
 	return (i);
 }
 

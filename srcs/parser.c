@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/03/22 17:48:39 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/22 19:02:15 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ t_parser	g_parser[] =
 	{'c', CHAR, &extract_char_conv},
 	{'s', STRING, &extract_str_conv},
 	{'p', POINTER, &extract_pointer_conv},
-	{'%', PERCENT, &extract_char_conv}
+	{'%', PERCENT, &extract_char_conv},
+	{'b', BIN, &extract_int_conv},
+	{'B', BIN_C, &extract_int_conv}
 };
 
 static int	parse_nbr(const char **str, va_list ap)
