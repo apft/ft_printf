@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/20 21:19:17 by apion            ###   ########.fr        #
+#    Updated: 2019/03/22 17:31:48 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ C_FILES		:= srcs/extract_arg.c \
 				srcs/bigint/mult.c \
 				srcs/bigint/shift.c \
 				srcs/bigint/sub.c \
-				srcs/bigint/utils.c
+				srcs/bigint/is_limit.c
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
 
