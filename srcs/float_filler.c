@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 20:49:28 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/22 22:23:39 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,27 @@
 #include "float_pf.h"
 #include "filler.h"
 
-int		float_fill_pref_radix(union u_double *value, char *str, t_specs *specs)
+int		float_fill_pref_radix(union u_double *value, char *b, char *str,
+							t_specs *specs)
 {
-	int		i;
+	int				i;
+	int				is_mod_ld;
+	unsigned int	exp_unbiased;
+	unsigned int	implicit_bit;
+	unsigned int	integer_part;
 
+	is_mod_ld = specs->flags & MOD_LD;
+	exp_unbiased = is_mod_ld ? value->field_ld.exp : value->field.exp;
+	implicit_bit = is_mod_ld ? value->field_ld.int_part : !!exp_unbiased;
 	i = filler(str, specs, FILL_START);
-	*(str + i++) = value->field.exp ? '1' : '0';
+	if (is_mod_ld)
+	{
+		integer_part =
+			(unsigned int)(value->field_ld.frac >> 60) | (implicit_bit << 3);
+		*(str + i++) = *(b + integer_part);
+	}
+	else
+		*(str + i++) = '0' + implicit_bit;
 	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
 		*(str + i++) = '.';
 	return (i);
@@ -27,26 +42,31 @@ int		float_fill_pref_radix(union u_double *value, char *str, t_specs *specs)
 
 int		float_fill_exp(union u_double *value, char *str, t_specs *specs)
 {
-	int		exp;
-	int		i;
-	int		j;
-	int		k;
+	unsigned int	exp_unbiased;
+	int				exp;
+	int				i;
+	int				j;
 
-	exp = value->field.exp;
+	if (specs->flags & MOD_LD)
+		exp_unbiased = value->field_ld.exp - (value->field_ld.frac || value->field_ld.exp ? 3 : 0);
+	else
+		exp_unbiased = value->field.exp;
+	if (specs->flags & MOD_LD)
+		exp = exp_unbiased - FLOAT_LD_EXP_BIAS;
+	else
+		exp = exp_unbiased - FLOAT_EXP_BIAS;
 	i = 0;
-	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
-		*(str + i++) = (specs->type & FLOAT_HEXA) ? 'p' : 'P';
-	*(str + i++) = (exp && (exp - FLOAT_EXP_BIAS) < 0) ? '-' : '+';
-	if (!exp || !(exp -= FLOAT_EXP_BIAS))
+	*(str + i++) = (specs->type & FLOAT_HEXA) ? 'p' : 'P';
+	*(str + i++) = (exp_unbiased && exp < 0) ? '-' : '+';
+	if (!exp_unbiased || !exp)
 		*(str + i) = '0';
 	j = specs->width_suffix - 2;
-	k = j;
-	while (j--)
+	while (exp_unbiased && exp && j--)
 	{
 		*(str + i + j) = '0' + (exp < 0 ? -(exp % 10) : exp % 10);
 		exp /= 10;
 	}
-	return (i + k);
+	return (i + specs->width_suffix - 2);
 }
 
 int		float_fill_floor_part(char *str, int pow_ten, int is_round_ten,

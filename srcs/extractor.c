@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 18:50:00 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 16:44:50 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/22 21:00:54 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,6 @@ int		extract_float_conv(va_list ap, t_specs *specs, char *str)
 	else if ((specs->flags & MOD_LD) && value.field_ld.exp == FLOAT_LD_EXP_MAX)
 		return (handle_float_limit(&value, specs, str, specs->flags & MOD_LD));
 	if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
-	{
-		if (specs->flags & MOD_LD)
-		{
-			specs->type |= STRING;
-			return (handle_str_conv("(`%La' not supported)", specs, str));
-		}
 		return (handle_float_conv_hex(&value, specs, str));
-	}
 	return (handle_float_conv(&value, specs, str));
 }

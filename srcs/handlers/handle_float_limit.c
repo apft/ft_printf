@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 15:40:55 by apion             #+#    #+#             */
-/*   Updated: 2019/03/21 17:38:06 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/22 22:04:47 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	handle_nan(t_specs *specs, char *str)
 {
 	char	nan[4];
 
-	if (specs->type & FLOAT_C)
+	if (specs->type & (FLOAT_C | FLOAT_HEXA_C))
 		set_value(nan, FLOAT_LIMIT_NAN_C);
 	else
 		set_value(nan, FLOAT_LIMIT_NAN);
@@ -50,7 +50,7 @@ static int	handle_dbl(union u_double *value, t_specs *specs, char *str)
 {
 	char	inf[4];
 
-	if (specs->type & FLOAT_C)
+	if (specs->type & (FLOAT_C | FLOAT_HEXA_C))
 		set_value(inf, FLOAT_LIMIT_INF_C);
 	else
 		set_value(inf, FLOAT_LIMIT_INF);
@@ -66,7 +66,7 @@ static int	handle_long_dbl(union u_double *value, t_specs *specs, char *str)
 {
 	char	inf[4];
 
-	if (specs->type & FLOAT_C)
+	if (specs->type & (FLOAT_C | FLOAT_HEXA_C))
 		set_value(inf, FLOAT_LIMIT_INF_C);
 	else
 		set_value(inf, FLOAT_LIMIT_INF);
