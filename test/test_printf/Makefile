@@ -6,71 +6,70 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/01 14:28:41 by apion             #+#    #+#              #
-#    Updated: 2019/03/21 16:40:48 by apion            ###   ########.fr        #
+#    Updated: 2019/03/22 13:26:29 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FTPRINTF_PATH		:= ../../
-FTPRINTF_LIB		:= $(FTPRINTF_PATH)libftprintf.a
+FTPRINTF_PATH	:= ../../
+FTPRINTF_LIB	:= $(FTPRINTF_PATH)libftprintf.a
 
-MAKEFILES_PATH		:= makefiles
+MAKEFILES_PATH	:= makefiles
 include $(wildcard $(MAKEFILES_PATH)/*.mk)
 
 
-SHELL				:= /bin/sh
-RM					:= /bin/rm -f
-MAKE				:= make
-CC					:= gcc
+SHELL			:= /bin/sh
+RM				:= /bin/rm -f
+MAKE			:= make
+CC				:= gcc
 ifndef NOERR
-CFLAGS				:= -Wall -Wextra -Werror
+CFLAGS			:= -Wall -Wextra -Werror
 endif
-CINCLUDES			= $(addprefix -I,$(H_DIR))
-CPPFLAGS			= -MMD -MP -MF $(D_DIR)$*.d
+CINCLUDES		= $(addprefix -I,$(H_DIR))
+CPPFLAGS		= -MMD -MP -MF $(O_DIR)/$*.d
 
-LIBUNIT_NAME		= libunit.a
-LIBUNIT_PATH		= ../framework
-LIBUNIT				= $(LIBUNIT_PATH)/$(LIBUNIT_NAME)
+LIBUNIT_NAME	= libunit.a
+LIBUNIT_PATH	= ../framework
+LIBUNIT			= $(LIBUNIT_PATH)/$(LIBUNIT_NAME)
 
-NAME				= $(EXEC).out
-EXEC				= test
-C_DIR				=
-H_DIR				= . $(LIBUNIT_PATH) $(FTPRINTF_PATH)srcs/bigint
-D_DIR				= .dep/
-O_DIR				= .obj/
-C_FILES				:= main.c \
-						utils.c \
-						print_bigint.c
-C_FILES				+=	$(C_FILES_INT) \
-						$(C_FILES_STR_CHAR) $(C_FILES_PTR_PERCENT)
-C_FILES				+=	test_float/00_launcher.c
-C_FILES				+= 	$(C_FILES_FLOAT) $(C_FILES_FLOAT_HEXA) \
-						$(C_FILES_FLOAT_SUBNORMAL) $(C_FILES_FLOAT_LIMITS)
-#C_FILES				+= 	$(C_FILES_FLOAT_LONG_DBL) \
-#						$(C_FILES_FLOAT_LONG_DBL_SUBNORMAL) \
-#						$(C_FILES_FLOAT_LONG_DBL_LIMITS)
-#C_FILES				+=	$(C_FILES_BIGINT)
+NAME			= $(EXEC).out
+EXEC			= test
+C_DIR			=
+H_DIR			= . $(LIBUNIT_PATH) $(FTPRINTF_PATH)srcs/bigint
+O_DIR			= .obj
+C_FILES			:= main.c \
+					utils.c \
+					print_bigint.c
+C_FILES			+=	$(C_FILES_INT)
+C_FILES			+=	$(C_FILES_STR_CHAR) $(C_FILES_PTR_PERCENT)
+C_FILES			+=	test_float/00_launcher.c
+C_FILES			+= 	$(C_FILES_FLOAT) $(C_FILES_FLOAT_HEXA) \
+					$(C_FILES_FLOAT_SUBNORMAL) $(C_FILES_FLOAT_LIMITS)
+C_FILES			+= 	$(C_FILES_FLOAT_LONG_DBL) \
+					$(C_FILES_FLOAT_LONG_DBL_SUBNORMAL) \
+					$(C_FILES_FLOAT_LONG_DBL_LIMITS)
+C_FILES			+=	$(C_FILES_BIGINT)
 O_FILES			:= $(C_FILES:%.c=%.o)
 D_FILES			:= $(C_FILES:%.c=%.d)
-DIRS			:= $(strip $(filter-out ./,$(sort $(dir $(C_FILES))))) .
+O_TREE			= $(shell find $(O_DIR) -type d -print 2> /dev/null | tail -r)
 
 .SUFFIXES:
 .SUFFIXES: .c .o .d
+
+.SECONDEXPANSION:
 
 .PHONY: all
 all: $(NAME)
 
 .PHONY: lib
-lib:
-	make -C $(FTPRINTF_PATH)
-	make -C $(LIBUNIT_PATH)
+lib: $(FTPRINTF_LIB) $(LIBUNIT)
 
-$(FTPRINTF_LIB):
+$(FTPRINTF_LIB): .FORCE
 	make -C $(FTPRINTF_PATH)
 
-$(LIBUNIT):
+$(LIBUNIT): .FORCE
 	make -C $(LIBUNIT_PATH)
 
-$(NAME): $(addprefix $(O_DIR), $(O_FILES)) $(LIBUNIT) $(FTPRINTF_LIB)
+$(NAME): $(addprefix $(O_DIR)/, $(O_FILES)) $(LIBUNIT) $(FTPRINTF_LIB)
 	$(CC) $(CFLAGS) $(CINCLUDES) -o $@ $^
 
 .PHONY: $(EXEC)
@@ -78,29 +77,24 @@ $(EXEC): all
 	clear
 	@./$(NAME) || true
 
-$(O_DIR)%.o: %.c
-$(O_DIR)%.o: %.c $(D_DIR)%.d | $(addprefix $(O_DIR), $(DIRS)) $(addprefix $(D_DIR), $(DIRS))
+$(O_DIR)/%.o: %.c
+$(O_DIR)/%.o: %.c $(O_DIR)/%.d | $$(@D)/.
 	$(CC) $(CFLAGS) $(CINCLUDES) $(CPPFLAGS) -o $@ -c $<
 
-$(D_DIR)%.d: ;
-.PRECIOUS: $(D_DIR)%.d
-
-$(addprefix $(O_DIR), $(DIRS)):
+.PRECIOUS: $(O_DIR)/. $(O_DIR)%/.
+$(O_DIR)/. $(O_DIR)%/.:
 	mkdir -p $@
 
-$(addprefix $(D_DIR), $(DIRS)):
-	mkdir -p $@
+.PRECIOUS: $(O_DIR)/%.d
+$(O_DIR)/%.d: ;
 
 .PHONY: clean
 clean:
 	make -C $(LIBUNIT_PATH) clean
-	$(RM) $(addprefix $(O_DIR), $(O_FILES))
-	$(RM) $(addprefix $(D_DIR), $(D_FILES))
-	rmdir $(addprefix $(O_DIR), $(DIRS)) 2> /dev/null || true
+	$(RM) $(addprefix $(O_DIR)/, $(O_FILES))
+	$(RM) $(addprefix $(O_DIR)/, $(D_FILES))
+	echo $(O_TREE) | xargs rmdir 2> /dev/null || true
 	rmdir $(O_DIR) 2> /dev/null || true
-	rmdir $(addprefix $(D_DIR), $(DIRS)) 2> /dev/null || true
-	rmdir $(addprefix $(D_DIR), $(DIRS)) 2> /dev/null || true
-	rmdir $(D_DIR) 2> /dev/null || true
 
 .PHONY: fclean
 fclean: clean
@@ -110,4 +104,6 @@ fclean: clean
 .PHONY: re
 re: fclean all
 
-include $(filter %.d, $(wildcard $(addsuffix *d, $(addprefix $(D_DIR), $(DIRS)))))
+.FORCE:
+
+-include $(addprefix $(O_DIR)/, $(D_FILES))
