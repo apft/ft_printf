@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 20:22:07 by apion             #+#    #+#             */
-/*   Updated: 2019/03/22 19:06:18 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/22 22:04:31 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int		fill_start_normal(char *str, t_specs *specs)
 	{
 		if ((specs->type & STRING) && (specs->flags & PRECISION))
 			i += fill_char(str + i, ' ', specs->width - specs->precision);
-		else if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C))
+		else if (specs->type & (FLOAT_HEXA | FLOAT_HEXA_C) && !(specs->type & STRING))
 			i += fill_char(str + i, ' ', specs->width - specs->width_arg);
 		else
 			i += fill_char(str + i, ' ', specs->width - specs->width_prefix
@@ -93,7 +93,7 @@ int				filler(char *str, t_specs *specs, int start)
 	if (start == FILL_START)
 	{
 		if ((specs->flags & LEFT)
-				&& (specs->type & STRING) && !(specs->type & (FLOAT | FLOAT_C)))
+				&& (specs->type & STRING) && !(specs->type & (FLOAT | FLOAT_C | FLOAT_HEXA | FLOAT_HEXA_C)))
 			return (0);
 		if (specs->flags & LEFT)
 			return (fill_start_left(str, specs));
