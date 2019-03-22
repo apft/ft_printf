@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/03/21 16:34:30 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/22 17:48:39 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,22 @@ static int	parse_nbr(const char **str, va_list ap)
 static void	parse_width(const char **f, t_specs *specs, va_list ap)
 {
 	int		width;
+	int		is_from_asterisk;
 
 	specs->flags |= WIDTH;
+	is_from_asterisk = (**f == '*');
 	width = parse_nbr(f, ap);
 	if (width >= 0)
 		specs->width_min = width;
 	else
 	{
-		specs->flags |= LEFT;
-		specs->width_min = -width;
+		if (is_from_asterisk)
+		{
+			specs->flags |= LEFT;
+			specs->width_min = -width;
+		}
+		else
+			specs->width_min = 0;
 	}
 }
 
@@ -66,9 +73,11 @@ static void	parse_precision(const char **f, t_specs *specs, va_list ap)
 
 	++(*f);
 	precision = parse_nbr(f, ap);
-	specs->flags |= PRECISION;
 	if (precision >= 0)
+	{
+		specs->flags |= PRECISION;
 		specs->precision = precision;
+	}
 	else
 		specs->precision = 0;
 }
