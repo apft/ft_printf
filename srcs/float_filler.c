@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/25 11:43:31 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/25 13:08:41 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int		float_fill_pref_radix(t_field *fields, char *b, char *str,
 	}
 	else
 	{
+		fields->frac <<= 1 - fields->exp
+			- (is_long_dbl ?  FLOAT_LD_EXP_BIAS : FLOAT_EXP_BIAS);
+		*(str + i++) = *(b + (unsigned int)(fields->frac >> 52));
 	}
 	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
 		*(str + i++) = '.';
@@ -48,11 +51,11 @@ int		float_fill_exp(t_field *fields, char *str, t_specs *specs)
 	exp = fields->exp;
 	i = 0;
 	*(str + i++) = (specs->type & FLOAT_HEXA) ? 'p' : 'P';
-	*(str + i++) = (fields->exp_unbiased && exp < 0) ? '-' : '+';
+	*(str + i++) = (exp < 0) ? '-' : '+';
 	if (!fields->exp_unbiased || !exp)
 		*(str + i) = '0';
 	j = specs->width_suffix - 2;
-	while (fields->exp_unbiased && exp && j--)
+	while (exp && j--)
 	{
 		*(str + i + j) = '0' + (exp < 0 ? -(exp % 10) : exp % 10);
 		exp /= 10;
