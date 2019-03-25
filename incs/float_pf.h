@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:01:06 by apion             #+#    #+#             */
-/*   Updated: 2019/03/22 20:19:04 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/25 11:45:14 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # include "utils.h"
 # include "bigint.h"
 
-union					u_double
+typedef union			u_double
 {
 	double				type_dbl;
 	unsigned long		type_long;
@@ -56,7 +56,16 @@ union					u_double
 		unsigned int	exp:FLOAT_LD_SIZE_EXP;
 		unsigned int	sign:FLOAT_LD_SIZE_SIGN;
 	}					field_ld;
-};
+}						t_float;
+
+typedef struct			s_field
+{
+	unsigned long	frac;
+	unsigned int	exp_unbiased;
+	int				exp;
+	unsigned int	implicit_bit;
+	unsigned int	sign;
+}						t_field;
 
 typedef struct			s_frac
 {
@@ -64,13 +73,16 @@ typedef struct			s_frac
 	t_bigint	*denominator;
 }						t_frac;
 
-int						float_compute_pow_ten(union u_double *value, int flag);
+void					float_extract_fields(t_field *fields, t_float *value,
+								int is_long_dbl);
+int						float_compute_pow_ten(union u_double *value,
+								int is_long_dbl);
 
 int						get_quotient_and_substract(
 								t_bigint *numerator, t_bigint *denominator);
 void					generate_bigints_num_den(
 								union u_double *value, int pow_ten,
-								t_frac frac, int flag);
+								t_frac frac, int is_long_dbl);
 
 int						float_fill_floor_part(char *str, int pow_ten,
 								int is_round_ten, t_frac frac);
@@ -78,13 +90,13 @@ int						float_fill_decimal_part(char *str, int pow_ten,
 								int precision, t_frac frac);
 void					float_fill_after(char *str, int start,
 								int decimal_length, t_specs *specs);
-int						float_fill_pref_radix(union u_double *value, char *base,
+int						float_fill_pref_radix(t_field *fields, char *base,
 								char *str, t_specs *specs);
-int						float_fill_exp(union u_double *value,
+int						float_fill_exp(t_field *fields,
 								char *str, t_specs *specs);
 
 int						float_will_round_to_ten(union u_double *value,
-								int pow_ten, int precisior, int flag);
+								int pow_ten, int precisior, int is_long_dbl);
 void					float_apply_rounding_if_needed(char *str, int pow_ten,
 								int precision, t_frac frac);
 
