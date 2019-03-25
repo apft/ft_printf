@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:02:09 by apion             #+#    #+#             */
-/*   Updated: 2019/03/25 11:53:07 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/25 12:45:14 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			float_compute_pow_ten(union u_double *value, int is_long_dbl)
 	return (float_compute_pow_ten_dbl(value->type_dbl));
 }
 
-static int		get_exp_subnormal(t_field *fields, int is_long_dbl)
+static int	get_exp_subnormal(t_field *fields, int is_long_dbl)
 {
 	unsigned long	n;
 	unsigned long	mask;
@@ -89,10 +89,10 @@ void		float_extract_fields(t_field *fields, t_float *value,
 	{
 		fields->exp = (fields->exp_unbiased ? fields->exp_unbiased : 1)
 			- (is_long_dbl ? FLOAT_LD_EXP_BIAS : FLOAT_EXP_BIAS);
+		if (is_long_dbl && fields->implicit_bit)
+			fields->exp -= 3;
 		if (fields->exp_unbiased == 0 && fields->frac != 0)
 			fields->exp -= get_exp_subnormal(fields, is_long_dbl);
-		if (is_long_dbl && fields->exp_unbiased && fields->frac)
-			fields->exp -= 3;
 	}
 	else
 		fields->exp = 0;
