@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/22 22:23:39 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/25 11:43:31 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,45 @@
 #include "float_pf.h"
 #include "filler.h"
 
-int		float_fill_pref_radix(union u_double *value, char *b, char *str,
+int		float_fill_pref_radix(t_field *fields, char *b, char *str,
 							t_specs *specs)
 {
 	int				i;
-	int				is_mod_ld;
-	unsigned int	exp_unbiased;
-	unsigned int	implicit_bit;
-	unsigned int	integer_part;
+	int				is_long_dbl;
+	unsigned int	integer;
 
-	is_mod_ld = specs->flags & MOD_LD;
-	exp_unbiased = is_mod_ld ? value->field_ld.exp : value->field.exp;
-	implicit_bit = is_mod_ld ? value->field_ld.int_part : !!exp_unbiased;
+	is_long_dbl = specs->flags & MOD_LD;
 	i = filler(str, specs, FILL_START);
-	if (is_mod_ld)
+	if (fields->exp_unbiased ||  (!fields->exp_unbiased && !fields->frac))
 	{
-		integer_part =
-			(unsigned int)(value->field_ld.frac >> 60) | (implicit_bit << 3);
-		*(str + i++) = *(b + integer_part);
+		if (is_long_dbl)
+			integer = (unsigned int)(fields->frac >> 60) | (fields->implicit_bit << 3);
+		else
+			integer = fields->implicit_bit;
+		*(str + i++) = is_long_dbl ? *(b + integer) : '0' + integer;
 	}
 	else
-		*(str + i++) = '0' + implicit_bit;
+	{
+	}
 	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
 		*(str + i++) = '.';
 	return (i);
 }
 
-int		float_fill_exp(union u_double *value, char *str, t_specs *specs)
+int		float_fill_exp(t_field *fields, char *str, t_specs *specs)
 {
-	unsigned int	exp_unbiased;
-	int				exp;
-	int				i;
-	int				j;
+	int		exp;
+	int		i;
+	int		j;
 
-	if (specs->flags & MOD_LD)
-		exp_unbiased = value->field_ld.exp - (value->field_ld.frac || value->field_ld.exp ? 3 : 0);
-	else
-		exp_unbiased = value->field.exp;
-	if (specs->flags & MOD_LD)
-		exp = exp_unbiased - FLOAT_LD_EXP_BIAS;
-	else
-		exp = exp_unbiased - FLOAT_EXP_BIAS;
+	exp = fields->exp;
 	i = 0;
 	*(str + i++) = (specs->type & FLOAT_HEXA) ? 'p' : 'P';
-	*(str + i++) = (exp_unbiased && exp < 0) ? '-' : '+';
-	if (!exp_unbiased || !exp)
+	*(str + i++) = (fields->exp_unbiased && exp < 0) ? '-' : '+';
+	if (!fields->exp_unbiased || !exp)
 		*(str + i) = '0';
 	j = specs->width_suffix - 2;
-	while (exp_unbiased && exp && j--)
+	while (fields->exp_unbiased && exp && j--)
 	{
 		*(str + i + j) = '0' + (exp < 0 ? -(exp % 10) : exp % 10);
 		exp /= 10;
