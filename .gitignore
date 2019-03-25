@@ -7,8 +7,8 @@
 *.out
 
 # specific test files / folders
-main.c
-test.c
+#main.c
+#test.c
 tests
 test/test_printf/test_float/test_float/
 test/test_printf/test_float/test_float_hexa/
