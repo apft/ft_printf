@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/03/25 13:25:54 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/25 13:26:44 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,39 +68,6 @@ static void		fill_str(t_field *fields, char *b, char *str, t_specs *specs)
 	filler(str + i, specs, i);
 }
 
-void            print_bits(unsigned long n, unsigned int size)
-{
-	unsigned int            i;
-
-	printf("%ld: ", n);
-	i = size;
-	while (i--)
-		printf("%d", (unsigned int)((n >> i) & 1U));
-	printf("\t");
-}
-void            dbg_print(union u_double *value)
-{
-	printf("\e[4mvalue\e[0m\n");
-	print_bits(value->type_long, 8 * sizeof(value->type_long));
-	printf("\n\e[4m%-6s\t%-17s\t%-65s\e[0m\n", "sign", "exp", "significand");
-	print_bits(value->field.sign, FLOAT_SIZE_SIGN);
-	print_bits(value->field.exp, FLOAT_SIZE_EXP);
-	print_bits(value->field.frac, FLOAT_SIZE_FRAC);
-	printf("\n");
-}
-void            dbg_print_ld(union u_double *value)
-{
-	printf("\e[4mvalue\e[0m\n");
-	print_bits(value->type_ll, 8 * sizeof(value->type_ll));
-	printf("\n\e[4m%-6s\t%-17s\t%-5s\t%-65s\e[0m\n", "sign", "exp", "int", "significand");
-	print_bits(value->field_ld.sign, FLOAT_LD_SIZE_SIGN);
-	print_bits(value->field_ld.exp, FLOAT_LD_SIZE_EXP);
-	print_bits(value->field_ld.int_part, FLOAT_LD_INTEGER_PART);
-	print_bits(value->field_ld.frac, FLOAT_LD_SIZE_FRAC);
-	printf("\n");
-}
-
-//TODO: subnormal numbers
 int				handle_float_conv_hex(union u_double *value, t_specs *specs,
 		char *str)
 {
@@ -120,12 +87,6 @@ int				handle_float_conv_hex(union u_double *value, t_specs *specs,
 	specs->width_suffix = 2 + get_length_exp(&fields);
 	filter_specs(specs);
 	if (str)
-	{
-		if (is_long_dbl)
-			dbg_print_ld(value);
-		else
-			dbg_print(value);
 		fill_str(&fields, base, str, specs);
-	}
 	return (1);
 }
