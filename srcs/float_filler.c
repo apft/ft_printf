@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/25 13:08:41 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/25 13:43:14 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		float_fill_pref_radix(t_field *fields, char *b, char *str,
 
 	is_long_dbl = specs->flags & MOD_LD;
 	i = filler(str, specs, FILL_START);
-	if (fields->exp_unbiased ||  (!fields->exp_unbiased && !fields->frac))
+	if (fields->exp_unbiased || (!fields->exp_unbiased && !fields->frac))
 	{
 		if (is_long_dbl)
 			integer = (unsigned int)(fields->frac >> 60) | (fields->implicit_bit << 3);
@@ -34,7 +34,7 @@ int		float_fill_pref_radix(t_field *fields, char *b, char *str,
 	else
 	{
 		fields->frac <<= 1 - fields->exp
-			- (is_long_dbl ?  FLOAT_LD_EXP_BIAS : FLOAT_EXP_BIAS);
+			- (is_long_dbl ? FLOAT_LD_EXP_BIAS : FLOAT_EXP_BIAS);
 		*(str + i++) = *(b + (unsigned int)(fields->frac >> 52));
 	}
 	if (specs->precision || (specs->flags & FLOAT_FORCE_POINT))
