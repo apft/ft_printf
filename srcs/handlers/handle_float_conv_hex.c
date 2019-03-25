@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:00:29 by apion             #+#    #+#             */
-/*   Updated: 2019/03/25 15:57:39 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/25 16:26:19 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		float_will_round_to_new_unit(t_field *fields, int precision,
 		mask >>= 4;
 		++i;
 	}
-	if (i > precision && mask && (frac_long_dbl & mask) > 8)
+	if (i > precision && mask && ((frac_long_dbl & mask) >> (60 - 4 * i)) > 8)
 		fields->exp += 4;
 }
 
