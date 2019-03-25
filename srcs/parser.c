@@ -6,13 +6,15 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/03/25 17:21:42 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/25 18:36:40 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "extractor.h"
 #include "handlers.h"
+
+# define VALID_CHAR "%-+ #0*.123456789hlLdiouxXfFcspaAbB{y"
 
 t_parser	g_parser[] =
 {
@@ -85,7 +87,7 @@ static void	parse_precision(const char **f, t_specs *specs, va_list ap)
 		specs->precision = 0;
 }
 
-static int	parse_type(const char *f, t_specs *specs, va_list ap, char *str)
+static int	parse_type(const char **f, t_specs *specs, va_list ap, char *str)
 {
 	int		i;
 	int		size;
@@ -94,15 +96,17 @@ static int	parse_type(const char *f, t_specs *specs, va_list ap, char *str)
 	i = 0;
 	is_valid = 0;
 	while (!is_valid && VALID_CHAR[i])
-		if (*f == VALID_CHAR[i++])
+		if (**f == VALID_CHAR[i++])
 			is_valid = 1;
 	if (!is_valid)
-		return (handle_char_conv(*f, specs, str));
+		return (handle_char_conv(**f, specs, str));
+	if (**f == '{')
+		return (apply_effect(f, specs, str));
 	i = 0;
 	size = sizeof(g_parser) / sizeof(t_parser);
 	while (i < size)
 	{
-		if (*f == g_parser[i].type && (specs->type = g_parser[i].flag))
+		if (**f == g_parser[i].type && (specs->type = g_parser[i].flag))
 			return (g_parser[i].f(ap, specs, str));
 		++i;
 	}
@@ -112,7 +116,7 @@ static int	parse_type(const char *f, t_specs *specs, va_list ap, char *str)
 int			parse_specs(const char **f, t_specs *specs, va_list ap, char *str)
 {
 	++(*f);
-	while (**f && !parse_type(*f, specs, ap, str))
+	while (**f && !parse_type(f, specs, ap, str))
 	{
 		specs->flags |= (**f == '-') ? LEFT : 0;
 		specs->flags |= (**f == '+') ? PLUS : 0;

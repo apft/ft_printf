@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/25 16:57:04 by apion            ###   ########.fr        #
+#    Updated: 2019/03/25 18:41:45 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ C_FILES		:= \
 	srcs/bigint/mult.c \
 	srcs/bigint/shift.c \
 	srcs/bigint/sub.c \
-	srcs/color.c \
+	srcs/effect.c \
 	srcs/extract_arg.c \
 	srcs/extractor.c \
 	srcs/filler.c \
