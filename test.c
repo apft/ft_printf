@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:43:41 by apion             #+#    #+#             */
-/*   Updated: 2019/03/25 16:00:09 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/25 16:27:41 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int		main(void)
 	int	ret;
 	int	ret_va;
 
-	ret = ft_printf("%.La|%.10a|%.3a|%.30a\n", (long double)0xf.aep-1,0x1.1p-1060, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
-	ret_va = printf("%.La|%.10a|%.3a|%.30a\n", (long double)0xf.aep-1,0x1.1p-1060, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
+	ret = ft_printf("%.La|%.10a|%.3a|%.30a\n", (long double)0xf.8ep-1,0x1.1p-1060, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
+	ret_va = printf("%.La|%.10a|%.3a|%.30a\n", (long double)0xf.8ep-1,0x1.1p-1060, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
 	printf("\nret = %d, ret_va = %d\n", ret, ret_va);
 //	ret = ft_printf("%.1150a|%.1150a\n", 0x1p-1074, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
 //	ret_va = printf("%.1150a|%.1150a\n", 0x1p-1074, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
 //	printf("\nret = %d, ret_va = %d\n", ret, ret_va);
-	ret = ft_printf("%.1a|%-.2La|%+La\n", DBL_MAX, (long double)0xe.fffp23, 12.847e451L);
-	ret_va = printf("%.1a|%-.2La|%+La\n", DBL_MAX, (long double)0xe.fffp23, 12.847e451L);
+	ret = ft_printf("%.1a|%-.2La|%.La\n", DBL_MAX, (long double)0xe.fffp23, (long double)0xf.9ap23);
+	ret_va = printf("%.1a|%-.2La|%.La\n", DBL_MAX, (long double)0xe.fffp23, (long double)0xf.9ap23);
 	printf("\nret = %d, ret_va = %d\n", ret, ret_va);
 	ret = ft_printf("%La|%-La|%+La\n", LDBL_MIN, LDBL_MAX, 12.847e451L);
 	ret_va = printf("%La|%-La|%+La\n", LDBL_MIN, LDBL_MAX, 12.847e451L);
