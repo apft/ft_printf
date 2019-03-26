@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 16:48:58 by apion             #+#    #+#             */
-/*   Updated: 2019/03/26 11:26:40 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/26 11:43:21 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int			apply_effect(const char **effect, t_specs *specs, char *str)
 	int		size;
 	int		i;
 
-	specs->flags ^= STRING;
+	specs->type ^= STRING;
 	size = sizeof(g_effect) / sizeof(t_effect);
 	i = 0;
 	while (i < size)
@@ -141,7 +141,7 @@ int			apply_effect(const char **effect, t_specs *specs, char *str)
 			return (handle_str_conv(g_effect[i].sgr, specs, str));
 		++i;
 	}
-	specs->flags ^= STRING | CHAR;
+	specs->type ^= STRING | CHAR;
 	return (handle_char_conv('{', specs, str));
 }
 
