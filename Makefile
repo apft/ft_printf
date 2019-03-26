@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/25 18:41:45 by apion            ###   ########.fr        #
+#    Updated: 2019/03/26 11:48:17 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ C_FILES		:= \
 	srcs/handlers/handle_int_conv_ulong_long.c \
 	srcs/handlers/handle_int_conv_ushort.c \
 	srcs/handlers/handle_str_conv.c \
+	srcs/is_type.c \
 	srcs/parser.c \
 	srcs/utils.c \
 	srcs/wrapper.c

@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:00:42 by apion             #+#    #+#             */
-/*   Updated: 2019/03/25 18:36:40 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/26 11:32:52 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "extractor.h"
 #include "handlers.h"
 
-# define VALID_CHAR "%-+ #0*.123456789hlLdiouxXfFcspaAbB{y"
+#define VALID_CHAR "%-+ #0*.123456789hlLdiouxXfFcspaAbB{y"
 
 t_parser	g_parser[] =
 {
