@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:50:11 by apion             #+#    #+#             */
-/*   Updated: 2019/03/20 16:26:26 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/26 14:22:46 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static int	compute_width_arg_float(union u_double *value, t_specs *specs)
 		specs->flags |= FLOAT_ROUND_TEN;
 		width_arg += (pow_ten >= 0) ? 1 : 0;
 	}
-	if ((specs->flags & PRECISION) &&
-			(specs->precision || (specs->flags & FLOAT_FORCE_POINT)))
+	if ((specs->flags & PRECISION)
+			&& (specs->precision || (specs->flags & FLOAT_FORCE_POINT)))
 		width_arg += 1;
 	width_arg += specs->precision;
 	return (width_arg);
