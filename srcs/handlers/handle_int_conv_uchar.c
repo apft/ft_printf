@@ -6,11 +6,12 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 19:00:17 by apion             #+#    #+#             */
-/*   Updated: 2019/02/12 23:54:24 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/28 11:10:21 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "is_type.h"
 #include "filter.h"
 #include "filler.h"
 
@@ -54,7 +55,8 @@ int				handle_int_conv_uchar(unsigned char value, t_specs *specs,
 	base = get_base(specs->type);
 	specs->is_neg = value < 0;
 	specs->width_arg = get_size(value, base);
-	if (!value && (specs->flags & PREFIX) && (specs->type & (HEXA | HEXA_C)))
+	if (!value && (specs->flags & PREFIX)
+			&& is_hexa_or_bin_conversion(specs->type))
 		specs->flags ^= PREFIX;
 	if (!value && (((specs->flags & PRECISION) && !specs->precision)
 				|| ((specs->type & OCTAL) && (specs->flags & PREFIX))))
