@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:43:41 by apion             #+#    #+#             */
-/*   Updated: 2019/03/25 16:27:41 by apion            ###   ########.fr       */
+/*   Updated: 2019/03/28 10:43:17 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int		main(void)
 	int	ret;
 	int	ret_va;
 
+	int i = -1;
+	while (i++ < 20)
+		ft_printf("%d : %#.1x  %#.1b\n", i, i, i);
 	ret = ft_printf("%.La|%.10a|%.3a|%.30a\n", (long double)0xf.8ep-1,0x1.1p-1060, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
 	ret_va = printf("%.La|%.10a|%.3a|%.30a\n", (long double)0xf.8ep-1,0x1.1p-1060, 0x1.ffffffffffffep-1023, 0x1.4e46p-1058, 0x1.59a8b0c3dp-1037);
 	printf("\nret = %d, ret_va = %d\n", ret, ret_va);
