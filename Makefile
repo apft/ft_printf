@@ -6,7 +6,7 @@
 #    By: apion <apion@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:28:44 by apion             #+#    #+#              #
-#    Updated: 2019/03/26 11:48:17 by apion            ###   ########.fr        #
+#    Updated: 2019/04/11 11:17:35 by apion            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ C_FILES		:= \
 	srcs/wrapper.c
 O_FILES		:= $(C_FILES:%.c=%.o)
 D_FILES		:= $(C_FILES:%.c=%.d)
-O_TREE		= $(shell find $(O_DIR) -type d -print 2> /dev/null | tail -r)
+O_TREE		= $(shell find $(O_DIR) -type d -print 2> /dev/null | sort -r)
 
 TEST_LIBUNIT	:= test/test_printf
 
