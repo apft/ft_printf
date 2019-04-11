@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 19:00:17 by apion             #+#    #+#             */
-/*   Updated: 2019/03/28 11:10:21 by apion            ###   ########.fr       */
+/*   Updated: 2019/04/11 11:14:53 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int				handle_int_conv_uchar(unsigned char value, t_specs *specs,
 	char			*base;
 
 	base = get_base(specs->type);
-	specs->is_neg = value < 0;
 	specs->width_arg = get_size(value, base);
 	if (!value && (specs->flags & PREFIX)
 			&& is_hexa_or_bin_conversion(specs->type))

@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 10:58:40 by apion             #+#    #+#             */
-/*   Updated: 2019/03/26 12:12:54 by apion            ###   ########.fr       */
+/*   Updated: 2019/04/11 11:15:13 by apion            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		float_fill_pref_radix(t_field *fields, char *b, char *str,
 				| (fields->implicit_bit << 3);
 		else
 			integer = fields->implicit_bit;
-		*(str + i++) = is_long_dbl ? *(b + integer) : '0' + integer;
+		*(str + i++) = is_long_dbl ? *(b + integer) : (char)('0' + integer);
 	}
 	else
 	{
