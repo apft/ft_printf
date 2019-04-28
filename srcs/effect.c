@@ -6,7 +6,7 @@
 /*   By: apion <apion@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 16:48:58 by apion             #+#    #+#             */
-/*   Updated: 2019/03/26 11:43:21 by apion            ###   ########.fr       */
+/*   Updated: 2019/04/28 16:24:14 by pion             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_effect		g_effect[] =
 	{"strike", CROSSED},
 
 	{"\\b", BOLD_OFF},
+	{"/b", BOLD_OFF},
 	{"reset_bold", BOLD_OFF},
 	{"clear_bold", BOLD_OFF},
 	{"end_bold", BOLD_OFF},
@@ -43,6 +44,7 @@ t_effect		g_effect[] =
 	{"clear_italic", ITALIC_OFF},
 	{"end_italic", ITALIC_OFF},
 	{"\\u", UNDERLINE_OFF},
+	{"/u", UNDERLINE_OFF},
 	{"reset_underline", UNDERLINE_OFF},
 	{"clear_underline", UNDERLINE_OFF},
 	{"end_underline", UNDERLINE_OFF},
@@ -54,8 +56,10 @@ t_effect		g_effect[] =
 	{"end_crossed", CROSSED_OFF},
 
 	{"\\fg", DEFAULT_FG},
+	{"/fg", DEFAULT_FG},
 	{"no_fg", DEFAULT_FG},
 	{"\\bg", DEFAULT_BG},
+	{"/bg", DEFAULT_BG},
 	{"no_bg", DEFAULT_BG},
 
 	{"black", BLACK},
